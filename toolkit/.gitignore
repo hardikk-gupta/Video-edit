@@ -1,0 +1,11 @@
+node_modules/
+out/
+# Never commit footage, voice-overs or renders. They live in the chat/tool, not in this repo.
+*.mp4
+*.mov
+*.m4a
+*.mp3
+public/talk.*
+public/voice.*
+public/imagery/*
+!public/imagery/.gitkeep

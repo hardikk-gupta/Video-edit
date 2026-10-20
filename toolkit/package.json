@@ -1,0 +1,19 @@
+{
+  "name": "motion-reel-toolkit",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "typecheck": "tsc -p .",
+    "still": "remotion still Reel",
+    "render": "remotion render Reel out/reel-raw.mp4 --crf=18"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.537",
+    "@remotion/media-utils": "^4.0.537",
+    "@types/react": "^19.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "remotion": "^4.0.537",
+    "typescript": "^7.0.2"
+  }
+}
