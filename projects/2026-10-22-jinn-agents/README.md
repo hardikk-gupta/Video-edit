@@ -50,8 +50,14 @@ remain available; this session does not replace the other edit or claim Hardik a
 - Audio: `scripts/prepare_gdd_audio.py SOURCE public/refs/gdd/voice.wav` preserves the original1.85s
   sample-for-sample before AAC export, then levels only following speech with measured two-pass loudnorm
   (target−16LUFS,−1.5dBTP,70Hz high-pass). No whole-track normalization after joining. Quiet sparse `tap`/`bloom` SFX, following the latest repo sound feedback; no swooshes.
-- Validation: TypeScript, reviewed beat stills, framing audit, opening PCM assertion; final export checks
-  recorded after rendering. Audio assessed through transcript and measurements, not a listening review.
+- Export: `hardik-agents-hairline.mp4`,1080×1920 H.264/AAC,30fps,1687frames,56.233s. Full decode passed.
+  Post-hook integrated loudness−16.18LUFS, true peak−1.31dBTP. Render video was stream-copied into the final
+  master with the revised quiet tap/bloom mix, using the same frame-rounded cue times as the composition.
+- Validation: TypeScript passed; beat stills and a28-frame exported contact sheet visually reviewed;
+  framing audit passed106 face samples. Original1.85s hook PCM verified exactly before AAC encoding.
+  SFX were mixed without normalization; after resampling introduced tiny PCM differences, the original
+  native-rate opening was concatenated back before the mixed speech to preserve it exactly. AAC encoding
+  remains lossy. Audio assessed through transcript and measurements, not a listening review.
 
 ### Reproduce this revision
 

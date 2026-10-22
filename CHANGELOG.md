@@ -31,3 +31,7 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   versions and premature product recap, and replaced the generated computer art with Hairline's animated
   laptop at Hardik's request. Added framing metadata, reusable audio preparation and framing audit scripts;
   corrected contradictory split-screen guidance and recorded feedback. Review pending.
+
+- 2026-10-22 · Validated Codex Hairline export:1080×1920,30fps,1687frames,56.233s,H.264/AAC;
+  full decode passed,106 sampled face bounds retained, original hook PCM preserved before AAC.
+  Quiet tap/bloom master measures−16.18LUFS after the hook,−1.31dBTP. Review pending.
