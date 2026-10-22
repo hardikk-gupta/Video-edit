@@ -1,11 +1,30 @@
 # "Jinn" → dots, Claude Duet, Grok Bot (2026-10-22)
 
-**Status:** history below; the current Codex Hairline revision is documented separately and remains unreviewed.
+**Status:** original v3 delivered and Codex Hairline revision rendered separately; both await review. History below.
 **Format:** split-screen explainer ([docs/12](../../docs/12-split-screen-explainer.md)), following the
 @SHAI.HQ reference studied in [the reference project](../2026-10-split-screen-explainer/README.md).
 **Composition:** `toolkit/src/GrokDotsDuet.tsx` (`npx remotion render GrokDotsDuet …`).
 **Assets:** `scripts/fetch_refs_dots_duet.sh` then `scripts/fetch_refs_gdd.sh <footage>` (outputs gitignored).
-**Delivered:** 1080×1920, 30fps, 56.3s, −14.7 LUFS integrated, 28MB.
+**Delivered (v3):** 1080×1920, 30fps, 56.2s, −14.5 LUFS integrated, 30MB.
+
+## v3 (after Hardik's v2 feedback) — delivered, review pending
+
+- **Grid stage:** the top section is the dots-vs-Duet grid: dashed red guides (`rgba(194,34,15,.6)`, 1.6px,
+  dash 6/7) at x 60/380/700/1020 and y 150/480/810 (3 columns × 2 rows of 320×330), white dots at the
+  crossings, drawn in at 1.85s. Every element sits in a cell or merged cells (24px padding), entering
+  blur-to-sharp. Caption label stays on the seam at y 858; speaker unchanged from v2.
+- **Trio fixed:** three identical 196px tiles (radius 22.5%), each centred in a top-row cell: dots mascot
+  (crop of the key art), Duet icon (SVG, animated), Grok Bot orb on xAI's blue. Names 44px and makers 28px
+  grey centred on shared baselines in the row below. Used at the opening (1.85–3.5) and from each product's
+  name (42.46 / 44.56 / 46.68) to the end.
+- **Hairline does the explaining:** hub (workflow / mails / calendars), phosphor (morning brief), settle
+  (does it for you + tick list), slow (you log off, it keeps going), terminal (prompt typed + sent), riffle
+  (5 in progress / 2 need you), laptop (own virtual computer), branches (24/7 on the backend).
+- **Type:** Inter only, one scale 96 / 64 / 44 / 28 (plus the 150px counters).
+- **Sound:** only `tap` (11×, 0.035–0.05) and `bloom` (3×, 0.07, the product reveals). No swoosh/whoosh/riser/
+  impact. Two-pass loudnorm to −14.5 LUFS.
+- **Checks:** stills at 13 beats in a contact sheet; Hairline figures were too small in their cells and were
+  enlarged (settle/phosphor/riffle 360, slow/terminal 470); face fully visible in every location checked.
 
 ## Codex Hairline revision — review pending
 
