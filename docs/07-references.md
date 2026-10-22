@@ -1,6 +1,28 @@
 # 07 · References studied
 
-References come with every brief. Log each one here with what was taken from it.
+Hardik supplies inspirations for each brief, and the agent must research relevant current work too.
+Log useful sources with creator, URL, date viewed, relevant timecodes, what was taken and what was rejected.
+Separate observed engagement from assumptions about what caused it. These studies are a library of
+principles, not one permanent brand to copy. See [instruction.md](../instruction.md).
+
+## Duet/Dots feedback and references (2026-10-22)
+
+- **User-supplied subject pages:** https://claude.com/product/claude-duet and
+  https://openai.com/index/introducing-dots/. Use official identity, UI and facts for the subject, rather
+  than generic logos or invented product visuals. Their art does not dictate the whole video's typography.
+- **User-supplied video:** `dots-vs-duet-1x1.mp4`, 1080-square, about 5.1 seconds. Its collected references
+  transform into a comparison. Lesson: make the sourced material and motion tell a story. Do not copy its
+  exact layout or conclude that every future film needs a reference board.
+- **Positive from the retry:** the first screen's composition sits quite well. The type direction of
+  "You log off. They keep going." feels natural. This is not blanket approval of the opening headline.
+- **Rejected from the retry:** Anton-styled "ALWAYS ON" and "DUET × DOTS", the decorative cross,
+  "TWO TAKES ON ALWAYS-ON AI" above the heading, tiny hierarchy text, and the predictable pair of stacked
+  rectangular product cards.
+- **Layout idea from Hardik:** nine square cells, six occupied and three empty; distribute imagery from
+  the two products and dedicate one or two cells to the comparison. Keep it as an option, not a new preset.
+- **Research next time:** combine the current brief's inspirations with this feedback and recent original
+  social campaigns/reels from Instagram, Pinterest, Behance, Vimeo, creator portfolios or motion galleries.
+  Record what was actually inspected. No claim of a verified current trend is being made in this note.
 
 ## Smart Studios: "Image Carousel 3d Animation" (Pinterest)
 

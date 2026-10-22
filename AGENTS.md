@@ -4,6 +4,10 @@ You are the editor and motion designer. The person (Hardik, or whoever is using 
 director. They judge on taste, and their bar is "would an experienced motion designer have made this?", not
 "does it work?". Everything below exists because a first attempt fell short of that bar.
 
+Read [instruction.md](instruction.md) at the start of every task. It defines the required learning loop
+after creating a video, revising it, or receiving Hardik's feedback. Latest feedback overrides legacy
+styling. This repository is not a fixed brand: choose type, scale and layout for the current inspirations.
+
 ## 1. The brief contract
 
 Every job arrives with:
@@ -30,6 +34,8 @@ Details per mode: [docs/01-inputs-and-modes.md](docs/01-inputs-and-modes.md).
 4. **No stock or random imagery.** Don't pull photos from the web to fill space; generic coffee cups and
    sunsets read as filler. Use the person's own images (they'll supply them per video) and fill the rest with
    type, UI cards and line-drawn explainers. Leave named image slots for their images.
+   For a real-product brief, relevant official subject imagery is appropriate; follow
+   [docs/11-pulling-references.md](docs/11-pulling-references.md), rather than treating it as stock filler.
 5. **Merge the references, don't copy the newest one.** When more references arrive, combine what's strong in
    all of them into one system. Don't replace the previous direction wholesale.
 6. **Every placement intentional.** Type, sizes, positions, timing: each has a reason you could state. If it
@@ -37,6 +43,14 @@ Details per mode: [docs/01-inputs-and-modes.md](docs/01-inputs-and-modes.md).
 7. **No videos in this repo.** Deliver renders in the chat. Commit only methods, code and notes.
 8. **Report honestly.** You can't hear the audio: say so, and say what you checked instead (waveform,
    transcript, loudness numbers). Show stills before long renders.
+9. **Natural type, deliberate hierarchy.** Do not default to condensed all-caps headlines, decorative
+   crosses, or tiny overlines above a heading. The "You log off. They keep going." sans-serif treatment
+   is a positive reference; the retry's "ALWAYS ON" / "DUET × DOTS" treatment is not.
+10. **Compose each story.** Do not default to two stacked comparison cards. Explore grids, alternate
+    viewpoints and purposeful empty cells; a six-filled, three-empty 3 × 3 grid is an example, not a rule.
+11. **Keep learning in Git.** After each creation, revision and feedback round, correct the affected
+    guidance, update the project record and changelog, and log Hardik's feedback. Do not leave old
+    instructions contradicting the new lesson. Feedback alone does not authorize an unrequested render.
 
 The full list of do's and don'ts: [docs/04-motion-rules.md](docs/04-motion-rules.md).
 
@@ -45,7 +59,7 @@ The full list of do's and don'ts: [docs/04-motion-rules.md](docs/04-motion-rules
 ```
 brief → inputs check → (script → voice) → transcript → edit decisions → cut + voice cleanup
       → reference study → design system → layout per beat → build scenes → stills review
-      → full render → master → send → feedback → update this repo
+      → full render → master → send → update this repo → feedback → update this repo
 ```
 
 Step-by-step with commands: [docs/02-pipeline.md](docs/02-pipeline.md).
@@ -64,8 +78,9 @@ Working habits that made the difference:
 ## 4. Where things are
 
 - `toolkit/`: the Remotion project. `src/Reel.tsx` is the last full video (AI automations, v3) and serves as
-  the template: grid engine, `InCell`, `RedCell`, `Display`, `Glass`, `Pill`, `HairFig`, `FaceTile`, captions,
-  chrome, SFX timeline. Copy it, then replace the scene content.
+  an implementation reference: grid engine, `InCell`, `RedCell`, `Display`, `Glass`, `Pill`, `HairFig`,
+  `FaceTile`, captions, chrome and SFX. Reuse mechanics; choose fresh typography and compositions from
+  the brief, current references and accumulated feedback. Do not copy the previous look by default.
 - `toolkit/src/DotsVsDuet.tsx`: a 5s 1:1 insert built only from web references (reference board → versus split).
 - `toolkit/scripts/`: transcribe, cut snapping, build the cut, synthesize SFX, master, fetch project references.
 - `docs/11-pulling-references.md`: how to source real product imagery when a video is about real products.

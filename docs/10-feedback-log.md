@@ -53,3 +53,42 @@ Source: 82s WhatsApp selfie video, 848×478, 60fps, landscape. Hardik talking ab
 - Self-review fixes before sending: key-art crop (cover → contain), dead half-frame in the split, VS pill
   over text, black mismatch on the dots side. See `projects/2026-10-dots-vs-duet/README.md`.
 - Feedback: (pending)
+
+## Cross-session feedback: Duet/Dots retry typography and layout (2026-10-22)
+
+Hardik reviewed a separate six-second retry from this chat, following the original comparison and the
+uploaded Claude example. This entry records his feedback, not blanket approval of either complete film.
+
+### What worked
+
+- The first screen's composition "sits quite well".
+- The natural sans-serif treatment of "You log off. They keep going." is the right direction. Explore
+  that kind of type at a larger, natural headline scale; this does not mandate one font forever.
+- Relevant subject imagery, research and useful motion belong in the process. Keep the accumulated
+  references and lessons from this GitHub library in use across projects.
+
+### What did not work
+
+- The condensed Anton treatment of "ALWAYS ON" and "DUET × DOTS", including the cross, felt like generic
+  AI-designed work. The positive comment about the opening composition does not approve its large type.
+- The next scene's two vertically stacked rectangular product cards felt formulaic.
+- Tiny pre-headers such as "TWO TAKES ON ALWAYS-ON AI" above a heading create the wrong hierarchy.
+  Do not keep adding small labels, overlines and metadata as design decoration.
+- Repeating the same fonts, layout and brand system across videos is not the goal.
+
+### What to do next time
+
+- Choose a natural family, weight and coherent size scale from the current inspirations. Judge the
+  typography at the size people will actually see, including an insert inside a vertical reel.
+- Compose more deliberately: consider a 3 × 3 grid with six used cells and three empty ones. Distribute
+  Duet/Dots material across relevant cells, with one or two for the comparison. This is an example of
+  the desired judgment, not a new template every video must use.
+- Hardik will supply inspirations for reels. Independently research recent social campaigns and motion
+  work too; record the references, what seems effective, what does not, and the evidence for those judgments.
+- Read this repo's previous approvals and rejections, combine relevant influences, and make those
+  composition choices proactively rather than waiting for Hardik to specify each cell.
+- After creating a video, revising it, and receiving feedback, update the project notes and the affected
+  standing guidance, plus this log and the changelog. Fix old rules that conflict with the new lesson.
+
+**Action requested now:** documentation only. Created root `instruction.md` and corrected the standing
+guidance; no additional video or video revision was requested or made for this feedback round.

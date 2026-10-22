@@ -14,11 +14,28 @@
 
 ## Layout
 
+- **Don't** default to two rounded comparison cards stacked vertically. Explore the story's composition
+  before reaching for UI containers. A 3 × 3 grid can use six cells and leave three empty; this is an
+  example, not a compulsory layout. Empty cells are intentional when they help reading order and rhythm.
+- **Don't** add a tiny overline above a headline, such as "TWO TAKES ON ALWAYS-ON AI". No decorative
+  pre-header, cross/VS badge or metadata strip merely to make the frame feel designed.
 - **Do** give every beat a layout and let the guides glide between them. That is the main motion idea.
 - **Do** keep whitespace: an empty cell is fine; a cell filled with filler is not.
 - **Don't** let any text, card or caption cross a guide. Anchor to cells with 40px padding; check the stills.
 - **Don't** put content in the top margin or the bottom band except the frame furniture and captions.
-- Headlines bottom-left in their cell, labels top-right or bottom-right. Repeat these positions so the system reads.
+- Choose headline and supporting-text positions deliberately for this film. Repeat useful alignments
+  within it; the old bottom-left headline/top-right label convention is not a universal template.
+
+## Typography and scale
+
+- **Do** use naturally proportioned, readable typography at both headline and supporting sizes. Hardik
+  liked the sans-serif treatment of "You log off. They keep going." Try that direction at larger scale.
+- **Don't** automatically switch to Anton/condensed all-caps for big type. The retry's "ALWAYS ON" and
+  "DUET × DOTS" treatments were rejected. A cross between titles is not an automatic comparison device.
+- **Do** establish a coherent scale using real text, family, weight, tracking and line height together.
+  Test at the actual phone viewing size and final crop. Do not shrink important text into tiny labels.
+- **Don't** make every video share one font family, layout or subject-brand look. Take the current
+  inspirations seriously and carry forward the lessons, not a permanent visual identity.
 
 ## The person on screen
 
@@ -39,6 +56,8 @@
 - **Do** leave named image slots for the person's images, and design every beat to stand without them
   (type + UI + explainer).
 - Line explainers (Hairline) carry the "imagery" job without photos.
+- For a video about real products, official subject imagery and UI are relevant references, not stock
+  filler. Follow [the sourcing method](11-pulling-references.md); preserve provenance and label reconstructions.
 
 ## References
 
@@ -47,6 +66,9 @@
   (black, glass, blur, pills) and make one language.
 - Study references frame by frame before designing; never from the thumbnail alone.
 - Copy principles, not assets: no logos, names or exact layouts from the reference.
+- Research recent, relevant social campaigns and motion work for each brief; record sources and dates.
+  Do not call a style "trending" or effective without evidence. Reuse the actual subject's official assets
+  when appropriate; the copying rule above applies to another creator's design, not the subject's identity.
 
 ## Statement pills
 
@@ -70,3 +92,5 @@
 - A theme borrowed from somewhere unrelated (v1 used the portfolio website's design system, unasked).
 - 9:16 when the source was 16:9.
 - Random stock photos.
+- Repeating a condensed headline, decorative cross, tiny overline and stacked-card layout because the
+  previous file already contains them.

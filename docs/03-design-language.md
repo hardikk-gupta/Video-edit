@@ -1,8 +1,34 @@
 # 03 · Design language
 
-The system from the first project (v3, approved as "cool enough"). It merges two references: the Smart Studios
-grid reel and the Jitter "Showcase" template ([07-references.md](07-references.md)). Treat it as the default
-until a brief's references say otherwise. When they do, merge, don't replace.
+This is an evolving design record, not a fixed brand. Hardik's latest feedback (2026-10-22) supersedes the
+old assumption that the first project's palette, fonts and layout should be the default. Read
+[instruction.md](../instruction.md) and [the feedback log](10-feedback-log.md) before choosing a direction.
+
+## Current guidance: natural type and composed layouts
+
+- Choose typography from the current story and relevant campaign/reel references. The font used for
+  "You log off. They keep going." (Inter) is a positive starting direction: natural sans serif, readable
+  weight and spacing. Try that kind of type at headline scale, rather than switching to condensed display
+  type merely because a line is large. Inter itself is not a permanent brand requirement.
+- The Anton styling of "ALWAYS ON" and "DUET × DOTS" in the retry felt generic to Hardik. Do not reuse it
+  as the default headline system. Do not add a decorative cross or VS badge automatically.
+- Establish a restrained type scale in the chosen family. Test real words and line lengths at several
+  sizes, then select a small number of useful levels. Check the final phone-sized crop, not only 1080 px
+  stills. A square insert inside a vertical reel must remain readable in that smaller panel.
+- Do not add a tiny pre-header such as "TWO TAKES ON ALWAYS-ON AI" above the actual heading. Meaningful
+  hierarchy is not a stack of decorative labels, overlines and counters.
+- Compose each beat. Two stacked rounded comparison cards are not the default. Consider grids,
+  asymmetry, changes of viewpoint and deliberate negative space. Hardik suggested a 3 × 3 grid with six
+  cells occupied and three empty, including one or two comparison cells. Treat that as a useful option,
+  not a compulsory replacement template.
+- Keep the useful mechanics from earlier work: intentional placement, readable type, whitespace,
+  restrained easing and motion that shows the idea. Merge those with the current inspirations.
+
+## Historical v3 system (implementation reference only)
+
+The following records the first project, approved as "cool enough", combining Smart Studios and Jitter
+([reference studies](07-references.md)). Its tokens, exact sizes, fonts, grid coordinates and furniture
+describe that video. They are available to reuse when justified, not instructions to repeat its look.
 
 ## Tokens
 
@@ -18,21 +44,21 @@ until a brief's references say otherwise. When they do, merge, don't replace.
 | `GLASS` | `rgba(28,28,30,.94)` + 1px `rgba(255,255,255,.08)` border, 18px radius | UI cards |
 | `LINE` | `rgba(194,34,15,.6)`, 1.6px, dash `6 7` | guides |
 
-Palette discipline: black, white, gray, one red, one slate. If the person gives brand colours, swap `RED` and
-`SLATE` and keep the rest.
+That video's palette discipline was black, white, gray, one red and one slate. For a new brief, choose a
+restrained palette from the current inspirations and subject; do not preserve these colours by default.
 
-## Type
+## Historical type choices
 
 | Family | Role | Rules |
 |---|---|---|
-| **Anton** | headlines, chapter titles, big numbers (8AM, 24H), pills | Uppercase, line-height 0.98, 100–250px. Two or three lines; one accent line in `RED`. Each line rises from its own mask. |
+| **Anton** | v3 headlines, chapter titles, big numbers (8AM, 24H), pills | Used uppercase at 100–250px in v3. This is historical, not the current default; the Duet/Dots retry's use was rejected. |
 | **Inter** 400–700 | UI cards, sentences, captions | Tight tracking (-2.5% of size). Sentences in `GRAY` with key words in `WHITE` and a 3px dashed red underline. |
-| **Space Mono** 400/700 | frame furniture, labels, figure captions | 13–18px, sentence case or as written ("Fig. 03 — the belt keeps moving", "Frame 05"). |
+| **Space Mono** 400/700 | v3 frame furniture, labels, figure captions | Historical 13–18px labels. Do not repeat tiny pre-headers or decorative metadata in future reels. |
 
 Fonts ship in `toolkit/public/fonts/` (Anton and Space Mono via `@fontsource`, Inter from the system). Load them
 with `FontFace` + `delayRender` so no frame renders before they're ready.
 
-## The grid
+## The historical v3 grid
 
 - Frame: 1920×1080. Margins 96px. Guides run between y=96 and y=984 (vertical) and edge to edge (horizontal).
 - Five vertical guides and four horizontal guides; coincident guides read as one, which is how a layout has

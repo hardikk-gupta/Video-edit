@@ -79,8 +79,10 @@ card, and the SFX. Chapter changes go under a statement pill. Keep the plan in t
 
 ## 8. Build scenes
 
-Copy `toolkit/src/Reel.tsx` and replace the content of `Scenes`, `PILLS`, `CHAPTERS`, `FACE`, `SFX`. The
-building blocks are listed in [03-design-language.md](03-design-language.md). Rules while building:
+Use `toolkit/src/Reel.tsx` as an implementation reference for timing, layout mechanics and reusable parts;
+do not copy its typography, palette, chrome or scene composition by default. Choose those from the current
+brief, relevant campaign/reel references and accumulated feedback. The historical building blocks are
+listed in [03-design-language.md](03-design-language.md). Rules while building:
 
 - Times are seconds in the cut's timeline. Use word start times for anything tied to speech.
 - Each beat's content enters after its guides land (`scene start + ~0.35s`) and leaves 0.3s before they move.
@@ -111,5 +113,8 @@ Check the final contact sheet and one full-res crop for compression artefacts.
 ## 11. Deliver and log
 
 Send the mastered file in the chat (Claude Code: `SendUserFile` with `display: "render"`). Say what changed, what
-you couldn't verify (you can't listen), and what's next. Then update this repo: project README, feedback log,
-CHANGELOG, and any doc a lesson changed.
+you couldn't verify (you can't listen), and what's next. Then update this repo: project README, feedback log
+when feedback was given, CHANGELOG, and any doc a lesson changed. Repeat this after every video revision
+and every feedback round, not only the final delivery. Correct contradictory older rules rather than
+merely appending a note; follow [instruction.md](../instruction.md). If the request is to record feedback
+only, stop at documentation: do not create or revise the video.

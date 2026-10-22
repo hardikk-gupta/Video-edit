@@ -43,3 +43,19 @@ The brief card copy ("Morning, Maya. 5 things in progress and 2 that need you.")
 - The first pass cropped the key art to "ot" (cover fit): wordmarks need `contain`.
 - First split left ~0.5s of an empty half-frame: start the new content with the wipe, not after it.
 - The VS pill first sat on the facts: give it its own clear band.
+
+## Later feedback across the Duet/Dots explorations (2026-10-22)
+
+Hardik subsequently reviewed a separate six-second retry in this chat. Its opening composition sat well,
+and the natural sans-serif "You log off. They keep going." treatment was a positive direction. The large
+condensed "ALWAYS ON" / "DUET × DOTS" type, decorative cross, tiny overline and stacked rectangular
+comparison cards felt generic. This is not blanket approval or rejection of the original film above.
+
+For the next brief, use natural type at a considered scale, a readable hierarchy without decorative
+pre-headers, and a composition chosen from the story and current references. A 3 × 3 grid with six cells
+used and three empty was suggested as an option, not a permanent template. Independently research recent
+relevant campaign/reel work and combine it with Hardik's supplied inspirations and this repo's lessons.
+
+The requested action for this round was documentation only. No new video was made. The standing workflow
+is now in [instruction.md](../../instruction.md), with detailed feedback in
+[the feedback log](../../docs/10-feedback-log.md).
