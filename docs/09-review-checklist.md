@@ -9,6 +9,8 @@
 ## The person
 - [ ] Face appears in at most one place in every frame (check mock-ups and image slots too).
 - [ ] Face is a small tile, natural colour, framing ≤1.05×.
+      For an explicit Mode E brief, check the requested lower-panel presenter instead of requiring a small
+      tile; keep one instance, stable headroom and natural colour.
 - [ ] No stock or random images. Use the person's images or the actual subject's relevant official
       material, with recorded sources; leave unnecessary slots empty.
 

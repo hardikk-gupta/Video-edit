@@ -103,6 +103,11 @@ guidance; no additional video or video revision was requested or made for this f
 - **Agent interpretation:** a new standing format (Mode E). Speech-driven sourcing and element-level zooms
   are the requirement; the reference's branding is not. Recorded in docs/12 and the project README.
 - No video was made in this round.
+- Independently checked the actual upload in this chat against frames and a word-timed transcript:
+  code bar at 21s, cost bar at 24s, testing statistic at 28s. The upper square occupies about 56% of the
+  frame, with the speaker below in 44%. Clarified the lower-panel presenter exception to older small-tile
+  rules, link identification, capture dates and factual mismatches. The 65k example is hypothetical;
+  the reference says about 170,000 stars. Still analysis only for this request; awaiting this chat's footage.
 
 ## Project: jinn → dots / Claude Duet / Grok Bot (2026-10-22)
 

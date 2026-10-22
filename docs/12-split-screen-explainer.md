@@ -20,6 +20,15 @@ stars, the shot will be zoomed towards the 65k stars."
 
 The card is the only thing in the top panel. Everything moves *inside* the card; the frame stays calm.
 
+The top region is a square (478 × 478), about 56% of this particular portrait frame; the presenter occupies
+the remaining 44%. "Half screen" describes the arrangement, not an exact 50/50 measurement. At 1080 × 1920,
+this corresponds to a 1080-square visual region and an 840-pixel presenter region. An exact 50/50 version
+would use 1080 × 960 panels. Match the brief rather than distorting footage to force either ratio.
+
+For this requested format, the presenter deliberately fills the bottom panel. That is an explicit exception
+to the older small-face-tile layout, not a new rule for all videos. Keep one natural-colour speaker instance,
+stable headroom and a considered crop; reserve the attention-directing camera moves for the evidence above.
+
 ## The sync rule: say it → show it → point at it
 
 Every spoken claim gets the real source on screen, timed to the word:
@@ -38,7 +47,14 @@ Every spoken claim gets the real source on screen, timed to the word:
 8. **CTA** ("comment Pony") → a chat input that types the keyword, then a white CTA label, then the
    handle/logo outro with the frame dimming.
 
-Beats change every 1.5–3s; within a beat the camera is never fully still (slow scroll or push).
+Many reference beats change roughly every 1.5–3s, but speech and comprehension determine the timing. Do not
+move on a mechanical timer or add continuous drift just to keep pixels moving. A useful hold can be still.
+
+**Checked against this upload:** the generated word timings put "53" at about 20.64s, "26" at 22.30s,
+"cost" at 23.54s, and "testing" at 27.80s. The inspected frames show the line-of-code row boxed at 21s,
+the cost row boxed at 24s, and the 98% testing statistic enlarged at 28s. These are reference observations,
+not independent verification of the project's benchmark claims. Hardik's "65k stars" is a hypothetical
+editing example; the reference's transcript says approximately 170,000 stars.
 
 ## Camera language inside the card
 
@@ -48,6 +64,10 @@ Beats change every 1.5–3s; within a beat the camera is never fully still (slow
   to ~35–45% brightness. The box moves between items (list rungs, bars) rather than fading out and in.
 - **Scroll**: pan vertically through a full-page screenshot between sections instead of cutting.
 - **Between pages**: quick blur/cross-dissolve (~0.25s).
+- **Use the space for the claim**: a whole webpage is useful for orientation, but its tiny text is not the
+  shot. Crop or push to the relevant phrase, row, figure or control so it can be read at phone size. Keep
+  enough context to avoid misrepresenting the source. Highlight the exact supporting element, not a large
+  generic panel or an unrelated cursor location.
 
 ## Type on the seam
 
@@ -66,6 +86,8 @@ Use Hardik's own series name, handle and font choices; the reference's are not t
 1. **Transcript** (`scripts/transcribe.py`, prompt with product names). Word timings drive every beat.
 2. **Entity pass**: list every repo, product, URL, number, list item and name mentioned, with its word time.
    If Hardik gave links, use them; otherwise find them (search) and **confirm with Hardik when unsure**.
+   A clearly spoken URL can be used directly. If only a repo name is spoken, identify the owner and verify
+   the match; ask for the exact link if ambiguous. Do not select a different popular repo by guesswork.
 3. **Capture** with `toolkit/scripts/web_shot.mjs` (Playwright + preinstalled Chromium, 1280-wide viewport,
    2× scale, dark mode):
    `node scripts/web_shot.mjs <url> out.png 'text=/^171k/' 'text=Already in this codebase'`
@@ -74,6 +96,9 @@ Use Hardik's own series name, handle and font choices; the reference's are not t
    Use full-page captures for scroll beats; star history from star-history.com.
 4. **Shot list**: a table of word time → page → target box → move (push / highlight / scroll) → keyword
    caption. Get the numbers right: if the page says 171k and the speaker says 170,000, show the page.
+   Record the capture date. Distinguish ordinary rounding from a substantive discrepancy; flag a material
+   mismatch instead of altering the screenshot or inventing a matching historical count. Check automatic
+   transcription of product names, numbers and URLs against the source before building the shot list.
 5. **Build** in Remotion at 1080×1920: card component that takes a screenshot + keyframed camera
    (scale/translate) + highlight box; speaker video in the bottom panel; seam captions; CTA outro.
 6. **Stills review** at phone size: every beat's target is readable, and the highlight lands on the word.

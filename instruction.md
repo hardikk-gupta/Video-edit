@@ -67,6 +67,17 @@ Show the idea or the work happening. Product marks, screenshots and motion shoul
 story rather than sit inside interchangeable cards. Review stills at the intended viewing size before
 committing to a long render.
 
+### 5. When the brief calls for a split-screen explainer
+
+Follow [the split-screen method](docs/12-split-screen-explainer.md): the speaker occupies the bottom panel,
+and the top panel shows the actual source for the current spoken point. Transcribe, identify entities and
+claims, obtain the exact link from the brief/audio or ask when ambiguous, capture the page, then map each
+word to a crop, scroll, zoom or highlight on its supporting element. Do not treat the top as decorative
+B-roll or a slideshow on an unrelated timer. Keep source dates and flag material factual mismatches.
+The requested bottom-panel presenter is an exception to the older small-face-tile layout; retain one
+natural-colour instance and stable framing. Study a supplied reference first when asked; wait for the
+footage before starting its edit.
+
 ## Update the repo after each event, before ending the task
 
 | Event | Required record |

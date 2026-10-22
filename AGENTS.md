@@ -19,7 +19,8 @@ Every job arrives with:
   direction. If none came with the brief, ask for them before you design anything. Don't invent a style.
 - Optionally: brand colours, images to use, length, aspect ratio, platform.
 
-The source's own aspect ratio wins unless the person says otherwise. A landscape recording stays 16:9.
+The source's own aspect ratio wins unless the person says otherwise. A landscape recording stays 16:9
+unless the brief explicitly requests a different delivery format, such as the 9:16 split-screen explainer.
 
 Details per mode: [docs/01-inputs-and-modes.md](docs/01-inputs-and-modes.md).
 
@@ -28,7 +29,9 @@ Details per mode: [docs/01-inputs-and-modes.md](docs/01-inputs-and-modes.md).
 1. **Story first.** The edit tells the story. The face is not the subject. Show the idea, not the speaker.
 2. **Face: one small tile, natural colour.** The person appears in exactly one place at a time, as a small
    cell in the layout. Never full-frame, never two copies, never tinted (no red duotone, no halftone of the
-   face), and no tight punch-ins: framing between 1.00× and 1.05×.
+   face), and no tight punch-ins: framing between 1.00× and 1.05×. When the brief explicitly requests
+   [Mode E](docs/12-split-screen-explainer.md), the single presenter fills the lower panel instead of a
+   small tile; keep natural colour, stable framing and no duplicate speaker.
 3. **Nothing typed crosses a guide line.** Every element sits inside a grid cell with at least 40px padding.
    Captions and frame furniture live in the margins, outside the guides.
 4. **No stock or random imagery.** Don't pull photos from the web to fill space; generic coffee cups and

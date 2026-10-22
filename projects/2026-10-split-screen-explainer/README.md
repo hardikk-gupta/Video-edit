@@ -65,3 +65,23 @@ speaker 478–850 (≈44% of height), tight and steady. Details and the reusable
 
 - His series label, handle and CTA keyword; caption font; whether the speaker panel has jump cuts.
 - Which links to use for anything he names (ask if not in the brief or unclear from audio).
+
+## Independent check of the upload in this chat (2026-10-22)
+
+- File: `WhatsApp Video 2026-10-22 at 15.15.46.mp4`, 5,211,172 bytes; 478 × 850, 30 fps,
+  49.106458 seconds, video and audio streams.
+- SHA-256: `c0997c700c83944681cf760e8c46b93ec8683b4330c787327fe527066494747a`.
+- Rechecked with a three-second-interval contact sheet, exact frames at 0/21/24/28/36 seconds, and a
+  word-timed faster-whisper `tiny.en` transcript. Audio was decoded for transcription; it was not auditioned.
+  Names and claims from speech are reference content, not independently established product facts.
+- Speech-to-evidence checks: "53" at ~20.64s → the code-reduction bar is boxed at 21s; "cost" at ~23.54s
+  → the cost bar is boxed at 24s; "testing" at ~27.80s → 98% is enlarged and framed at 28s. The movement
+  identifies the exact evidence being discussed, rather than substituting a generic graphic.
+- The visual region is a square at y 0–478; the bottom speaker region is y 478–850. Thus the file is
+  approximately 56/44, not an exact 50/50 split. Its card uses the black margin and internal crop to keep
+  focus on one point. The presenter remains the human anchor beneath it.
+- The reference speaks of about 170,000 stars. Hardik's 65k example describes how to edit his future
+  footage, not a number that should be copied into this reference's transcript.
+- Hardik says this reference was AI-edited. Its production toolchain cannot be established from the export;
+  the observed layout and speech-driven editing method are the useful reference.
+- Current request is analysis first. No edit of Hardik's upcoming footage has been started in this chat.

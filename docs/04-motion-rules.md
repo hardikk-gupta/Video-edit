@@ -41,6 +41,9 @@
 
 - **One face tile, one place, small.** Never full-frame, never two copies at once (watch for the person's image
   inside a mock-up while the tile is also showing).
+  **Explicit split-screen brief exception:** in [Mode E](12-split-screen-explainer.md), the presenter fills
+  the lower panel. Keep the single instance and natural framing; the small-tile requirement belongs to
+  other layouts and must not override Hardik's specified split-screen composition.
 - **Natural colour.** No duotone, no tint, no halftone or dither of the person. (v3 tried red duotone; Hardik:
   "Please don't make me red in the whole scenario.")
 - **Gentle framing.** 1.00–1.05× punch-ins on cut points, at most 0.2%/s of slow push. (v3 tried 1.15–1.26×;
