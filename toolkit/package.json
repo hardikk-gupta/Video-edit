@@ -15,5 +15,8 @@
     "react-dom": "^19.1.0",
     "remotion": "^4.0.537",
     "typescript": "^7.0.2"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.56.1"
   }
 }

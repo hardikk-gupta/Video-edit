@@ -84,5 +84,6 @@ Working habits that made the difference:
 - `toolkit/src/DotsVsDuet.tsx`: a 5s 1:1 insert built only from web references (reference board → versus split).
 - `toolkit/scripts/`: transcribe, cut snapping, build the cut, synthesize SFX, master, fetch project references.
 - `docs/11-pulling-references.md`: how to source real product imagery when a video is about real products.
+- `docs/12-split-screen-explainer.md`: the 9:16 split format (sources on top, speaker below) and `toolkit/scripts/web_shot.mjs` for page captures with element boxes.
 - `projects/<date>-<name>/`: what was decided for each video.
 - `docs/06-tools-skills-mcp.md`: the tools, MCP servers, skills and repos used, and how.

@@ -92,3 +92,14 @@ uploaded Claude example. This entry records his feedback, not blanket approval o
 
 **Action requested now:** documentation only. Created root `instruction.md` and corrected the standing
 guidance; no additional video or video revision was requested or made for this feedback round.
+
+## Brief: split-screen explainer reference (2026-10-22)
+
+- **Hardik's words (paraphrased closely):** the reference splits the screen: the top half is visual motion
+  graphics, the bottom half the person speaking. The top half "is following, listening to the instruction,
+  and seeing, analyzing what the person is saying"; e.g. if he says a repo "has 65k stars", the shot zooms
+  to the 65k stars. If he talks about a GitHub repo, get the link from him or from the audio, take the
+  screenshot, and do the rest. First analyse the reference; his footage comes next.
+- **Agent interpretation:** a new standing format (Mode E). Speech-driven sourcing and element-level zooms
+  are the requirement; the reference's branding is not. Recorded in docs/12 and the project README.
+- No video was made in this round.

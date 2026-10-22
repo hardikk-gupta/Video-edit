@@ -16,3 +16,4 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   after every creation, revision and feedback round. Updated the project record and review checklist.
   Documentation only; no video or video revision was made for this request.
 - 2026-10-22 · docs/11: sourcing meme/reaction clips from Tenor (Motu Patlu "Kya hukum hai mere aaka" jinn clips for Hardik).
+- 2026-10-22 · Analysed Hardik's split-screen reference (@SHAI.HQ, Ponytail repo): beat map, measured layout and transcript in `projects/2026-10-split-screen-explainer/`. Added `docs/12-split-screen-explainer.md` (format, sync rule, camera language, pipeline, asks), Mode E in docs/01, a reference entry in docs/07, the brief in the feedback log, and `toolkit/scripts/web_shot.mjs` (Playwright page capture returning element boxes by visible text; tested on GitHub). No video yet.

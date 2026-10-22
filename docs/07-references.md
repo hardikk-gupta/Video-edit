@@ -5,6 +5,15 @@ Log useful sources with creator, URL, date viewed, relevant timecodes, what was 
 Separate observed engagement from assumptions about what caused it. These studies are a library of
 principles, not one permanent brand to copy. See [instruction.md](../instruction.md).
 
+## @SHAI.HQ: "Claude for Designers EP38 (Optimize code)" (supplied by Hardik, 2026-10-22)
+
+- Source: WhatsApp video from Hardik, 478×850, 49.1s, viewed 2026-10-22. Subject: the Ponytail GitHub repo.
+- **Took:** the 9:16 split (graphics card on top, speaker below); every spoken claim shown on its real source
+  (repo page, star-history chart, the project's site); push-ins and a white highlight box landing on the
+  exact number or list item as it's said; one keyword caption on the seam; chat-input CTA and handle outro.
+- **Not taken:** their series label, handle, caption serif; these are Hardik's to choose.
+- Full beat map: projects/2026-10-split-screen-explainer; method: docs/12-split-screen-explainer.md.
+
 ## Duet/Dots feedback and references (2026-10-22)
 
 - **User-supplied subject pages:** https://claude.com/product/claude-duet and

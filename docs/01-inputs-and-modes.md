@@ -55,6 +55,13 @@ No voice, no captions, no face. Deliver at the size asked (1:1 1080×1080 for a 
 precise 1080×960 also works). If it's about real products, source their real material
 ([11-pulling-references.md](11-pulling-references.md)). Example: `projects/2026-10-dots-vs-duet/`.
 
+## Mode E: split-screen explainer (graphics top, speaker bottom)
+
+Footage of Hardik talking, edited into 9:16 with a top panel that shows the real sources of whatever he
+mentions (GitHub repos, star counts, sites, benchmarks), zooming to and highlighting each thing as he says
+it. Links come from Hardik or from the audio; the agent captures the pages. Full method:
+[12-split-screen-explainer.md](12-split-screen-explainer.md).
+
 ## Questions worth asking (only if the answer changes the work)
 
 - References missing → "Send me 1–3 references for the look (Pinterest pins or reels)."
