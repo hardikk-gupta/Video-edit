@@ -119,3 +119,21 @@ guidance; no additional video or video revision was requested or made for this f
 - **Agent interpretation:** applied docs/12; Inter captions in a white seam label; the genie still kept but
   animated and morphed into the card; opinion and three alternatives given in the project record.
 - **Feedback on v1:** pending.
+
+### Feedback on v1 (2026-10-22)
+
+- **Hardik's words (close paraphrase):** my face is not visible for much of the video, it's getting cut; most
+  of the time my face should be visible. The first 2s ("jo hukum mere aaka") must stay exactly as they are;
+  when my face comes in, the graphics should start with dots / Duet / bots. You haven't used the top half
+  well: inside it you created another rectangle; don't. When I say we glimpsed the jinn when AI came into the
+  picture, show all the AI logos from back then; show dots when I get to dots; you don't need dots and Duet up
+  front everywhere. Show the Grok Bot logo too, and all of them in one picture. It looks unprofessional; the
+  information is getting cut. In the indoor part with the posters I'm barely visible. I don't want the mails
+  kind of stuff, or page text like "Get back to what needs you". Create graphics out of dots and Duet, use the
+  whole space. Rework it.
+- **Lessons (agent):** (1) the speaker's whole head is non-negotiable: measure head extents across every
+  location and size the panel to fit them, even if graphics get less height; (2) never nest a card inside the
+  graphics area; graphics are full-bleed; (3) page screenshots/crops read as "information getting cut";
+  build motion graphics from brand assets (logos, marks, mascots) and the spoken words instead; (4) keep the
+  creator's own opening untouched unless asked; (5) introduce each product only when it's spoken about.
+- **v2 shipped** with those changes; Hardik's review of v2: pending.

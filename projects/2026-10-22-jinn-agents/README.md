@@ -1,11 +1,34 @@
 # "Jinn" → dots, Claude Duet, Grok Bot (2026-10-22)
 
-**Status:** v1 delivered in chat, **not yet reviewed by Hardik**. Nothing below is approved.
+**Status:** v1 reviewed and rejected (feedback in docs/10); **v2 delivered, review pending**. Nothing below is approved.
 **Format:** split-screen explainer ([docs/12](../../docs/12-split-screen-explainer.md)), following the
 @SHAI.HQ reference studied in [the reference project](../2026-10-split-screen-explainer/README.md).
 **Composition:** `toolkit/src/GrokDotsDuet.tsx` (`npx remotion render GrokDotsDuet …`).
 **Assets:** `scripts/fetch_refs_dots_duet.sh` then `scripts/fetch_refs_gdd.sh <footage>` (outputs gitignored).
 **Delivered:** 1080×1920, 30fps, 56.3s, −14.7 LUFS integrated, 28MB.
+
+## v2 (after Hardik's v1 feedback) — delivered, review pending
+
+What changed and why (his feedback is in docs/10-feedback-log.md):
+- **Face:** speaker window y 225–695 (whole head in all three locations, measured on a 13-frame grid);
+  panel y 858–1920 (55%). v1's 372-px window (y 195–567) cut his head, worst indoors.
+- **Opening:** his first 1.85s now play untouched, full frame, no captions. Graphics start when his face does.
+- **Graphics area:** full-bleed black, y 0–858, no inner card, no page screenshots.
+- **Beats:** 1.85 dots / Claude Duet / Grok Bot in one picture (official marks, OpenAI/Anthropic/xAI) →
+  3.6 a slit of light ("jhalak") opens on drifting AI logos → 6.1 grid of 9 AI logos (ChatGPT, Claude, Gemini,
+  Grok, Copilot, Perplexity, Meta AI, Mistral, DeepSeek; Simple Icons + Wikimedia SVGs as white masks) →
+  8.6 logos fold into a glowing orb ("closer to this jinn") → 10.3 orb with "workflow / mails / calendars"
+  nodes → 14.45 Duet icon + "Morning, Maya. / 2 things need you." → 17 tick list → 20 "You log off. / It
+  keeps going." → 23.8 a prompt typed and sent → 25.7 counters 5 in progress / 2 need you → 28.3 Hairline
+  laptop "its own computer" → 30.4 "GPT-6 Astra · dots", "Opus 5.5 · Claude Duet" → 34 "24/7" ring →
+  42.4 dots wordmark + mascots → 44.5 Duet icon draws on + wordmark → 46.4 Grok Bot lockup on a blue glow →
+  48.2 all three in one picture to the end.
+- **Kept:** seam caption (white label, Inter), audio, two-pass loudness (−14.8 LUFS).
+- **Checks repeated:** stills at 20 beats and a 1-in-3s contact sheet of the final; layout fixes for the
+  dots label overlap and the logo grid under the caption.
+- **Known:** his footage has a one-frame camera whip at 10.4–10.5s (kept).
+
+## v1
 
 ## Brief (Hardik)
 

@@ -22,3 +22,4 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   Clarified its 56/44 layout, speech-to-element focus, link verification and current-source discrepancies.
   Updated the standing instructions, presenter-panel exception and reference record. Analysis only;
   no new video was made or edited in this chat for this request.
+- 2026-10-22 · Jinn video v2 after Hardik's feedback: whole head always visible (panel 55%, measured), his opening untouched, full-bleed graphics with no inner card and no page screenshots, AI logos / products introduced when spoken, all three products in one picture. Rules recorded in docs/12, feedback in docs/10, v2 notes in the project README. Assets: logos from Simple Icons and Wikimedia (gitignored), wordmarks keyed from official images.

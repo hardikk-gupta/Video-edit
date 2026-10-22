@@ -103,6 +103,19 @@ Use Hardik's own series name, handle and font choices; the reference's are not t
    (scale/translate) + highlight box; speaker video in the bottom panel; seam captions; CTA outro.
 6. **Stills review** at phone size: every beat's target is readable, and the highlight lands on the word.
 
+## Hardik's rules for this format (from v1 feedback, 2026-10-22; these override the reference where they differ)
+
+- **His face is always fully visible.** Measure hair-top and chin across every location in the footage and
+  size the speaker panel to contain them (v2: window y 225–695 of the 478×850 source → panel y 858–1920, 55%).
+  Graphics get the rest. Never crop the head to win graphics space.
+- **No card inside the graphics area.** The top area is full-bleed black; motion graphics use all of it.
+- **No page screenshots or text crops** (no mail/integration UI, no hero copy like "Get back to what needs
+  you"). Build graphics from brand marks, mascots, logos and the spoken words. The reference's screenshot
+  approach suits repo/benchmark topics; it read as cut-off information here.
+- **Keep his opening as he made it** (e.g. the genie still until his face appears), no captions over it.
+- **Introduce things when he says them:** AI logos at "when AI came into the picture", each product when
+  named, then all products together in one picture.
+
 ## Lessons from the first build (2026-10-22, jinn → dots/Duet/Grok Bot)
 
 - **Box phrases, not paragraphs.** A paragraph box forces a wide view and body text becomes unreadable.

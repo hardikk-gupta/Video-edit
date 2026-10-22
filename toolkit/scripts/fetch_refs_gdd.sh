@@ -32,3 +32,25 @@ curl -sSfL -A "$UA" -o "$P/dots-ui.jpg" "https://www.igeeksblog.com/wp-content/u
 curl -sSfL -A "$UA" -o "$P/dots-computer.jpg" "https://techcrunch.com/wp-content/uploads/2026/09/Screenshot-2026-09-29-at-1.16.22-PM.jpg?w=988"
 curl -sSfL -A "$UA" -o "$P/duet-og.jpg" "https://claude.com/static/claude-duet/og.jpg"
 rm -rf "$W"; ls "$P"
+
+# v2 additions: AI logos (white masks) and keyed wordmarks.
+mkdir -p "$P/logos"; W2=$(mktemp -d)
+(cd "$W2" && npm pack simple-icons --silent >/dev/null && tar xzf simple-icons-*.tgz)
+for s in claude googlegemini githubcopilot perplexity meta mistralai deepseek; do cp "$W2/package/icons/$s.svg" "$P/logos/"; done
+curl -sSfL -A "$UA" -o "$P/logos/openai.svg" "https://commons.wikimedia.org/wiki/Special:FilePath/OpenAI_logo_2025_(symbol).svg"
+curl -sSfL -A "$UA" -o "$P/logos/grok.svg" "https://commons.wikimedia.org/wiki/Special:FilePath/Grok-feb-2025-logo.svg"
+python3 -I - "$P" <<'PY'
+import sys
+import numpy as np
+from PIL import Image
+p = sys.argv[1]
+im = np.asarray(Image.open(f"{p}/grokbot.jpg").convert("RGB")).astype(float)[440:640, 540:1380]
+a = np.clip((im.min(axis=2) - 135) / (255 - 135), 0, 1)          # white lockup on blue → alpha
+Image.fromarray(np.dstack([np.full(a.shape, 255)] * 3 + [a * 255]).astype(np.uint8), "RGBA").save(f"{p}/grokbot-logo.png")
+g = np.asarray(Image.open(f"{p}/duet-og.jpg").convert("L")).astype(float)[520:740, 740:2080]
+a = np.clip((241 - g) / 221, 0, 1)                                 # dark serif on cream → white + alpha
+Image.fromarray(np.dstack([np.full(a.shape, 255)] * 3 + [a * 255]).astype(np.uint8), "RGBA").save(f"{p}/duet-word.png")
+for f in ("grokbot-logo", "duet-word"):
+    i = Image.open(f"{p}/{f}.png"); i.crop(i.getbbox()).save(f"{p}/{f}.png")
+PY
+rm -rf "$W2"
