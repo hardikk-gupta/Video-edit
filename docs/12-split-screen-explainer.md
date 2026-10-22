@@ -115,6 +115,10 @@ Use Hardik's own series name, handle and font choices; the reference's are not t
 - **Keep his opening as he made it** (e.g. the genie still until his face appears), no captions over it.
 - **Introduce things when he says them:** AI logos at "when AI came into the picture", each product when
   named, then all products together in one picture.
+- **(v2 feedback)** Build the top section on a visible guide grid (the dots-vs-Duet language: dashed red
+  guides, white dots at crossings) and snap everything to its cells. Sets of brands are identical units
+  (same tile size, radius, baselines). Prefer Hairline line figures to explain ideas. SFX sparse and quiet
+  (docs/05).
 
 ## Lessons from the first build (2026-10-22, jinn → dots/Duet/Grok Bot)
 

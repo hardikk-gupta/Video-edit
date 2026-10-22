@@ -22,11 +22,22 @@
 | swoosh | synthesized | softer transitions, exits |
 | pop | synthesized | chips, list items, frames appearing |
 | tick | synthesized | counters, results rows |
+| tap | synthesized | a soft, short landing: an item settling into a grid cell, a list tick, a send |
+| bloom | synthesized | a low, 0.7s warm tone for a product/brand reveal (max three per video) |
 
 To get more from Remotion's library: `npm pack @remotion/sfx`, then grep `dist` for `remotion.media/*.wav`
 URLs and `curl` them. Many of them are meme sounds (vine-boom, bruh…); only the neutral ones above suit premium work.
 
-## Placement
+## Hardik's sound rule (2026-10-22, jinn v2 feedback, overrides the placement defaults below)
+
+SFX are **supporting, not decoration**. He called v2's sound "so loud" with "swoosh everywhere" and said he
+doesn't like the other effects used so far. Default now:
+- Only `tap` and `bloom`. No swoosh, whoosh, whip, riser, impact, ding or pop unless he asks.
+- Sound only on moments that land (a reveal named in the voice, a tick in a list, a send), not on every move
+  or transition. v3 of the jinn video used 11 taps and 3 blooms in 56s.
+- Volumes: tap 0.035–0.05, bloom ~0.07 (files peak at 0.89); a sound must sit well under the voice.
+
+## Placement (older default; see the rule above)
 
 - Every visible event that moves fast gets a sound; slow drifts don't.
 - Chapter change: `whip` 0.1s before + `impact` on the pill. Guide move: `whoosh` 0.05s before.

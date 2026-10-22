@@ -60,3 +60,12 @@ save("pop", np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 30) * (1 - np.e
 # Tick: tiny high click for word-by-word text
 d = 0.05; tt = t(d)
 save("tick", (np.sin(2 * np.pi * 3200 * tt) + 0.5 * rng.standard_normal(len(tt))) * np.exp(-tt * 180))
+
+# Quiet supporting sounds (2026-10-22, after "the SFX are taking over"): a soft tap for things landing in
+# the grid and a low, short bloom for the three product reveals. Both are mastered quiet on purpose.
+d = 0.09; tt = t(d)
+tap = np.sin(2 * np.pi * 1850 * tt) * np.exp(-tt * 70) + 0.15 * lp(rng.standard_normal(len(tt)), 0.2) * np.exp(-tt * 120)
+save("tap", tap * (1 - np.exp(-tt * 3000)))
+d = 0.7; tt = t(d)
+bloom = (np.sin(2 * np.pi * 196 * tt) + 0.5 * np.sin(2 * np.pi * 294 * tt) + 0.25 * np.sin(2 * np.pi * 392 * tt))
+save("bloom", bloom * (1 - np.exp(-tt * 18)) * np.exp(-tt * 4.5))

@@ -52,5 +52,13 @@ a = np.clip((241 - g) / 221, 0, 1)                                 # dark serif 
 Image.fromarray(np.dstack([np.full(a.shape, 255)] * 3 + [a * 255]).astype(np.uint8), "RGBA").save(f"{p}/duet-word.png")
 for f in ("grokbot-logo", "duet-word"):
     i = Image.open(f"{p}/{f}.png"); i.crop(i.getbbox()).save(f"{p}/{f}.png")
+# v3 brand tiles (equal 600² squares for the trio): the dots mascot from the key art, and the Grok Bot orb
+# on the og's blue gradient.
+k = Image.open(f"{p}/dots-keyart.jpg").convert("RGB")
+k.crop((1090, 2000, 1650, 2560)).resize((600, 600), Image.LANCZOS).save(f"{p}/tile-dots.png")
+bg = Image.open(f"{p}/grokbot.jpg").convert("RGB").crop((1480, 320, 1920, 760)).resize((600, 600), Image.LANCZOS)
+logo = Image.open(f"{p}/grokbot-logo.png")
+orb = logo.crop((0, 0, logo.height, logo.height)).resize((300, 300), Image.LANCZOS)
+bg.paste(orb, (150, 150), orb); bg.save(f"{p}/tile-grok.png")
 PY
 rm -rf "$W2"

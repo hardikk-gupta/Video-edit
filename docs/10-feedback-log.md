@@ -136,4 +136,21 @@ guidance; no additional video or video revision was requested or made for this f
   graphics area; graphics are full-bleed; (3) page screenshots/crops read as "information getting cut";
   build motion graphics from brand assets (logos, marks, mascots) and the spoken words instead; (4) keep the
   creator's own opening untouched unless asked; (5) introduce each product only when it's spoken about.
-- **v2 shipped** with those changes; Hardik's review of v2: pending.
+- **v2 shipped** with those changes.
+
+### Feedback on v2 (2026-10-22)
+
+- **Hardik's words (close paraphrase, partly verbatim):** "in the morning… you created such a damn amazing
+  video" (the dots vs Duet insert); in the top section, use that grid thing again. In the last frame, dots,
+  Claude Duet and Grok Bot "are not properly even aligned. They are not evenly sized." "Why are you using
+  swoosh sound effect everywhere? And why are the sound effects so fucking loud? The sound effects are
+  supposed to be very supporting… work on the sound effects very precisely. Any other sound effect, I don't
+  like." Use the Hairline skill more, like the laptop, to create the graphics. Act like the highest-paid
+  editor, from whom perfect typography, scale, sizing and principles are expected.
+- **Lessons (agent):** (1) a strict grid (3×2 cells with dashed guides and crossing dots) gives every beat the
+  same skeleton, so alignment is structural rather than eyeballed; (2) brand sets must be built as identical
+  units: same tile size and radius, names and makers on shared baselines; (3) sound is sparse and quiet by
+  default (docs/05 rule); (4) Hairline line figures explain abstract claims (workflow hub, "does it for you",
+  "own computer", "24/7") better than UI mocks; size them to their cell, they draw ~60% of their box;
+  (5) one type scale per video (here Inter 96/64/44/28).
+- **v3 shipped**; Hardik's review of v3: pending.
