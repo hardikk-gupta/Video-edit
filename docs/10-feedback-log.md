@@ -103,3 +103,14 @@ guidance; no additional video or video revision was requested or made for this f
 - **Agent interpretation:** a new standing format (Mode E). Speech-driven sourcing and element-level zooms
   are the requirement; the reference's branding is not. Recorded in docs/12 and the project README.
 - No video was made in this round.
+
+## Project: jinn → dots / Claude Duet / Grok Bot (2026-10-22)
+
+- **Hardik's brief (close paraphrase):** two copies of the same video, one with the screen pre-divided to show
+  the intent; keep the audio; pick either. No white surface: black with motion graphics on top, him below,
+  clip moved down so his face is visible. Caption in the centre, suggested as a white label. Graphics must be
+  specific to what he says about ChatGPT/OpenAI dots, Claude Duet and Grok's bots. Check the repo for anything
+  new to learn. Follow the split-screen reference. He asked for an opinion on the 2s genie opening.
+- **Agent interpretation:** applied docs/12; Inter captions in a white seam label; the genie still kept but
+  animated and morphed into the card; opinion and three alternatives given in the project record.
+- **Feedback on v1:** pending.

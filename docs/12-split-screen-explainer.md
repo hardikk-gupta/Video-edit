@@ -78,6 +78,23 @@ Use Hardik's own series name, handle and font choices; the reference's are not t
    (scale/translate) + highlight box; speaker video in the bottom panel; seam captions; CTA outro.
 6. **Stills review** at phone size: every beat's target is readable, and the highlight lands on the word.
 
+## Lessons from the first build (2026-10-22, jinn → dots/Duet/Grok Bot)
+
+- **Box phrases, not paragraphs.** A paragraph box forces a wide view and body text becomes unreadable.
+  `scripts/web_phrases.mjs` returns the exact rect of a phrase (Range rects over text nodes); zoom so body text
+  renders at ~25–40px on the 1080 canvas (view width ≈ 800–1150 image px for 2× captures of 15px text).
+- **Capture clean.** `scripts/web_capture.mjs` clicks "Reject all"/"Accept all" and removes fixed/sticky
+  overlays (cookie banners, promo popups, sticky headers) before a full-page 2× dark-mode capture.
+- **Animated page elements may be blank in a capture** (Duet's phone notification). Rebuild them in code with
+  the page's exact copy and place them in image coordinates so the camera treats them like the page.
+- **Some sources block automation** (openai.com 403 even in a real browser; media.x.ai video). Use reputable
+  press copies of the official images and say so in the project record.
+- **One card, morphing opening:** a full-frame opener can shrink into the card while the speaker slides in;
+  it hides the source's own transitions.
+- **Speaker framing per location:** set the crop window's top (y0) per shot location so the face sits in the
+  upper half of the panel with headroom.
+- **Loudness:** phone audio needs two-pass loudnorm (measure, then apply with `linear=true`); single pass undershot by 3dB.
+
 ## Asks for Hardik (only what changes the work)
 
 - Links to anything named in the audio, if he has them.
