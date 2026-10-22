@@ -60,3 +60,12 @@ in [instruction.md](../instruction.md).
 
 Official press material is used here for commentary/comparison of the products. Don't alter logos or put
 words in a brand's mouth. Don't publish a page or graphic that could pass as the brand's own.
+
+## Meme and reaction clips (e.g. "Kya hukum hai mere aaka")
+
+- Identify the source first: the "Hukum mere aaka" jinn is from **Motu Patlu** (Nick India).
+- **Tenor** has official channel uploads of famous lines as clean MP4s. Search `https://tenor.com/search/<phrase-with-dashes>-gifs`,
+  grep `/view/...` links, then on the view page read `og:video` (the `AAAPo` MP4, ~640px) or `contentUrl`.
+- Tenor clips are **silent** and 2–3s, with the line burnt in as a caption. For the original audio you need the
+  episode or a YouTube upload; using that has copyright implications (Content ID), so ask first.
+- Re-encode for editing: `scale=1280:-2:flags=lanczos,fps=30,format=yuv420p`, `libx264 -crf 16 -an`.
