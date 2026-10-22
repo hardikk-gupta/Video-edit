@@ -26,7 +26,34 @@
 - **Checks:** stills at 13 beats in a contact sheet; Hairline figures were too small in their cells and were
   enlarged (settle/phosphor/riffle 360, slow/terminal 470); face fully visible in every location checked.
 
-## Codex Hairline revision — review pending
+## Codex rework after the uploaded `jinn-v3.mp4` comparison — review pending
+
+Hardik explicitly asked to rework this session's edit after the comparison. The agent judged the uploaded
+version stronger in visual cohesion, grid structure, explanatory linework and equal product prominence;
+that was the agent's assessment, not a statement that Hardik approved every detail of the upload.
+
+Reworked `JinnHairlineRevision` (same composition ID; earlier implementation remains in Git history):
+
+- Integrated the repository's existing grid/figure mechanics from `GrokDotsDuet`, which corresponds to the
+  supplied v3 direction. This is a revised composition using those building blocks, not a downloaded edit.
+- One black stage, restrained dashed red guides and white crossing dots; Inter hierarchy; Hairline
+  throughout the abstract explanations. Removed the mixed glowing orb/checkmark/chip/clock/wordmark look.
+- Enlarged workflow/terminal/laptop/stack/branches figures and48–100px scene type. Reviewed stills at16
+  spoken beats at phone size; reduced two figures after detecting overlap, and raised the conveyor clear
+  of the caption. Layout is judged by visible geometry, not just the nominal SVG host size.
+- Workflow hub with labels revealed on workflow/mails/calendars; phosphor for identifying work; settle
+  for doing work; conveyor for continuing while away; terminal for the task; riffle for pending/done;
+  laptop for own computer; stack for model layers; branches for backend work. These are conceptual
+  illustrations, without fabricated counts, personalized notifications or unspoken model versions.
+- Equal240px identity tiles,46px product names and36px maker names on shared baselines. The complete
+  transparent Dots mascot is scaled deliberately inside its tile; a tight group-art crop was rejected
+  during review because it cut the mascot and included its neighbours. Dots42.46s, Duet44.56s, Grok46.68s;
+  the three remain together for the recap. Earlier AI logos, not a premature product trio, precede them.
+- Kept original animated opening, measured face tracking, centre captions, full56.233s duration and
+  the previous quiet master. No audio changes in this revision; no claim of a new listening review.
+- Export validation: pending full render at the time of authoring; record results below before delivery.
+
+## Earlier Codex Hairline revision — superseded by the rework above
 
 Composition: `JinnHairlineRevision` in `toolkit/src/JinnHairlineRevision.tsx`. Kept separate from
 `GrokDotsDuet` because another edit was published while this session was rendering. Both implementations

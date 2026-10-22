@@ -168,3 +168,15 @@ introduced on the corresponding speech rather than showing the product trio imme
 Applied in the Codex Hairline revision (not yet reviewed): existing Hairline laptop animated with the repo's deterministic patch;
 measured presenter tracking; earlier AI logo grid; neutral task states without invented counts or model
 versions; individual complete Dots mascots; named product beats followed by a recap. Imagegen laptop removed.
+
+
+## 2026-10-22 · Rework after comparing `jinn-v3.mp4`
+
+Hardik asked which edit was better, then explicitly requested a rework of this session's video. The agent's
+comparison favoured the upload's cohesive grid, consistent Hairline illustrations and equally prominent
+product tiles; it favoured this session's measured face framing and larger readable graphics. Those are
+agent observations, not invented user quotes or blanket approval of the uploaded design.
+
+Applied: combine the upload's visual system with retained face tracking, larger labels and equal identity
+tiles; use linework throughout. Keep the original hook and precise spoken cues. Do not mistake technical
+framing fixes for completed art direction. The resulting rework is awaiting Hardik's review.

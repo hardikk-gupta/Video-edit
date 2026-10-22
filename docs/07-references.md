@@ -14,6 +14,14 @@ principles, not one permanent brand to copy. See [instruction.md](../instruction
 - **Not taken:** their series label, handle, caption serif; these are Hardik's to choose.
 - Full beat map: projects/2026-10-split-screen-explainer; method: docs/12-split-screen-explainer.md.
 
+## Hardik's uploaded `jinn-v3.mp4` (2026-10-22)
+
+1080×1920,30fps,56.3s; reviewed via a28-frame contact sheet, with selected scenes compared to the existing
+edit. At10–19s the grid and Hairline scenes explain workflow/actions in a consistent style; at42–55s three
+equal identity tiles keep the brands balanced. These informed the Codex rework. Enlarged smaller drawings
+and labels, retained measured face framing, and avoided the upload's unspoken sample counts/model versions.
+Original media stays outside Git. No engagement, trend or toolchain inference is being made from the video.
+
 ## Duet/Dots feedback and references (2026-10-22)
 
 - **User-supplied subject pages:** https://claude.com/product/claude-duet and

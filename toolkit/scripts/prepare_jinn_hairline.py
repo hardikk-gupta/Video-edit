@@ -44,4 +44,13 @@ a=np.clip((241-im)/221,0,1)
 Image.fromarray(np.dstack([np.full(a.shape,255)]*3+[a*255]).astype(np.uint8),'RGBA').save(g/'duet-word.png')
 for name in ['grokbot-logo','duet-word']:
  im=Image.open(g/(name+'.png'));im.crop(im.getbbox()).save(g/(name+'.png'))
+
+# Rework: equal identity tiles. Use the complete isolated mascot, scaled to the same optical weight.
+im=Image.open(g/'mascot-iggy.webp').convert('RGBA');im=im.crop(im.getbbox())
+scale=500/max(im.size);im=im.resize((round(im.width*scale),round(im.height*scale)),Image.Resampling.LANCZOS)
+bg=Image.new('RGBA',(600,600),'#101010');bg.alpha_composite(im,((600-im.width)//2,(600-im.height)//2));bg.save(g/'tile-dots.png')
+bg=Image.open(g/'grokbot.png').convert('RGB').crop((1480,320,1920,760)).resize((600,600),Image.Resampling.LANCZOS)
+logo=Image.open(g/'grokbot-logo.png');orb=logo.crop((0,0,logo.height,logo.height)).resize((300,300),Image.Resampling.LANCZOS)
+bg.paste(orb,(150,150),orb);bg.save(g/'tile-grok.png')
+
 subprocess.run([__import__('sys').executable,str(root/'scripts/prepare_gdd_audio.py'),str(args.source),str(g/'voice.wav')],check=True)

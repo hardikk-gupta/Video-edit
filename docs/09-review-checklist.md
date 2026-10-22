@@ -45,3 +45,13 @@
 - [ ] The relevant guidance and changelog are updated after creation, revision or feedback; old defaults
       do not contradict the new lesson. Follow [instruction.md](../instruction.md).
 - [ ] Work stayed within the request. Documentation-only feedback did not trigger another video.
+
+
+## Cohesion check for the jinn rework
+
+- Compare representative scenes beside each other: do grid, type and drawing treatment belong together?
+- Inspect the visible figure bounds throughout its motion. A large SVG host can still draw a tiny object;
+  enlarging it can also put moving parts behind text or captions. Inspect both outcomes at phone size.
+- Match optical weight as well as equal tile dimensions. Transparent mascot posters may need deliberate
+  upscaling; `thumbnail()` alone never enlarges a small source.
+- Preserve framing corrections when adopting a stronger reference's visual direction.

@@ -35,3 +35,8 @@ One dated entry per change, oldest first. Append in the same commit as the chang
 - 2026-10-22 · Validated Codex Hairline export:1080×1920,30fps,1687frames,56.233s,H.264/AAC;
   full decode passed,106 sampled face bounds retained, original hook PCM preserved before AAC.
   Quiet tap/bloom master measures−16.18LUFS after the hook,−1.31dBTP. Review pending.
+
+- 2026-10-22 · Reworked `JinnHairlineRevision` after comparison with Hardik's uploaded `jinn-v3.mp4`:
+  coherent guide grid and Hairline scenes, larger explanatory labels, equal product tiles/baselines, complete
+  Dots mascot, measured face tracking retained. Kept original hook, centre captions and quiet mastered audio.
+  Updated asset restoration, reference study, project record and feedback/review guidance. Review pending.
