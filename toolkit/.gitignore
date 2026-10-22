@@ -9,3 +9,7 @@ public/talk.*
 public/voice.*
 public/imagery/*
 !public/imagery/.gitkeep
+# Reference images pulled from the web (third-party press material). Re-fetch per project; see docs/11.
+public/refs/*
+!public/refs/.gitkeep
+src/duet-paths.json

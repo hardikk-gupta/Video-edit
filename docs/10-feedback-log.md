@@ -45,3 +45,11 @@ Source: 82s WhatsApp selfie video, 848×478, 60fps, landscape. Hardik talking ab
 - "Only the skills, only the methods… not the videos… so that if I start with some other agent, then it can
   create the same kind of video." References always come with the brief; a storyline alone can be the source;
   voice comes from TTS (ElevenLabs) when there's no footage.
+
+## Project: dots vs Claude Duet insert (2026-10-22)
+
+- Brief: 2–6s, 1:1, show what references can be pulled from the internet; top half of a 9:16 split; don't
+  include Hardik. Built a captioned reference board (9 official assets) that splits into a black/cream versus.
+- Self-review fixes before sending: key-art crop (cover → contain), dead half-frame in the split, VS pill
+  over text, black mismatch on the dots side. See `projects/2026-10-dots-vs-duet/README.md`.
+- Feedback: (pending)

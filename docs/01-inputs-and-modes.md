@@ -48,6 +48,13 @@ No footage. The video is pure motion graphics over a voice-over.
 The person gives footage and says what story it should tell. The storyline decides the order of beats and the
 chapter titles. The footage supplies the voice and the face tile. Re-order clips if the story needs it.
 
+## Mode D: short insert / B-roll graphic
+
+A 2–6s piece that sits inside another video (e.g. the top half of a 9:16 split with the speaker below).
+No voice, no captions, no face. Deliver at the size asked (1:1 1080×1080 for a half-height 9:16 slot is fine; a
+precise 1080×960 also works). If it's about real products, source their real material
+([11-pulling-references.md](11-pulling-references.md)). Example: `projects/2026-10-dots-vs-duet/`.
+
 ## Questions worth asking (only if the answer changes the work)
 
 - References missing → "Send me 1–3 references for the look (Pinterest pins or reels)."

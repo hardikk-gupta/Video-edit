@@ -12,6 +12,7 @@ Everything used to make the first video, so another agent can reproduce it.
 | `ToolSearch` | Loading deferred tools (WebSearch, WebFetch, task tools, GitHub MCP tools) before calling them. |
 | `WebSearch` | Finding image pages on unsplash.com (used in the rejected v2.5) and checking libraries. |
 | `WebFetch` | Reading pages that block curl: Unsplash photo pages (to get `images.unsplash.com/photo-…` URLs) and the Hairline GitHub README. |
+| `WebSearch` (extended) | Researching recent launches (dots, Claude Duet) before putting facts on screen. |
 | `SendUserFile` | Delivering each render in the chat (`display: "render"`). Videos never go to git. |
 | `AskUserQuestion` | Decisions only the person can make (e.g. where this playbook lives). |
 | `TaskCreate` / `TaskUpdate` | Tracking the multi-step rebuild. |

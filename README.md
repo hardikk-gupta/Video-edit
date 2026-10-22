@@ -21,6 +21,7 @@ work happens. This repo holds only methods, rules, references and code.
 | [docs/07-references.md](docs/07-references.md) | Reference videos we studied and what we took from each. |
 | [docs/08-environment-gotchas.md](docs/08-environment-gotchas.md) | Things that broke and the fix. |
 | [docs/09-review-checklist.md](docs/09-review-checklist.md) | Check before you send any render. |
+| [docs/11-pulling-references.md](docs/11-pulling-references.md) | Sourcing real product material (key art, UI, launch films, SVG logos, copy) from the web, and showing the sourcing on screen. |
 | [docs/10-feedback-log.md](docs/10-feedback-log.md) | Version history of the first project with Hardik's feedback, in order. Learn the taste from it. |
 | [toolkit/](toolkit/) | The Remotion project: grid engine, scenes, captions, pills, Hairline explainers, SFX, scripts. |
 | [projects/](projects/) | One folder per finished video: brief, transcript, edit decisions, scene timeline. |

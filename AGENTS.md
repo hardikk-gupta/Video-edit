@@ -66,6 +66,8 @@ Working habits that made the difference:
 - `toolkit/`: the Remotion project. `src/Reel.tsx` is the last full video (AI automations, v3) and serves as
   the template: grid engine, `InCell`, `RedCell`, `Display`, `Glass`, `Pill`, `HairFig`, `FaceTile`, captions,
   chrome, SFX timeline. Copy it, then replace the scene content.
-- `toolkit/scripts/`: transcribe, cut snapping, build the cut, synthesize SFX, master.
+- `toolkit/src/DotsVsDuet.tsx`: a 5s 1:1 insert built only from web references (reference board → versus split).
+- `toolkit/scripts/`: transcribe, cut snapping, build the cut, synthesize SFX, master, fetch project references.
+- `docs/11-pulling-references.md`: how to source real product imagery when a video is about real products.
 - `projects/<date>-<name>/`: what was decided for each video.
 - `docs/06-tools-skills-mcp.md`: the tools, MCP servers, skills and repos used, and how.
