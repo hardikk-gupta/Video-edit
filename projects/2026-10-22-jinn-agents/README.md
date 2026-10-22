@@ -51,7 +51,13 @@ Reworked `JinnHairlineRevision` (same composition ID; earlier implementation rem
   the three remain together for the recap. Earlier AI logos, not a premature product trio, precede them.
 - Kept original animated opening, measured face tracking, centre captions, full56.233s duration and
   the previous quiet master. No audio changes in this revision; no claim of a new listening review.
-- Export validation: pending full render at the time of authoring; record results below before delivery.
+- Final export: `hardik-jinn-rework.mp4`,1080×1920,H.264/AAC,30fps,1687frames,56.233s.
+  TypeScript and full FFmpeg decode passed. Reviewed16 beat stills and the28-frame exported contact sheet;
+  verified the final product frame after enlarging the complete mascot. Speaker/caption/audio source block
+  is unchanged from the prior validated revision, retaining its106-sample framing check.
+- The final audio stream was copied directly from the preceding validated master; exact AAC-stream SHA256
+  matches (`780ef97b145929f6884de00b7decab50dba7f6086fe50eafbe7be4d4e1b04d78`). Post-hook measurements
+  remain−16.18LUFS and−1.31dBTP. No new listening review is claimed. Hardik has not yet reviewed this rework.
 
 ## Earlier Codex Hairline revision — superseded by the rework above
 

@@ -40,3 +40,7 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   coherent guide grid and Hairline scenes, larger explanatory labels, equal product tiles/baselines, complete
   Dots mascot, measured face tracking retained. Kept original hook, centre captions and quiet mastered audio.
   Updated asset restoration, reference study, project record and feedback/review guidance. Review pending.
+
+- 2026-10-22 · Validated the jinn rework export:1080×1920,30fps,1687frames,56.233s; full decode
+  and TypeScript passed,16 beat stills and final28-frame contact sheet reviewed. Existing mastered AAC
+  stream preserved exactly; presenter framing/captions unchanged. Published code and learnings; review pending.
