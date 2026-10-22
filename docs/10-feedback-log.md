@@ -137,3 +137,16 @@ guidance; no additional video or video revision was requested or made for this f
   build motion graphics from brand assets (logos, marks, mascots) and the spoken words instead; (4) keep the
   creator's own opening untouched unless asked; (5) introduce each product only when it's spoken about.
 - **v2 shipped** with those changes; Hardik's review of v2: pending.
+
+
+## 2026-10-22 · Jinn revision: Hairline instead of generated computer art
+
+Hardik rejected the generated laptop-and-cube image and explicitly asked to use the Hairline skill linked
+in this repository. His direction: the line drawing should replace that image; generated illustration is
+not automatically an improvement. Earlier corrections still apply: original “Jo hukum mere aaka” opening,
+whole face visible, full black upper canvas, no inner rectangles or mail/website screenshots, and graphics
+introduced on the corresponding speech rather than showing the product trio immediately.
+
+Applied in v3 (not yet reviewed): existing Hairline laptop animated with the repo's deterministic patch;
+measured presenter tracking; earlier AI logo grid; neutral task states without invented counts or model
+versions; individual complete Dots mascots; named product beats followed by a recap. Imagegen laptop removed.

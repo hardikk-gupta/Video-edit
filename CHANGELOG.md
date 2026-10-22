@@ -23,3 +23,9 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   Updated the standing instructions, presenter-panel exception and reference record. Analysis only;
   no new video was made or edited in this chat for this request.
 - 2026-10-22 · Jinn video v2 after Hardik's feedback: whole head always visible (panel 55%, measured), his opening untouched, full-bleed graphics with no inner card and no page screenshots, AI logos / products introduced when spoken, all three products in one picture. Rules recorded in docs/12, feedback in docs/10, v2 notes in the project README. Assets: logos from Simple Icons and Wikimedia (gitignored), wordmarks keyed from official images.
+
+- 2026-10-22 · Jinn v3: corrected presenter crops with measured tracking, kept the original animated hook
+  and its audio, used full-field speech-led graphics without page screenshots, removed invented counts/model
+  versions and premature product recap, and replaced the generated computer art with Hairline's animated
+  laptop at Hardik's request. Added framing metadata, reusable audio preparation and framing audit scripts;
+  corrected contradictory split-screen guidance and recorded feedback. Review pending.

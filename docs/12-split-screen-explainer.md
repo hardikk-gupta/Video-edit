@@ -106,13 +106,14 @@ Use Hardik's own series name, handle and font choices; the reference's are not t
 ## Hardik's rules for this format (from v1 feedback, 2026-10-22; these override the reference where they differ)
 
 - **His face is always fully visible.** Measure hair-top and chin across every location in the footage and
-  size the speaker panel to contain them (v2: window y 225–695 of the 478×850 source → panel y 858–1920, 55%).
+  size the speaker panel to contain them across the shot. The v2 fixed window y 225–695 still cut hair
+  in the walking shot; v3 retains full source width and uses measured vertical tracking in `gdd-framing.json`.
   Graphics get the rest. Never crop the head to win graphics space.
 - **No card inside the graphics area.** The top area is full-bleed black; motion graphics use all of it.
 - **No page screenshots or text crops** (no mail/integration UI, no hero copy like "Get back to what needs
   you"). Build graphics from brand marks, mascots, logos and the spoken words. The reference's screenshot
   approach suits repo/benchmark topics; it read as cut-off information here.
-- **Keep his opening as he made it** (e.g. the genie still until his face appears), no captions over it.
+- **Keep his opening as he made it** (e.g. the original animated genie clip until his face appears), no captions over it.
 - **Introduce things when he says them:** AI logos at "when AI came into the picture", each product when
   named, then all products together in one picture.
 
@@ -127,8 +128,8 @@ Use Hardik's own series name, handle and font choices; the reference's are not t
   the page's exact copy and place them in image coordinates so the camera treats them like the page.
 - **Some sources block automation** (openai.com 403 even in a real browser; media.x.ai video). Use reputable
   press copies of the official images and say so in the project record.
-- **One card, morphing opening:** a full-frame opener can shrink into the card while the speaker slides in;
-  it hides the source's own transitions.
+- **Opening treatments depend on the brief:** the v1 morph hid original footage and was rejected here.
+  Preserve the original animated opening when requested; do not replace it with a still or add a morph.
 - **Speaker framing per location:** set the crop window's top (y0) per shot location so the face sits in the
   upper half of the panel with headroom.
 - **Loudness:** phone audio needs two-pass loudnorm (measure, then apply with `linear=true`); single pass undershot by 3dB.
@@ -141,7 +142,9 @@ Use Hardik's own series name, handle and font choices; the reference's are not t
 
 ## Don'ts
 
-- Don't show a generic or stock visual for a specific claim; capture the real source.
+- Don't show generic stock for a specific claim. Use real source evidence when requested; for this jinn
+  edit use authentic product marks and authored motion, without screenshots. Hardik selected Hairline
+  line drawings for the computer beat over the generated laptop/cube render.
 - Don't let the top panel lag the speech; the highlight lands on the word, not a beat later.
-- Don't fill the top margin or add decorative furniture; one card, one point at a time.
+- Don't add decorative furniture or an inner card to this edit; use the full black graphics area for the spoken idea.
 - Don't zoom or tint the speaker (standing rule from [04](04-motion-rules.md)).

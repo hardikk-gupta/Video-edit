@@ -24,6 +24,12 @@ Hairline's agent skills (`hairline-create`, `hairline-adopt`, installed with `np
 we used the Hairline library directly instead. Use `hairline-create` when a beat needs a figure that doesn't
 exist (it writes a new figure on the same engine).
 
+For the jinn v3 revision, Hardik explicitly requested Hairline instead of the generated laptop/cube.
+Read the upstream [hairline-create skill](https://github.com/lucasmarkes/hairline/blob/main/skills/hairline-create/SKILL.md)
+and its rules. Reused the existing `laptop` figure rather than inventing a second engine or a new figure:
+black plate, single-stroke hierarchy, spring-driven lid, and deterministic `__hlStep` stepping. A new custom
+figure would also require the skill's build/validate/look loop. Do not claim that loop ran for a reused figure.
+
 **MCP servers:** GitHub (repo creation attempt). Notion, Gmail and Google Drive were connected but not used.
 Don't use connected services unless the brief needs them.
 

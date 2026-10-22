@@ -1,16 +1,57 @@
 # "Jinn" → dots, Claude Duet, Grok Bot (2026-10-22)
 
-**Status:** v1 reviewed and rejected (feedback in docs/10); **v2 delivered, review pending**. Nothing below is approved.
+**Status:** history below; the current Codex Hairline revision is documented separately and remains unreviewed.
 **Format:** split-screen explainer ([docs/12](../../docs/12-split-screen-explainer.md)), following the
 @SHAI.HQ reference studied in [the reference project](../2026-10-split-screen-explainer/README.md).
 **Composition:** `toolkit/src/GrokDotsDuet.tsx` (`npx remotion render GrokDotsDuet …`).
 **Assets:** `scripts/fetch_refs_dots_duet.sh` then `scripts/fetch_refs_gdd.sh <footage>` (outputs gitignored).
 **Delivered:** 1080×1920, 30fps, 56.3s, −14.7 LUFS integrated, 28MB.
 
+## Codex Hairline revision — review pending
+
+Composition: `JinnHairlineRevision` in `toolkit/src/JinnHairlineRevision.tsx`. Kept separate from
+`GrokDotsDuet` because another edit was published while this session was rendering. Both implementations
+remain available; this session does not replace the other edit or claim Hardik approved either.
+
+- Source: normal 478×850 copy; the white-header copy has identical decoded audio. Original animated
+  opening plays full-frame until 1.85s, without captions, graphics or SFX. Earlier notes calling it a
+  still, and describing its first spoken line incorrectly, were mistaken.
+- Presenter: y 858–1920. Full source width retained, measured vertical tracking from `gdd-framing.json`,
+  constant viewport height per location (550 / 610 / 510 source px). The old y225 crop cut hair around
+  18–19s. Audit 106 detected samples, estimating hair-top and chin; camera-whip misses at 10.5 and19.5s
+  require manual inspection. Original edge crops cannot be recovered.
+- Upper field: black, no inner card or website/mail screenshots. Earlier AI logos during the AI-history
+  line; workflow nodes for the spoken workflow/mail/calendar terms; neutral task states without fabricated
+  counts; no unspoken model versions. Individual Dots mascots remain complete at their named beat.
+- Product timing: Dots42.35s, Duet44.5s, Grok Bot46.35s, all three48.15s. No early product trio.
+- Computer28.3–30.38s: Hairline's built-in `laptop`, deterministic 1/60s stepping and1.2s pre-roll to
+  reach the lid-opening gesture. Large1000×800 stage, no nested panel. Hardik rejected the generated
+  laptop/cube illustration; it is removed from the composition and is not a dependency.
+- Captions: white seam label, Inter44, short Hinglish chunks. Natural headline type, no tiny overlines.
+- Audio: `scripts/prepare_gdd_audio.py SOURCE public/refs/gdd/voice.wav` preserves the original1.85s
+  sample-for-sample before AAC export, then levels only following speech with measured two-pass loudnorm
+  (target−16LUFS,−1.5dBTP,70Hz high-pass). No whole-track normalization after joining. Quiet sparse SFX.
+- Validation: TypeScript, reviewed beat stills, framing audit, opening PCM assertion; final export checks
+  recorded after rendering. Audio assessed through transcript and measurements, not a listening review.
+
+### Reproduce this revision
+
+Run legacy asset scripts for the official marks, then supply the four full transparent mascot posters
+as `public/refs/gdd/mascot-{felipe,todd,alfred,iggy}.webp` from OpenAI's Dots asset set. Logos in this revision
+are white masks from Lobe Icons' `packages/static-svg/icons` (OpenAI/Claude/Gemini/Grok/Copilot/Perplexity/
+Meta/Mistral/DeepSeek). Do not substitute screenshot crops of mascot bodies. Keep media outside Git.
+
+For the optional face audit, install `opencv-python-headless` in a separate Python environment and download
+OpenCV Zoo's `face_detection_yunet_2023mar.onnx`. Run
+`python scripts/audit_gdd_framing.py SOURCE MODEL /tmp/faces.json` from `toolkit/`.
+The audit checks source samples against the committed crop plan; it does not invent missing image content.
+
+Render: `REMOTION_BROWSER=/usr/bin/chromium npx remotion render src/index.ts JinnHairlineRevision output.mp4 --concurrency=4 --crf=21 --audio-bitrate=192k`.
+
 ## v2 (after Hardik's v1 feedback) — delivered, review pending
 
 What changed and why (his feedback is in docs/10-feedback-log.md):
-- **Face:** speaker window y 225–695 (whole head in all three locations, measured on a 13-frame grid);
+- **Face (historical, insufficient):** speaker window y225–695 (13-frame check missed cropped hair at18–19s);
   panel y 858–1920 (55%). v1's 372-px window (y 195–567) cut his head, worst indoors.
 - **Opening:** his first 1.85s now play untouched, full frame, no captions. Graphics start when his face does.
 - **Graphics area:** full-bleed black, y 0–858, no inner card, no page screenshots.
@@ -36,7 +77,7 @@ Two copies of the same 56.2s, 478×850 recording: one with a white band on top (
 one normal; identical audio (checked by hashing the decoded PCM). Make the edit on either. No white anywhere:
 black, with motion graphics on top and him below, his face visible (move the clip down). Captions in the
 centre (his suggestion: a white label), not at the bottom. Graphics must be specific to what he says: OpenAI
-dots, Claude Duet, Grok Bot. He also asked for an opinion on the first ~2s (an AI-generated genie still with
+dots, Claude Duet, Grok Bot. He also asked for an opinion on the first ~2s (an animated genie clip with
 "ye jinn to hum sabko yaad hai") and whether something better is possible.
 
 ## Decisions
@@ -80,7 +121,7 @@ Grok Bot facts: always-on agents with their own computer, beta since Aug 11, 202
 
 ## Agent's view of the opening (given to Hardik, not yet answered)
 
-The idea is right: the jinn is a strong, familiar hook and it pays off at the end. The still is weak as a
+The idea is right: the jinn is a strong, familiar hook and it pays off at the end. The earlier agent mistakenly described the clip as a still and judged its
 first frame: it's static for 1.5s, generic AI art, and the line "ye jinn to hum sabko yaad hai" lands before
 anything moves. Options offered: (1) keep the still but animate it (lamp smoke, glow, push), as done in v1;
 (2) open on a short recognisable "Jo hukum mere aaka" clip (Motu Patlu, Nick, silent; rights risk) and cut to

@@ -70,9 +70,10 @@ committing to a long render.
 ### 5. When the brief calls for a split-screen explainer
 
 Follow [the split-screen method](docs/12-split-screen-explainer.md): the speaker occupies the bottom panel,
-and the top panel shows the actual source for the current spoken point. Transcribe, identify entities and
-claims, obtain the exact link from the brief/audio or ask when ambiguous, capture the page, then map each
-word to a crop, scroll, zoom or highlight on its supporting element. Do not treat the top as decorative
+and the top panel illustrates the current spoken point using the treatment Hardik requested. Transcribe, identify entities and
+claims, obtain the exact link from the brief/audio or ask when ambiguous, then map each word to its visual.
+Capture a page when showing evidence such as a repo count; use full-field marks and line graphics when the
+brief rejects screenshots. For this jinn edit, Hardik chose Hairline over the generated laptop/cube image. Do not treat the top as decorative
 B-roll or a slideshow on an unrelated timer. Keep source dates and flag material factual mismatches.
 The requested bottom-panel presenter is an exception to the older small-face-tile layout; retain one
 natural-colour instance and stable framing. Study a supplied reference first when asked; wait for the
