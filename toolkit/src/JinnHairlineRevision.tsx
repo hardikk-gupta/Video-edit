@@ -495,9 +495,9 @@ const Caption = () => {
 
 // ---------- Sound ----------
 const SFX: [number, string, number][] = [
-  [2.0,'swoosh',.07], [6.12,'tick',.05], [10.35,'swoosh',.06],
-  [18.1,'tick',.05], [25.45,'mouse-click',.08], [28.3,'swoosh',.06],
-  [42.46,'whoosh',.08], [44.56,'whoosh',.07], [46.68,'whoosh',.07],
+  [2.0,'tap',.035], [6.12,'tap',.035], [10.35,'tap',.035],
+  [18.1,'tap',.035], [25.45,'tap',.035], [28.3,'tap',.035],
+  [42.46,'bloom',.05], [44.56,'bloom',.05], [46.68,'bloom',.05],
 ];
 
 export const GrokDotsDuet = () => (

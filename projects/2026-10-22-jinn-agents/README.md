@@ -49,16 +49,17 @@ remain available; this session does not replace the other edit or claim Hardik a
 - Captions: white seam label, Inter44, short Hinglish chunks. Natural headline type, no tiny overlines.
 - Audio: `scripts/prepare_gdd_audio.py SOURCE public/refs/gdd/voice.wav` preserves the original1.85s
   sample-for-sample before AAC export, then levels only following speech with measured two-pass loudnorm
-  (target−16LUFS,−1.5dBTP,70Hz high-pass). No whole-track normalization after joining. Quiet sparse SFX.
+  (target−16LUFS,−1.5dBTP,70Hz high-pass). No whole-track normalization after joining. Quiet sparse `tap`/`bloom` SFX, following the latest repo sound feedback; no swooshes.
 - Validation: TypeScript, reviewed beat stills, framing audit, opening PCM assertion; final export checks
   recorded after rendering. Audio assessed through transcript and measurements, not a listening review.
 
 ### Reproduce this revision
 
-Run legacy asset scripts for the official marks, then supply the four full transparent mascot posters
-as `public/refs/gdd/mascot-{felipe,todd,alfred,iggy}.webp` from OpenAI's Dots asset set. Logos in this revision
-are white masks from Lobe Icons' `packages/static-svg/icons` (OpenAI/Claude/Gemini/Grok/Copilot/Perplexity/
-Meta/Mistral/DeepSeek). Do not substitute screenshot crops of mascot bodies. Keep media outside Git.
+From `toolkit/`, use a Python environment with Pillow and NumPy, plus system FFmpeg:
+`python scripts/prepare_jinn_hairline.py SOURCE`. It restores official marks, complete transparent mascot
+posters, the Lobe Icons masks and the prepared voice. Outputs are gitignored. URLs are in the script;
+the generated computer illustration is not required. TypeScript and the existing Hairline vendor need
+only the normal `npm ci`.
 
 For the optional face audit, install `opencv-python-headless` in a separate Python environment and download
 OpenCV Zoo's `face_detection_yunet_2023mar.onnx`. Run
