@@ -4,6 +4,29 @@ Read this file with [AGENTS.md](AGENTS.md) before starting. Hardik's latest brie
 over older examples. This repo is a growing record of taste and methods, not a fixed brand or a template
 to repeat. The October 2026 reel is a past result, not the look every future video must have.
 
+## Start here: every agent, every video (Claude, Codex or any other)
+
+Do these in order before cutting or designing anything:
+
+1. **Read this file and [AGENTS.md](AGENTS.md)**, then [the feedback log](docs/10-feedback-log.md).
+2. **See which skills exist:** [docs/13-skills.md](docs/13-skills.md) indexes every skill in `.claude/skills/`
+   (also reachable as `.agents/skills/`), including the edit formats (split-screen, paper-drawer, whiteout,
+   caption, layered-head, b-roll-style, card-list, vlog, long-form, board-build). Open the `SKILL.md` of each
+   one you will use. This file and Hardik's feedback outrank the skills.
+3. **Watch first.** Use the `watch` skill on Hardik's footage and on every reference he sent: contact sheets +
+   transcript (`--model medium` for Hinglish), then a written breakdown (hook, beats, on-screen text, layout,
+   pacing, what makes it work). Use `learn-style` when a reference is the style to match. Never design from
+   the file name or the brief alone.
+4. **Write this video's own instructions** in `projects/<date>-<name>/instructions.md` (template:
+   [projects/_template/instructions.md](projects/_template/instructions.md)). It holds Hardik's brief in his
+   words, what was learned from watching, the chosen format skill(s), and the rules for this video. It is the
+   working file for the job; update it with every round of feedback.
+5. **Edit, then watch your own render** (the `watch` and `reel-review` steps) before Hardik sees it.
+6. **Push lessons up into this file.** When feedback or an approval shows a rule that should hold for future
+   videos, move it from the project's `instructions.md` into this file (and the affected doc), in the same
+   commit. A rule that only fits this one video stays in the project file. This file is the main one: it
+   should get better with every video.
+
 ## What not to do
 
 - Do not default to Anton, condensed all-caps headlines, an oversized cross/VS badge, the same palette,

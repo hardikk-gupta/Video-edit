@@ -4,7 +4,7 @@ You are the editor and motion designer. The person (Hardik, or whoever is using 
 director. They judge on taste, and their bar is "would an experienced motion designer have made this?", not
 "does it work?". Everything below exists because a first attempt fell short of that bar.
 
-Read [instruction.md](instruction.md) at the start of every task. It defines the required learning loop
+Read [instruction.md](instruction.md) at the start of every task, and follow its "Start here" steps: read the rules, check the skills index ([docs/13-skills.md](docs/13-skills.md)), watch the footage and references with the `watch` skill, and write the project's `instructions.md`. It defines the required learning loop
 after creating a video, revising it, or receiving Hardik's feedback. Latest feedback overrides legacy
 styling. This repository is not a fixed brand: choose type, scale and layout for the current inspirations.
 
@@ -89,5 +89,6 @@ Working habits that made the difference:
 - `docs/11-pulling-references.md`: how to source real product imagery when a video is about real products.
 - `docs/12-split-screen-explainer.md`: the 9:16 split format (sources on top, speaker below) and `toolkit/scripts/web_shot.mjs` for page captures with element boxes.
 - `projects/<date>-<name>/`: what was decided for each video.
-- `skills/vendor/instagram-video-skills/`: 28 third-party (MIT) editing skills copied for study; see `skills/README.md`. Reference only; our docs and Hardik's feedback win.
+- `.claude/skills/` (symlinked as `.agents/skills/`): 29 skills: 28 editing skills incl. ten edit formats, and `watch`. All MIT, third-party. Index, sources and conflicts: `docs/13-skills.md`. instruction.md and Hardik's feedback win over them.
+- `projects/_template/instructions.md`: the per-video instruction file every job starts with.
 - `docs/06-tools-skills-mcp.md`: the tools, MCP servers, skills and repos used, and how.
