@@ -24,6 +24,8 @@ Do these in order before cutting or designing anything:
    [projects/_template/instructions.md](projects/_template/instructions.md)). It holds Hardik's brief in his
    words, what was learned from watching, the chosen format skill(s), and the rules for this video. It is the
    working file for the job; update it with every round of feedback.
+   Also decide the renderer for this video, **Remotion or HyperFrames**, using the table in
+   [docs/06](docs/06-tools-skills-mcp.md#remotion-or-hyperframes-decide-per-video), and record the choice and reason there.
 5. **Edit, then watch your own render** (the `watch` and `reel-review` steps) before Hardik sees it.
 6. **Push lessons up into this file.** When feedback or an approval shows a rule that should hold for future
    videos, move it from the project's `instructions.md` into this file (and the affected doc), in the same

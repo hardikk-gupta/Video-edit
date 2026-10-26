@@ -188,3 +188,11 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
 - **Agent interpretation:** the installed skills (`reel-edit` and its stages) are now the default process;
   our older docs give way where they differ. His own explicit feedback still overrides a skill (it is his
   direction, e.g. the quiet-SFX rule). Recorded in docs/13 and instruction.md.
+
+## 2026-10-26 · Renderer choice per video
+
+- **User's words:** "every time see which is best for what remotion or hyperframes" (sent while the
+  "Claude did" paper-drawer edit was being built in Remotion).
+- **Agent interpretation:** no fixed default renderer. At the brief stage, weigh Remotion against
+  HyperFrames for that video and record the pick and reason in its `instructions.md`. Table in docs/06;
+  step added to instruction.md "Start here".

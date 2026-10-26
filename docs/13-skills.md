@@ -79,6 +79,7 @@ Only his explicit words beat the skills. Everything else follows the skill.
 
 ## Tool mapping (not a conflict)
 
-The skills assume HyperFrames, whisperx and Palmier. Here: Remotion (`toolkit/`), faster-whisper
+The skills assume HyperFrames, whisperx and Palmier. Renderer: choose Remotion or HyperFrames per video by the table in
+[06](06-tools-skills-mcp.md) (user, 2026-10-26). Otherwise here: Remotion (`toolkit/`) when chosen, faster-whisper
 (`toolkit/scripts/transcribe.py`) and Remotion Studio for `editor-handoff`. Use the skill's step with the
 equivalent tool ([06](06-tools-skills-mcp.md)).
