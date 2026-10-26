@@ -17,7 +17,7 @@ where Hardik's own words override a skill are listed at the bottom.
 | The 28 below except `watch` | [ritu-dadhwal4/instagram-video-skills](https://github.com/ritu-dadhwal4/instagram-video-skills) | `0b7daf3` (2026-10-14), v0.1, not yet run end to end upstream | MIT, `.claude/skills/_licenses/instagram-video-skills.LICENSE` |
 | `watch` | [victor-shulga/watch](https://github.com/victor-shulga/watch) | `b9a6ee3` (2026-09-23) | MIT, `.claude/skills/_licenses/watch.LICENSE` |
 
-The files were copied as-is. If you change one for our use, say so in CHANGELOG.md. Hardik shared a screenshot
+The upstream README (stage walkthrough, the seven questions, style and caption menus) is in [15](15-skills-guide.md). The files were copied as-is. If you change one for our use, say so in CHANGELOG.md. Hardik shared a screenshot
 of a paid "skills.zip" with the same skill names. Its extra `docs/` style specs, `tools/` scripts and 115-page
 PDF are **not** in this repo and were not obtained.
 

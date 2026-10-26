@@ -21,6 +21,7 @@ work happens. This repo holds only methods, rules, references and code.
 | [docs/06-tools-skills-mcp.md](docs/06-tools-skills-mcp.md) | Every tool, MCP server, skill, library and repo we used, and how. |
 | [docs/14-ecosystem.md](docs/14-ecosystem.md) | Other creators' tools and repos by need (effects, background removal, reframe, captions, sound) and what we should add next. |
 | [docs/13-skills.md](docs/13-skills.md) | The skills in `.claude/skills/` (edit formats, pipeline stages, `watch`), where they came from, and where our rules override them. |
+| [docs/15-skills-guide.md](docs/15-skills-guide.md) | The skills' own guide (upstream README): how one edit goes, the seven brief questions, editing and caption styles, b-roll order, notes. |
 | [docs/07-references.md](docs/07-references.md) | Reference videos we studied and what we took from each. |
 | [docs/08-environment-gotchas.md](docs/08-environment-gotchas.md) | Things that broke and the fix. |
 | [docs/09-review-checklist.md](docs/09-review-checklist.md) | Check before you send any render. |
