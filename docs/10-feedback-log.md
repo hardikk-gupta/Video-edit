@@ -196,3 +196,19 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
 - **Agent interpretation:** no fixed default renderer. At the brief stage, weigh Remotion against
   HyperFrames for that video and record the pick and reason in its `instructions.md`. Table in docs/06;
   step added to instruction.md "Start here".
+
+## 2026-10-26 · "Claude did" teaser v2 → v3
+
+- **User's words (v2):** "it is good enough, but I was supposed to be at the bottom frame, everything was
+  supposed to be at the top frame"; "the sound effects, pull the skill for sound effects"; the colour scheme
+  "was looking like it was something given by Claude itself… no orangish kind of feel"; "create a mix of
+  whiteout edit, paper drawer edit… split screen… caption edit"; add "that person working on laptop kind of
+  stuff… a doodle pet kind of stuff that we are currently using"; "show me some zoom effects, zoom cuts…
+  omni restyle, do it whatever the way you want".
+- **Agent interpretation / rules changed:** speaker in the bottom panel with graphics on top for split beats
+  (docs/12 Mode E); sound per `sfx-design` as written (docs/05, docs/13); palette must not echo the subject's
+  brand (instruction.md); zoom cuts allowed on full-face lines (AGENTS.md rule 2); mixed formats in one reel
+  are fine when each beat's job is clear. "Doodle pet we are currently using" was read as our own hand-drawn
+  pet in the Hairline-style line language; if a specific existing mascot was meant, swap it in.
+- **Applied in v3:** `toolkit/src/SplitMixWA.tsx`. Review: second model PASS; its "likely" notes (harsh sketch,
+  crowded folder labels, hard-cropped push-in) fixed before sending. The user's review: pending.

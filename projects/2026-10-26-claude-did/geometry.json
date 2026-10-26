@@ -1,0 +1,242 @@
+[
+ {
+  "cut": 1,
+  "samples": [
+   {
+    "frame": 0,
+    "box": [
+     0.27,
+     0.456,
+     0.425,
+     0.334
+    ],
+    "head_top": 696,
+    "chin": 1580
+   },
+   {
+    "frame": 44,
+    "box": [
+     0.338,
+     0.471,
+     0.325,
+     0.249
+    ],
+    "head_top": 771,
+    "chin": 1431
+   },
+   {
+    "frame": 89,
+    "box": [
+     0.328,
+     0.496,
+     0.287,
+     0.208
+    ],
+    "head_top": 840,
+    "chin": 1391
+   }
+  ],
+  "gaze": "camera",
+  "empty_area": "wall above the head (y 230-600)"
+ },
+ {
+  "cut": 2,
+  "samples": [
+   {
+    "frame": 90,
+    "box": [
+     0.279,
+     0.446,
+     0.332,
+     0.256
+    ],
+    "head_top": 719,
+    "chin": 1397
+   },
+   {
+    "frame": 137,
+    "box": [
+     0.253,
+     0.445,
+     0.378,
+     0.292
+    ],
+    "head_top": 697,
+    "chin": 1472
+   },
+   {
+    "frame": 184,
+    "box": [
+     0.305,
+     0.477,
+     0.346,
+     0.252
+    ],
+    "head_top": 780,
+    "chin": 1447
+   }
+  ],
+  "gaze": "camera",
+  "empty_area": "wall above the head (y 230-600)"
+ },
+ {
+  "cut": 3,
+  "samples": [
+   {
+    "frame": 185,
+    "box": [
+     0.266,
+     0.447,
+     0.349,
+     0.27
+    ],
+    "head_top": 713,
+    "chin": 1428
+   },
+   {
+    "frame": 198,
+    "box": [
+     0.252,
+     0.447,
+     0.368,
+     0.282
+    ],
+    "head_top": 706,
+    "chin": 1454
+   },
+   {
+    "frame": 211,
+    "box": [
+     0.301,
+     0.484,
+     0.355,
+     0.267
+    ],
+    "head_top": 785,
+    "chin": 1494
+   }
+  ],
+  "gaze": "camera",
+  "empty_area": "wall above the head (y 230-600)"
+ },
+ {
+  "cut": 4,
+  "samples": [
+   {
+    "frame": 212,
+    "box": [
+     0.303,
+     0.48,
+     0.338,
+     0.268
+    ],
+    "head_top": 778,
+    "chin": 1489
+   },
+   {
+    "frame": 281,
+    "box": [
+     0.249,
+     0.456,
+     0.284,
+     0.219
+    ],
+    "head_top": 757,
+    "chin": 1338
+   },
+   {
+    "frame": 351,
+    "box": [
+     0.293,
+     0.475,
+     0.377,
+     0.262
+    ],
+    "head_top": 771,
+    "chin": 1465
+   }
+  ],
+  "gaze": "camera",
+  "empty_area": "wall above the head (y 230-600)"
+ },
+ {
+  "cut": 5,
+  "samples": [
+   {
+    "frame": 352,
+    "box": [
+     0.236,
+     0.482,
+     0.255,
+     0.196
+    ],
+    "head_top": 820,
+    "chin": 1339
+   },
+   {
+    "frame": 360,
+    "box": [
+     0.24,
+     0.479,
+     0.242,
+     0.19
+    ],
+    "head_top": 818,
+    "chin": 1321
+   },
+   {
+    "frame": 369,
+    "box": [
+     0.284,
+     0.496,
+     0.234,
+     0.173
+    ],
+    "head_top": 860,
+    "chin": 1318
+   }
+  ],
+  "gaze": "camera",
+  "empty_area": "wall above the head (y 230-600)"
+ },
+ {
+  "cut": 6,
+  "samples": [
+   {
+    "frame": 370,
+    "box": [
+     0.319,
+     0.521,
+     0.285,
+     0.193
+    ],
+    "head_top": 897,
+    "chin": 1408
+   },
+   {
+    "frame": 411,
+    "box": [
+     0.316,
+     0.52,
+     0.254,
+     0.17
+    ],
+    "head_top": 907,
+    "chin": 1358
+   },
+   {
+    "frame": 452,
+    "box": [
+     0.296,
+     0.48,
+     0.563,
+     0.378
+    ],
+    "head_top": 718,
+    "chin": 1718
+   }
+  ],
+  "gaze": "camera",
+  "empty_area": "wall above the head (y 230-600)"
+ }
+]

@@ -68,9 +68,9 @@ Pick one per video, or a stated mix, and record the choice in the project's `ins
 
 Only his explicit words beat the skills. Everything else follows the skill.
 
-- **`sfx-design`** says "a sound for each thing that moves". Hardik on the jinn v2 (2026-10-22): the SFX were
-  "so loud", "swoosh everywhere", "supposed to be very supporting". So keep `sfx-design`'s method (timed to the
-  motion peak, mixed under the voice) but place sounds only where something lands, quietly, no swooshes ([05](05-sound.md)).
+- **`sfx-design`:** no longer overridden. The user (2026-10-26) asked to follow the skill; use it as written,
+  with its level (≈12 dB under the voice) and spacing (≤1 per 1.5 s) rules ([05](05-sound.md), `scripts/mix_sfx.py`).
+  The 2026-10-22 "so loud, swoosh everywhere" note is history.
 - **`split-screen`** layout: for Hardik's split videos his whole face is always visible, there's no inner card,
   and no page screenshots when he rejects them (his v1 feedback, [12](12-split-screen-explainer.md)). The
   skill's process (stages, sync to speech) applies as written.

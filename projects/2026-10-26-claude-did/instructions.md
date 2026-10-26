@@ -55,4 +55,19 @@
 - Render: 1080×1920, 30 fps, 16.7 s, −14.7 LUFS, true peak −2.0 dB, audio = video length, full decode OK.
 - Built in Remotion: `npx remotion render src/entry-wa1832.ts PaperDrawerWA` (entry registers only this
   composition). Hand edits: `npx remotion studio src/entry-wa1832.ts`.
+- The user's review (v2): see v3 below.
+
+### v3 (2026-10-26, sent)
+- The user's words: see docs/10 (bottom-panel speaker, sfx-design, no Claude-like palette, mix of whiteout /
+  paper-drawer / split / caption-edit, doodle pet on a laptop, zoom cuts, omni-restyle).
+- Built: `SplitMixWA` (Remotion again: per-frame face data drives both the full-face zoom cuts and the
+  bottom-panel crop; the doodles are frame-stepped SVG with a 3-frame line boil). Palette white #FFFFFF,
+  ink #111114, blue #2E5BFF; Inter only; Space Mono for folder names.
+- Beats: face+captions (zoom cut "edit") → split counter "0" → whiteout "Claude did." → face (zoom cut
+  "telling") → split + paper drawer, pet typing, speaker as pencil sketch (omni-restyle done locally with
+  OpenCV `pencilSketch`, no credits) → split, six folders, padlocks, push-in → face (zoom cut "tell you") →
+  split + drawer steps → whiteout end card with waving pet.
+- Sound: `sfx.json` (8 cues by sfx-design) mixed by `toolkit/scripts/mix_sfx.py`. −14.6 LUFS, TP −1.9 dB.
+- Review: second model PASS; fixed its likely notes (sketch look, folder labels, push-in crop, underline).
+- Promoted: sound rule, palette rule, zoom-cut exception (docs/05, docs/13, instruction.md, AGENTS.md).
 - The user's review: pending.

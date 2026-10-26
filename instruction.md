@@ -47,6 +47,10 @@ Do these in order before cutting or designing anything:
 - Do not make another video just because feedback arrived. Follow the requested scope: documentation-only
   feedback means update the repo, without rendering or changing the video.
 
+- Do not make a video about Claude look like Claude's own branding: no cream/terracotta/orange palette and no
+  serif headings that echo it (user, 2026-10-26: v2 "was looking like it was something given by Claude itself").
+  Pick a palette that is the creator's, not the subject's.
+
 ## What to do
 
 ### 1. Read the accumulated taste before choosing a style

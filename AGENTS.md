@@ -29,7 +29,9 @@ Details per mode: [docs/01-inputs-and-modes.md](docs/01-inputs-and-modes.md).
 1. **Story first.** The edit tells the story. The face is not the subject. Show the idea, not the speaker.
 2. **Face: one small tile, natural colour.** The person appears in exactly one place at a time, as a small
    cell in the layout. Never full-frame, never two copies, never tinted (no red duotone, no halftone of the
-   face), and no tight punch-ins: framing between 1.00× and 1.05×. When the brief explicitly requests
+   face), and no slow creeping punch-ins beyond 1.05×. Exception (user, 2026-10-26): on full-face lines,
+   zoom cuts are wanted (a hard scale step of ~1.15–1.2× on a spoken word, inside one take, whole head kept in
+   frame). When the brief explicitly requests
    [Mode E](docs/12-split-screen-explainer.md), the single presenter fills the lower panel instead of a
    small tile; keep natural colour, stable framing and no duplicate speaker.
 3. **Nothing typed crosses a guide line.** Every element sits inside a grid cell with at least 40px padding.
