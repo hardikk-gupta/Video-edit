@@ -1,8 +1,9 @@
 # Changelog
 
-- 2026-10-26 · Built the unreviewed draft for “Claude edits this reel” in Remotion: one continuous take,
-  a measured 9:16 presenter split, word-timed captions, and Hairline diagrams matched to the spoken beats.
-  Created the project instructions and validation record. Awaiting Hardik's review before final mastering.
+- 2026-10-26 · Built draft v2 for “Claude edits this reel” in Remotion: one continuous take, a measured 9:16
+  presenter split, word-timed captions, and Hairline diagrams matched to the spoken beats. A second-model
+  review found and helped fix face-overlapping captions and a title outside the safe area; the revised frame
+  review passed. Created project instructions and validation notes. Awaiting Hardik's feedback before final.
 
 One dated entry per change, oldest first. Append in the same commit as the change.
 

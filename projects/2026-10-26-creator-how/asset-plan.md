@@ -34,4 +34,4 @@ One supplied take, preserved as a single continuous clip from source 0.34s to 18
 
 ## Review status
 
-Draft v2 is rendered for Hardik's review. A separate frame review caught opening captions over the face and the hook title too close to the upper edge; both placements were corrected. Final review and export checks remain.
+Draft v2 is rendered for Hardik's review. A separate frame review caught opening captions over the face and the hook title too close to the upper edge; both placements were corrected. The revised video measures 1080×1920 at 30 fps, with video and audio both 18.133s. Loudness: −13.86 LUFS, −1.72 dBTP. A fresh second-model frame review passed with zero sure visual problems.

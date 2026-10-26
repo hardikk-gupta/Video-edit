@@ -21,4 +21,4 @@ See [the project instructions](instructions.md) and [the asset plan](asset-plan.
 - Remotion TypeScript check passed.
 - Cut audit: 1 continuous cut, 0 flagged.
 - Sampled frame checks and second-model review caught and fixed label/diagram collisions, opening captions over the presenter's face, and a title too close to the top edge.
-- Draft measures 18.133s on both streams, −13.86 LUFS and −1.72 dBTP. Second-model frame review and creator feedback are pending.
+- Draft measures 18.133s on both streams, −13.86 LUFS and −1.72 dBTP. The second-model frame review passed with zero sure visual problems; creator feedback is pending.
