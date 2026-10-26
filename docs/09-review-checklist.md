@@ -55,3 +55,8 @@
 - Match optical weight as well as equal tile dimensions. Transparent mascot posters may need deliberate
   upscaling; `thumbnail()` alone never enlarges a small source.
 - Preserve framing corrections when adopting a stronger reference's visual direction.
+
+- **Wipes and slide-ups must finish clean** (reel-review, 2026-10-26): an ease-out tail leaves a few pixels
+  of the previous picture showing for several frames, which reads as a glitch. Snap the last few percent
+  (`snap()` in `toolkit/src/PaperDrawerWA.tsx`). A numbered list with empty lines reads as unfinished:
+  give each row real content.

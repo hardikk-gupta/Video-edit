@@ -37,9 +37,22 @@
 - Captions: word pop, Classic with paper box, only while the face is alone; cards carry the line otherwise.
 - Sound: quiet page-turns where a card lands, one tap, one tick, one bloom; no swooshes (docs/05).
 - Unreviewed choices: card wording ("Seconds of this video I edited: 0", "Every cut, caption and card",
-  "…nobody explains it simply"), generic repo names on the full page, the end card "Follow along."
+  "…nobody explains it simply"), generic repo names on the full page, the three steps on the last card
+  (the real steps of this edit: watch, cut/cards/captions, second-model review), the end card "Follow along."
 
 ## Feedback rounds
 
-### v1 (2026-10-26)
-- In progress.
+### v1 (2026-10-26, internal, not shown)
+- reel-review (separate model) FAILED it: empty numbered list read as a placeholder; video slivers at the top
+  of page wipes (long ease-out tail); overlapping repo cards and a stuck-on padlock; low-contrast grey
+  sublines; list rows inside the bottom 22%.
+- Fixed in v2: list carries the three real steps; wipes/slides snap closed (`snap()`); repo cards in a clean
+  column with the lock beside them; sublines #5E5547; captions moved up; list lifted.
+
+### v2 (2026-10-26, sent)
+- reel-review PASS (no sure problems). Left as is: the face grows at 14.0–14.5 s because he leans into the
+  camera (source, not a zoom); repo page is left-weighted with empty right side.
+- Render: 1080×1920, 30 fps, 16.7 s, −14.7 LUFS, true peak −2.0 dB, audio = video length, full decode OK.
+- Built in Remotion: `npx remotion render src/entry-wa1832.ts PaperDrawerWA` (entry registers only this
+  composition). Hand edits: `npx remotion studio src/entry-wa1832.ts`.
+- The user's review: pending.

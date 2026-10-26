@@ -27,7 +27,7 @@ const END = 48; // end card
 export const PD_FRAMES = SPEECH + END;
 
 // ---------- Theme: Paper Craft ----------
-const C = {bg: '#F4EEE1', ink: '#1F1B16', accent: '#D9653B', soft: '#8A8070', line: '#D9CFBD', card: '#FBF8F1'};
+const C = {bg: '#F4EEE1', ink: '#1F1B16', accent: '#D9653B', soft: '#5E5547', line: '#D9CFBD', card: '#FBF8F1'};
 const SERIF = 'Fraunces';
 const SANS = 'Inter';
 const MONO = 'Space Mono';
@@ -46,6 +46,8 @@ const f = (s: number) => Math.round(s * FPS);
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 const OUT = Easing.bezier(0.16, 1, 0.3, 1);
 const ease = (fr: number, a: number, d: number, e = OUT) => interpolate(fr, [a, a + d], [0, 1], {...clamp, easing: e});
+// wipes and slides: finish cleanly instead of crawling the last few pixels
+const snap = (fr: number, a: number, d: number) => Math.min(1, ease(fr, a, d) * 1.08);
 // mg-kit pop-in: 6 frames, slight overshoot
 const pop = (fr: number, a: number) => interpolate(fr, [a, a + 4, a + 6], [0.6, 1.06, 1], clamp);
 
@@ -88,7 +90,13 @@ const framing = (fr: number) => {
   const ty0 = Math.min(0, Math.max(PD_H - S0 * PD_H, 1060 - S0 * cy));
   if (!d) return {S: S0, tx: tx0, ty: ty0};
   const p = ease(fr, d.from, 10);
-  const ty1 = Math.min(0, Math.max(CARD_TOP + 60 - PD_H, 540 - cy));
+  // Keep the whole head above the card: hair 30px below the top, chin 20px above the card;
+  // if both can't fit (leaning in), split the difference.
+  const h = smooth[Math.min(fr, SPEECH - 1)][2];
+  const tyHead = 30 - (cy - 0.78 * h);
+  const tyChin = CARD_TOP - 20 - (cy + 0.6 * h);
+  const want = tyHead <= tyChin ? Math.min(tyChin, Math.max(tyHead, 540 - cy)) : (tyHead + tyChin) / 2;
+  const ty1 = Math.min(0, Math.max(CARD_TOP + 60 - PD_H, want));
   return {S: interpolate(p, [0, 1], [S0, 1]), tx: interpolate(p, [0, 1], [tx0, 0]), ty: interpolate(p, [0, 1], [ty0, ty1])};
 };
 
@@ -115,20 +123,20 @@ const Grain: React.FC<{id: string; opacity?: number}> = ({id, opacity = 0.35}) =
 
 const Drawer: React.FC<{from: number; seed: number; children: React.ReactNode}> = ({from, seed, children}) => {
   const fr = useCurrentFrame();
-  const p = ease(fr, from, 10); // mg-kit slide-up
+  const p = snap(fr, from, 10); // mg-kit slide-up
   const y = interpolate(p, [0, 1], [PD_H - CARD_TOP + 60, 0]);
   return (
     <div style={{position: 'absolute', left: 0, top: CARD_TOP - 16, width: PD_W, height: PD_H - CARD_TOP + 16, transform: `translateY(${y}px)`, filter: 'drop-shadow(0 -14px 28px rgba(0,0,0,0.45))'}}>
       <div style={{position: 'absolute', inset: 0, background: C.bg, clipPath: torn(seed)}}>
         <Grain id={`g${seed}`} />
-        <div style={{position: 'absolute', left: 84, right: 84, top: 112}}>{children}</div>
+        <div style={{position: 'absolute', left: 84, right: 84, top: 96}}>{children}</div>
       </div>
     </div>
   );
 };
 
 const Heading: React.FC<{children: React.ReactNode; size?: number; style?: React.CSSProperties}> = ({children, size = 84, style}) => (
-  <div style={{fontFamily: SERIF, fontWeight: 600, fontSize: size, lineHeight: 1.04, letterSpacing: -1.5, color: C.ink, fontVariationSettings: '"opsz" 144, "SOFT" 50', ...style}}>{children}</div>
+  <div style={{fontFamily: SERIF, fontWeight: 600, fontSize: size, lineHeight: 1.06, letterSpacing: -0.5, color: C.ink, fontVariationSettings: '"opsz" 144, "SOFT" 50', ...style}}>{children}</div>
 );
 
 // mg-kit highlight: line drawn left to right in 8 frames
@@ -148,8 +156,8 @@ const CardSeconds: React.FC = () => {
   const z = f(1.3); // "second"
   return (
     <>
-      <Heading size={80}>Seconds of this video<br />I edited:</Heading>
-      <div style={{fontFamily: SERIF, fontWeight: 700, fontSize: 380, lineHeight: 0.9, color: C.accent, marginTop: 40, opacity: fr >= z ? 1 : 0, transform: `scale(${pop(fr, z)})`, transformOrigin: '0% 70%', fontVariationSettings: '"opsz" 144'}}>0</div>
+      <Heading size={100}>Seconds of this video<br />I edited:</Heading>
+      <div style={{fontFamily: SERIF, fontWeight: 700, fontSize: 470, lineHeight: 0.9, color: C.accent, marginTop: 30, opacity: fr >= z ? 1 : 0, transform: `scale(${pop(fr, z)})`, transformOrigin: '0% 70%', fontVariationSettings: '"opsz" 144'}}>0</div>
     </>
   );
 };
@@ -158,9 +166,9 @@ const CardClaude: React.FC = () => {
   const at = f(2.56);
   return (
     <>
-      <Heading size={200} style={{letterSpacing: -5}}>Claude did.</Heading>
-      <Underline at={at + 6} width={600} />
-      <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 48, color: C.soft, marginTop: 56}}>Every cut, caption and card.</div>
+      <Heading size={210} style={{letterSpacing: -3, marginTop: 20}}>Claude did.</Heading>
+      <Underline at={at + 6} width={640} />
+      <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 58, color: C.soft, marginTop: 44}}>Every cut, caption and card.</div>
     </>
   );
 };
@@ -170,31 +178,28 @@ const CardHow: React.FC = () => {
   const z = f(6.6); // "easier"
   return (
     <>
-      <Heading size={96}>How this<br />actually works…</Heading>
-      <Underline at={f(5.3)} width={560} top={4} />
-      <div style={{marginTop: 64, opacity: fr >= z ? 1 : 0, transform: `scale(${pop(fr, z)})`, transformOrigin: '0% 50%', fontFamily: SANS, fontWeight: 600, fontSize: 56, lineHeight: 1.2, color: C.ink}}>
+      <Heading size={124}>How this<br />actually works…</Heading>
+      <Underline at={f(5.3)} width={720} top={4} />
+      <div style={{marginTop: 64, opacity: fr >= z ? 1 : 0, transform: `scale(${pop(fr, z)})`, transformOrigin: '0% 50%', fontFamily: SANS, fontWeight: 600, fontSize: 66, lineHeight: 1.2, color: C.ink}}>
         …nobody explains it <span style={{color: C.accent}}>simply.</span>
       </div>
     </>
   );
 };
 
+const STEPS = ['Claude watches the footage', 'Cuts, cards, captions', 'A second AI reviews it'];
 const CardList: React.FC = () => {
   const fr = useCurrentFrame();
   return (
     <>
-      <Heading size={96}>How to do this</Heading>
-      <div style={{marginTop: 70}}>
-        {[0, 1, 2].map((i) => {
-          const at = f(13.75) + i * 7;
-          const p = ease(fr, at, 10);
+      <Heading size={100}>How to do this</Heading>
+      <div style={{marginTop: 34}}>
+        {STEPS.map((step, i) => {
+          const at = f(13.75) + i * 8;
           return (
-            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 36, height: 120, opacity: fr >= at ? 1 : 0}}>
-              <div style={{fontFamily: SERIF, fontWeight: 600, fontSize: 72, color: C.accent, width: 50, transform: `scale(${pop(fr, at)})`}}>{i + 1}</div>
-              <svg width={720} height={20}>
-                <line x1={4} y1={10} x2={716} y2={10} stroke={C.ink} strokeOpacity={0.28} strokeWidth={5} strokeLinecap="round" strokeDasharray="2 16" pathLength={1} />
-                <rect x={0} y={0} width={720 * (1 - p)} height={20} fill={C.bg} transform={`translate(${720 * p} 0)`} />
-              </svg>
+            <div key={i} style={{display: 'flex', alignItems: 'baseline', gap: 30, height: 100, opacity: fr >= at ? 1 : 0, transform: `scale(${pop(fr, at)})`, transformOrigin: '0% 50%'}}>
+              <div style={{fontFamily: SERIF, fontWeight: 600, fontSize: 76, color: C.accent, width: 50}}>{i + 1}</div>
+              <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 56, color: C.ink, letterSpacing: -0.5}}>{step}</div>
             </div>
           );
         })}
@@ -205,9 +210,9 @@ const CardList: React.FC = () => {
 
 // ---------- Full page: everyone's own repo, everyone's secret methods ----------
 const REPOS = [
-  {name: 'my-reel-setup', rot: -5, x: 120, y: 700, at: 7.58},
-  {name: 'edit-pipeline-v7', rot: 3, x: 200, y: 930, at: 8.2},
-  {name: 'claude-workflow', rot: -1.5, x: 140, y: 1160, at: 8.68},
+  {name: 'my-reel-setup', rot: -2, x: 96, y: 640, at: 7.58},
+  {name: 'edit-pipeline-v7', rot: 1.5, x: 96, y: 910, at: 8.2},
+  {name: 'claude-workflow', rot: -1, x: 96, y: 1180, at: 8.68},
 ];
 
 const RepoCard: React.FC<{r: (typeof REPOS)[number]; i: number}> = ({r, i}) => {
@@ -217,15 +222,15 @@ const RepoCard: React.FC<{r: (typeof REPOS)[number]; i: number}> = ({r, i}) => {
   const s = pop(fr, at);
   const redact = f(10.14) + i * 4; // "secret"
   return (
-    <div style={{position: 'absolute', left: r.x, top: r.y, width: 760, height: 330, transform: `rotate(${r.rot}deg) scale(${s})`, background: C.card, borderRadius: 18, border: `2px solid ${C.line}`, boxShadow: '0 18px 40px rgba(60,40,20,0.18)', padding: '40px 48px'}}>
+    <div style={{position: 'absolute', left: r.x, top: r.y, width: 680, height: 240, transform: `rotate(${r.rot}deg) scale(${s})`, background: C.card, borderRadius: 18, border: `2px solid ${C.line}`, boxShadow: '0 18px 40px rgba(60,40,20,0.18)', padding: '34px 44px'}}>
       <div style={{display: 'flex', alignItems: 'center', gap: 20}}>
         <svg width={46} height={38} viewBox="0 0 46 38"><path d="M2 6 a4 4 0 0 1 4-4 h12 l5 6 h17 a4 4 0 0 1 4 4 v20 a4 4 0 0 1-4 4 H6 a4 4 0 0 1-4-4z" fill="none" stroke={C.ink} strokeWidth={3} /></svg>
         <div style={{fontFamily: MONO, fontSize: 40, color: C.ink}}>{r.name}</div>
       </div>
-      {[560, 640, 420].map((w, k) => {
+      {[520, 400].map((w, k) => {
         const p = ease(fr, redact + k * 3, 8);
         return (
-          <div key={k} style={{position: 'relative', marginTop: k ? 26 : 44, height: 22, width: w}}>
+          <div key={k} style={{position: 'relative', marginTop: k ? 24 : 36, height: 22, width: w}}>
             <div style={{position: 'absolute', inset: 0, background: C.line, borderRadius: 11}} />
             <div style={{position: 'absolute', left: -6, top: -9, height: 40, width: (w + 12) * p, background: C.ink, borderRadius: 4}} />
           </div>
@@ -239,7 +244,7 @@ const Lock: React.FC<{at: number}> = ({at}) => {
   const fr = useCurrentFrame();
   if (fr < at) return null;
   return (
-    <svg width={150} height={170} viewBox="0 0 150 170" style={{position: 'absolute', left: 820, top: 1110, transform: `rotate(8deg) scale(${pop(fr, at)})`, filter: 'drop-shadow(0 10px 18px rgba(60,40,20,0.25))'}}>
+    <svg width={150} height={170} viewBox="0 0 150 170" style={{position: 'absolute', left: 830, top: 1220, transform: `rotate(8deg) scale(${pop(fr, at)})`, filter: 'drop-shadow(0 10px 18px rgba(60,40,20,0.25))'}}>
       <path d="M38 72 V50 a37 37 0 0 1 74 0 V72" fill="none" stroke={C.ink} strokeWidth={14} strokeLinecap="round" />
       <rect x={14} y={70} width={122} height={92} rx={18} fill={C.accent} />
       <circle cx={75} cy={108} r={11} fill={C.bg} />
@@ -251,7 +256,7 @@ const Lock: React.FC<{at: number}> = ({at}) => {
 const RepoPage: React.FC = () => {
   const fr = useCurrentFrame();
   const swap = f(9.28); // second "everyone"
-  const wipe = ease(fr, PAGE.from, 8); // mg-kit wipe
+  const wipe = snap(fr, PAGE.from, 8); // mg-kit wipe
   return (
     <AbsoluteFill style={{background: C.bg, clipPath: `inset(${(1 - wipe) * 100}% 0 0 0)`}}>
       <Grain id="gpage" />
@@ -272,16 +277,16 @@ const RepoPage: React.FC = () => {
 
 const EndCard: React.FC = () => {
   const fr = useCurrentFrame();
-  const wipe = ease(fr, SPEECH, 8);
+  const wipe = snap(fr, SPEECH, 8);
   return (
     <AbsoluteFill style={{background: C.bg, clipPath: `inset(${(1 - wipe) * 100}% 0 0 0)`}}>
       <Grain id="gend" />
       <div style={{position: 'absolute', left: 96, right: 96, top: 760}}>
         <div style={{transform: `scale(${pop(fr, SPEECH + 6)})`, transformOrigin: '0% 50%'}}>
-          <Heading size={150} style={{letterSpacing: -4}}>Follow along.</Heading>
+          <Heading size={156} style={{letterSpacing: -3}}>Follow along.</Heading>
         </div>
         <Underline at={SPEECH + 12} width={520} />
-        <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 46, color: C.soft, marginTop: 48, opacity: ease(fr, SPEECH + 14, 8)}}>This one was edited by Claude.</div>
+        <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 56, color: C.soft, marginTop: 52, opacity: ease(fr, SPEECH + 14, 8)}}>This one was edited by Claude.</div>
       </div>
     </AbsoluteFill>
   );
@@ -310,7 +315,7 @@ const Captions: React.FC = () => {
   if (cutOf(f(c.t)) !== cutOf(fr)) return null;
   const at = f(c.t);
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 470, display: 'flex', justifyContent: 'center'}}>
+    <div style={{position: 'absolute', left: 0, right: 0, top: 330, display: 'flex', justifyContent: 'center'}}>
       <div style={{transform: `scale(${pop(fr, at)})`, background: C.bg, color: c.key ? C.accent : C.ink, fontFamily: SANS, fontWeight: 700, fontSize: 92, letterSpacing: -2, padding: '14px 40px 20px', borderRadius: 22, boxShadow: '0 10px 30px rgba(0,0,0,0.35)'}}>
         {c.text}
       </div>
