@@ -19,6 +19,7 @@ work happens. This repo holds only methods, rules, references and code.
 | [docs/04-motion-rules.md](docs/04-motion-rules.md) | Do's and don'ts for motion, framing and layout, most of them learned from feedback. |
 | [docs/05-sound.md](docs/05-sound.md) | Voice cleanup, SFX library, placement, loudness. |
 | [docs/06-tools-skills-mcp.md](docs/06-tools-skills-mcp.md) | Every tool, MCP server, skill, library and repo we used, and how. |
+| [docs/14-ecosystem.md](docs/14-ecosystem.md) | Other creators' tools and repos by need (effects, background removal, reframe, captions, sound) and what we should add next. |
 | [docs/13-skills.md](docs/13-skills.md) | The skills in `.claude/skills/` (edit formats, pipeline stages, `watch`), where they came from, and where our rules override them. |
 | [docs/07-references.md](docs/07-references.md) | Reference videos we studied and what we took from each. |
 | [docs/08-environment-gotchas.md](docs/08-environment-gotchas.md) | Things that broke and the fix. |

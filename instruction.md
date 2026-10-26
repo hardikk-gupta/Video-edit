@@ -14,6 +14,8 @@ Do these in order before cutting or designing anything:
    caption, layered-head, b-roll-style, card-list, vlog, long-form, board-build). Open the `SKILL.md` of each
    one you will use. **The skills' process is the default way to work** (Hardik, 2026-10-26: use their process
    over ours): start from `reel-edit` and run its stages. Only Hardik's own explicit feedback (docs/10) overrides a skill.
+   When a video needs something no skill covers (orbs, overlays, background removal, reframing, a new caption
+   or collage style), look it up in [docs/14-ecosystem.md](docs/14-ecosystem.md): other creators' repos and libraries, by need.
 3. **Watch first.** Use the `watch` skill on Hardik's footage and on every reference he sent: contact sheets +
    transcript (`--model medium` for Hinglish), then a written breakdown (hook, beats, on-screen text, layout,
    pacing, what makes it work). Use `learn-style` when a reference is the style to match. Never design from
