@@ -1,5 +1,9 @@
 # Changelog
 
+- 2026-10-26 · Built the unreviewed draft for “Claude edits this reel” in Remotion: one continuous take,
+  a measured 9:16 presenter split, word-timed captions, and Hairline diagrams matched to the spoken beats.
+  Created the project instructions and validation record. Awaiting Hardik's review before final mastering.
+
 One dated entry per change, oldest first. Append in the same commit as the change.
 
 - 2026-10-20 · Created the playbook from the first project (AI automations talk, v1→v3): AGENTS.md operating
