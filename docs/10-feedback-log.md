@@ -180,3 +180,11 @@ agent observations, not invented user quotes or blanket approval of the uploaded
 Applied: combine the upload's visual system with retained face tracking, larger labels and equal identity
 tiles; use linework throughout. Keep the original hook and precise spoken cues. Do not mistake technical
 framing fixes for completed art direction. The resulting rework is awaiting Hardik's review.
+
+## Repo process (2026-10-26)
+
+- **Hardik's words:** after the skills were installed: "use their process over ours" (close paraphrase of
+  "use there process over rights ouss").
+- **Agent interpretation:** the installed skills (`reel-edit` and its stages) are now the default process;
+  our older docs give way where they differ. His own explicit feedback still overrides a skill (it is his
+  direction, e.g. the quiet-SFX rule). Recorded in docs/13 and instruction.md.

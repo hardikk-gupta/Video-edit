@@ -4,9 +4,11 @@ All skills live in **`.claude/skills/<name>/SKILL.md`**. Claude Code loads them 
 `.agents/skills` is a symlink to the same folder for Codex and other agents. An agent that loads neither
 reads the `SKILL.md` files directly. Every skill is plain Markdown with a `name` and `description` at the top.
 
-**Precedence:** [instruction.md](../instruction.md) > Hardik's feedback ([10](10-feedback-log.md)) > our docs >
-these skills. They were written by other people for other creators. Where they disagree with us, we win.
-Known conflicts are listed at the bottom of this file.
+**Precedence (Hardik, 2026-10-26: "use their process over ours"):** Hardik's own explicit feedback
+([10](10-feedback-log.md)) > **these skills** > our older docs. The skills' process is the default: every edit
+starts at `reel-edit` and runs its stages in order. Our docs fill gaps the skills don't cover (Remotion code,
+Hairline, environment). Where an older doc of ours disagrees with a skill, follow the skill. The few places
+where Hardik's own words override a skill are listed at the bottom.
 
 ## Sources and licences
 
@@ -62,14 +64,21 @@ Pick one per video, or a stated mix, and record the choice in the project's `ins
 | 9 | `reel-review` | A separate reviewer on a different model checks frames before Hardik sees anything |
 | 10 | `editor-handoff` | Opens the project in Remotion/HyperFrames Studio for hand changes; collects notes |
 
-## Known conflicts with our rules (ours win)
+## Where Hardik's own feedback overrides a skill
 
-- **`sfx-design`** wants "a sound for each thing that moves". Hardik's rule ([05](05-sound.md)): sparse, quiet, only
-  `tap`/`bloom` on moments that land, never swoosh everywhere.
-- **`split-screen`** suggests a 58/42 split with a coloured divider and screen recordings. For Hardik: his whole
-  face always visible, no inner card, no screenshots when he rejects them, captions on the seam ([12](12-split-screen-explainer.md)).
-- **`caption-edit`** uses light zooms on the face. Our standing rule: don't zoom or tint the speaker ([04](04-motion-rules.md)).
-- **`mg-kit` / `design-asset` brand tokens and `reel-edit/themes.md`** are examples, not our look. Type and colour
-  come from instruction.md and the current references (Inter natural type, no Anton by default, no eyebrows).
-- **Tool paths:** the skills assume HyperFrames/whisperx/Palmier. We use Remotion, faster-whisper and our
-  `toolkit/scripts`. Map each step to our tools ([06](06-tools-skills-mcp.md)).
+Only his explicit words beat the skills. Everything else follows the skill.
+
+- **`sfx-design`** says "a sound for each thing that moves". Hardik on the jinn v2 (2026-10-22): the SFX were
+  "so loud", "swoosh everywhere", "supposed to be very supporting". So keep `sfx-design`'s method (timed to the
+  motion peak, mixed under the voice) but place sounds only where something lands, quietly, no swooshes ([05](05-sound.md)).
+- **`split-screen`** layout: for Hardik's split videos his whole face is always visible, there's no inner card,
+  and no page screenshots when he rejects them (his v1 feedback, [12](12-split-screen-explainer.md)). The
+  skill's process (stages, sync to speech) applies as written.
+- **`reel-edit/themes.md`, `mg-kit` tokens:** his typography feedback stands (natural Inter-like type, no Anton by
+  default, no tiny eyebrows: instruction.md). Use the skills' timing, easing and entrance rules as written.
+
+## Tool mapping (not a conflict)
+
+The skills assume HyperFrames, whisperx and Palmier. Here: Remotion (`toolkit/`), faster-whisper
+(`toolkit/scripts/transcribe.py`) and Remotion Studio for `editor-handoff`. Use the skill's step with the
+equivalent tool ([06](06-tools-skills-mcp.md)).

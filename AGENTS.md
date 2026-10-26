@@ -89,6 +89,6 @@ Working habits that made the difference:
 - `docs/11-pulling-references.md`: how to source real product imagery when a video is about real products.
 - `docs/12-split-screen-explainer.md`: the 9:16 split format (sources on top, speaker below) and `toolkit/scripts/web_shot.mjs` for page captures with element boxes.
 - `projects/<date>-<name>/`: what was decided for each video.
-- `.claude/skills/` (symlinked as `.agents/skills/`): 29 skills: 28 editing skills incl. ten edit formats, and `watch`. All MIT, third-party. Index, sources and conflicts: `docs/13-skills.md`. instruction.md and Hardik's feedback win over them.
+- `.claude/skills/` (symlinked as `.agents/skills/`): 29 skills: 28 editing skills incl. ten edit formats, and `watch`. All MIT, third-party. Index, sources and conflicts: `docs/13-skills.md`. Their process is the default (Hardik, 2026-10-26); only Hardik's explicit feedback overrides a skill.
 - `projects/_template/instructions.md`: the per-video instruction file every job starts with.
 - `docs/06-tools-skills-mcp.md`: the tools, MCP servers, skills and repos used, and how.

@@ -12,7 +12,8 @@ Do these in order before cutting or designing anything:
 2. **See which skills exist:** [docs/13-skills.md](docs/13-skills.md) indexes every skill in `.claude/skills/`
    (also reachable as `.agents/skills/`), including the edit formats (split-screen, paper-drawer, whiteout,
    caption, layered-head, b-roll-style, card-list, vlog, long-form, board-build). Open the `SKILL.md` of each
-   one you will use. This file and Hardik's feedback outrank the skills.
+   one you will use. **The skills' process is the default way to work** (Hardik, 2026-10-26: use their process
+   over ours): start from `reel-edit` and run its stages. Only Hardik's own explicit feedback (docs/10) overrides a skill.
 3. **Watch first.** Use the `watch` skill on Hardik's footage and on every reference he sent: contact sheets +
    transcript (`--model medium` for Hinglish), then a written breakdown (hook, beats, on-screen text, layout,
    pacing, what makes it work). Use `learn-style` when a reference is the style to match. Never design from
