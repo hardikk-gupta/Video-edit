@@ -89,4 +89,5 @@ Working habits that made the difference:
 - `docs/11-pulling-references.md`: how to source real product imagery when a video is about real products.
 - `docs/12-split-screen-explainer.md`: the 9:16 split format (sources on top, speaker below) and `toolkit/scripts/web_shot.mjs` for page captures with element boxes.
 - `projects/<date>-<name>/`: what was decided for each video.
+- `skills/vendor/instagram-video-skills/`: 28 third-party (MIT) editing skills copied for study; see `skills/README.md`. Reference only; our docs and Hardik's feedback win.
 - `docs/06-tools-skills-mcp.md`: the tools, MCP servers, skills and repos used, and how.

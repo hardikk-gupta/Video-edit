@@ -44,3 +44,4 @@ One dated entry per change, oldest first. Append in the same commit as the chang
 - 2026-10-22 · Validated the jinn rework export:1080×1920,30fps,1687frames,56.233s; full decode
   and TypeScript passed,16 beat stills and final28-frame contact sheet reviewed. Existing mastered AAC
   stream preserved exactly; presenter framing/captions unchanged. Published code and learnings; review pending.
+- 2026-10-26 · Copied the 28 skills from ritu-dadhwal4/instagram-video-skills (MIT) into `skills/vendor/instagram-video-skills/` for study, after Hardik shared a screenshot of the same skill names. Added `skills/README.md` (source, commit, licence, status) and a pointer in AGENTS.md. Not yet merged into our rules.
