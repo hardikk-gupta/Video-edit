@@ -97,3 +97,13 @@
 - Random stock photos.
 - Repeating a condensed headline, decorative cross, tiny overline and stacked-card layout because the
   previous file already contains them.
+
+## Learned on the "Claude did" reel (2026-10-27)
+
+- A recurring doodle character needs a job in the story (here: the pet is the editor), not a cameo.
+- Link beats with motivated transitions: zoom through an element into the next scene, whip pan with motion
+  blur, a pencil line that redraws the footage. Hard cuts are for register changes (face ↔ split), not everything.
+- Draw doodles on stroke by stroke and build headlines word by word; finished graphics that just pop in read as slides.
+- A graphics panel is never plain empty white: use a quiet texture (dot grid, paper) behind it.
+- Hold a punchline long enough to read; extend it over the pause that follows it.
+- A zoom-through must be centred on the hole you fly through: draw that shape yourself (an exact ellipse) instead of guessing where a font glyph's counter is.

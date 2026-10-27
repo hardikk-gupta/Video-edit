@@ -212,3 +212,14 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
   pet in the Hairline-style line language; if a specific existing mascot was meant, swap it in.
 - **Applied in v3:** `toolkit/src/SplitMixWA.tsx`. Review: second model PASS; its "likely" notes (harsh sketch,
   crowded folder labels, hard-cropped push-in) fixed before sending. The user's review: pending.
+
+## 2026-10-27 · "Claude did" v3 → v4
+
+- **User's words:** "is thsi best you can do foret all my instrution give me one best from your side".
+- **Agent interpretation:** v3 met the instructions literally but not the bar. Lessons kept for future reels
+  (added to docs/04): give a recurring doodle character a job in the story instead of using it as a prop;
+  connect beats with motivated transitions (zoom-through, whip pan, pencil wipe) instead of only hard cuts;
+  draw doodles on and build type word by word rather than popping finished graphics; never leave the top
+  panel as empty white (a quiet texture such as a dot grid); hold a punchline long enough to read (use the
+  pause after it).
+- **Applied in v4:** `toolkit/src/ClaudeDidV4.tsx`. Second-model review PASS. The user's review: pending.

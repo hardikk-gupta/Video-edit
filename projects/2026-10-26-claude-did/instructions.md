@@ -70,4 +70,20 @@
 - Sound: `sfx.json` (8 cues by sfx-design) mixed by `toolkit/scripts/mix_sfx.py`. −14.6 LUFS, TP −1.9 dB.
 - Review: second model PASS; fixed its likely notes (sketch look, folder labels, push-in crop, underline).
 - Promoted: sound rule, palette rule, zoom-cut exception (docs/05, docs/13, instruction.md, AGENTS.md).
+- The user's review: "is this best you can do… give me one best from your side" → v4.
+
+### v4 (2026-10-27, sent)
+- The user's words: "is thsi best you can do foret all my instrution give me one best from your side".
+- Agent's own critique of v3: top panel read as slides (pop in, sit still, empty white); the pet was a prop;
+  most beat changes were hard cuts (few zoom effects); static headlines; "Claude did." under 0.5 s; the
+  sketch restyle switched on abruptly.
+- v4 (`toolkit/src/ClaudeDidV4.tsx`, same brief and palette): the pet is the editor and carries the story
+  (drops the last clip into the timeline → zoom-through the "0" into the white "Claude did." held through the
+  pause → stuck at its laptop while a pencil sweeps across and redraws the speaker as a sketch → folders draw
+  on, padlocks snap, push-in → its key opens the padlock and the steps type on → waves on the end card).
+  Doodles draw on stroke by stroke with a 3-frame boil; headlines arrive word by word out of a blur;
+  full-face captions build word by word; dot-grid notebook background; hand-drawn seam line.
+- Sketch restyle rebuilt: bilateral denoise + `pencilSketch` + temporal blend (no boiling noise).
+- Sound: `sfx-v4.json`, 8 cues by sfx-design, `mix_sfx.py`. −14.7 LUFS, TP −2.0 dB.
+- Review: second model PASS; fixed its likely notes (sketch flicker, key legibility).
 - The user's review: pending.

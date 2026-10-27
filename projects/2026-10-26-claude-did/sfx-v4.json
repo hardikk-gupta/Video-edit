@@ -1,0 +1,16 @@
+{
+  "rule": "sfx-design: one sound per moving thing, loudest on the fastest frame, at most one every 1.5 s, no variant twice in a row, ~12 dB under the voice (speech median -23 dBFS RMS -> effect peak -35). Effects only.",
+  "target_peak_dbfs": -35,
+  "events": [
+    {"t": 0.56,  "sfx": "whip",   "motion": "zoom cut on 'edit'"},
+    {"t": 2.52,  "sfx": "whoosh", "motion": "zoom-through the 0 (fastest at the end of an ease-in)"},
+    {"t": 4.10,  "sfx": "swoosh", "motion": "drawer slides up + pencil wipe across the speaker"},
+    {"t": 5.72,  "sfx": "pop",    "motion": "second '?' pops"},
+    {"t": 7.58,  "sfx": "tap",    "motion": "first folder draws on"},
+    {"t": 10.14, "sfx": "tick",   "motion": "padlocks snap shut"},
+    {"t": 13.77, "sfx": "switch", "motion": "key turns, padlock opens"},
+    {"t": 15.27, "sfx": "ding",   "motion": "end-card underline"}
+  ],
+  "skipped_for_spacing": ["2.10 clip drops into the timeline", "7.07 whip pan", "9.28 headline swap", "10.48 push-in", "12.82 zoom cut", "13.50 drawer"],
+  "sources": "toolkit/public/sfx (docs/05)"
+}
