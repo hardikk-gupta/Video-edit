@@ -188,3 +188,17 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
 - **Agent interpretation:** the installed skills (`reel-edit` and its stages) are now the default process;
   our older docs give way where they differ. His own explicit feedback still overrides a skill (it is his
   direction, e.g. the quiet-SFX rule). Recorded in docs/13 and instruction.md.
+
+## 2026-11-02 · "Editing with Claude" mascot reel (brief + mid-build note)
+
+- **Hardik's words (close paraphrase):** make a captioned video on how to edit videos using Claude ("no one is telling
+  this… this is your final stop, save this"). It tells our portable process, and the repo can be shared. A 2–3 s **match cut** hook
+  with short catchy text like "Editing with Claude", then the **mascot explains everything**, and the **script at the end**
+  for his voice-over. Learn from the five reference reels; the match-cut reference is one of them. "Fully well
+  designed… a story well explained like a senior filmmaker… crazy taste… UI/UX designer and design engineer." Ask
+  everything up front, nothing in the middle or at the end.
+- Up-front choices: "Editing with Claude"; ~45 s English; Clawd acts (no lip sync); only "Comment EDIT"; references
+  learned, not shown; one-word centred captions; painted Clawd + clean UI; quiet SFX only.
+- **Mid-build:** "change the bg of Clawd mascot, keep it something like a feel of cinematic type thing."
+- **Lesson (agent):** a mascot stage should be lit like a scene (dark ground, one motivated light, haze), not left
+  on a flat default paper. Ask up front, then only report progress: Hardik wants no questions mid-job.

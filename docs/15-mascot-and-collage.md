@@ -113,3 +113,24 @@ subject imagery (docs/11) or generated pieces he approved, never random web phot
 - **Gemini key:** kept out of Git. In a session it lives in `~/.config/video-edit/gemini.env`
   (`. ~/.config/video-edit/gemini.env`). Long term it belongs in the cloud environment settings as `GEMINI_API_KEY`.
   Ask before spending any credits.
+
+## 6. Making a Clawd video in this repo (learned on "Editing with Claude", 2026-11-02)
+
+- **Portrait working copy:** `toolkit/clawd/setup.sh <scene.js> <workdir> <duration> <bpm>` copies the pinned base into a
+  gitignored workdir and makes the canvas 1080×1920. It also drops the Google Fonts request, removes page-load
+  timeouts and patches in a warm-up frame (`toolkit/clawd/patch_render.py`). Scenes live in `toolkit/clawd/` (committed).
+- **Split of labour:** Clawd and its painted world come from the base, with no text in them. Remotion
+  (`toolkit/src/EditWithClaude.tsx`, entry `src/ewc.ts`) adds the hook, UI cards, captions and SFX on top of the
+  frames, using a symlink `toolkit/public/edits/ewc → <workdir>/out`.
+- **Render speed under software GL (4 CPUs):**
+  - a page renders ~5 frames fast, then settles at **~12–20 s per frame**;
+  - opening a page costs 40–60 s, so recycling pages doesn't help;
+  - `--workers=4` in one browser share one GPU process and gain nothing.
+
+  What works: **2 separate processes** with `--workers=1` on disjoint `--range` spans, and Clawd drawn **on threes (8 fps)**.
+  That's ~10 s per frame overall, so 45 s of Clawd takes about an hour. Check stills first with `--sheet`.
+- **Never `pkill -f render.mjs`** from a command whose own text contains that string, because it kills the shell running
+  it. Stopping a background task doesn't always stop its node/chrome children either: check `pgrep -x chrome`.
+- **Dark (cinematic) stages:** set `PAL.paper` to the night colour at the top of the scene. A full-frame background wash
+  sometimes fails under software GL and leaves a pale frame. Light comes from translucent washes (a beam), `glow()` (halo,
+  dust) and a warm pool on the floor. Hardik asked for this cinematic look over the default paper.

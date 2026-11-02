@@ -24,6 +24,8 @@ Do these in order before cutting or designing anything:
    [projects/_template/instructions.md](projects/_template/instructions.md)). It holds Hardik's brief in his
    words, what was learned from watching, the chosen format skill(s), and the rules for this video. It is the
    working file for the job; update it with every round of feedback.
+   **Ask every question at this point, all at once** (Hardik, 2026-11-02): once the job starts, don't stop to ask;
+   report progress in a line and finish. Decide anything new yourself and record it in the project file.
 5. **Edit, then watch your own render** (the `watch` and `reel-review` steps) before Hardik sees it.
 6. **Push lessons up into this file.** When feedback or an approval shows a rule that should hold for future
    videos, move it from the project's `instructions.md` into this file (and the affected doc), in the same
