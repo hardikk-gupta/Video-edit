@@ -101,10 +101,15 @@ collage style.
 The no-stock rule in AGENTS.md still applies: collage elements come from Hardik's images, official
 subject imagery (docs/11) or generated pieces he approved, never random web photos.
 
-## 5. Before the first real use
+## 5. Decisions and setup so far
 
-- Get Hardik's OK to run `npm install` in `vendor/claude-animation-base`. We have Node 22, ffmpeg and Chrome.
-  There's no GPU, so pass `--soft-gl` and expect seconds per frame on watercolour fills, or ask the model to
-  avoid those fills.
-- Decide route A, B or C with Hardik. For B, fill in the character-sheet template first.
-- A `GEMINI_API_KEY` is needed for collage B-roll and route C. Ask before spending any credits.
+- **Route A chosen (2026-11-02):** Clawd as-is. Use it for videos about Claude, under the brand caution in §3.
+- **Smoke test passed (2026-11-02):** `npm install` ran in `vendor/claude-animation-base`, and a 4-frame sheet of the
+  demo rendered correctly with `node render.mjs --soft-gl --chrome=/usr/bin/google-chrome --sheet=1,4,7,10`.
+- **Render speed in this container (4 CPUs, no GPU, software GL):** about **35–55 s per frame** on watercolour
+  scenes. A 15 s clip at 24 fps is 360 frames, which is roughly 1–1.5 h with `--frames --workers=4`. So iterate on
+  `--sheet` and `--strip` stills, and render the full clip only once the storyboard and key poses are approved. For
+  drafts, drop the watercolour `fill` backgrounds (README advice) or render a lower `--fps`.
+- **Gemini key:** kept out of Git. In a session it lives in `~/.config/video-edit/gemini.env`
+  (`. ~/.config/video-edit/gemini.env`). Long term it belongs in the cloud environment settings as `GEMINI_API_KEY`.
+  Ask before spending any credits.
