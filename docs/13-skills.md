@@ -21,6 +21,14 @@ The files were copied as-is. If you change one for our use, say so in CHANGELOG.
 of a paid "skills.zip" with the same skill names. Its extra `docs/` style specs, `tools/` scripts and 115-page
 PDF are **not** in this repo and were not obtained.
 
+**Fetched skills (2026-11-02, docs/15):** `toolkit/scripts/fetch_vendor.sh` pulls five pinned projects into `vendor/`
+(gitignored) and links their skills here: `onetake` (PolyForm **Noncommercial**: not for paid videos),
+`gbro-collage-broll` (MIT, needs `GEMINI_API_KEY`), `lemo-opuscar` (MIT, 66 code-film styles), and HyperFrames'
+`hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `remotion-to-hyperframes`, `reverse-any-video`,
+`slideshow` (Apache-2.0). The links are gitignored too, so a fresh clone runs the script again. Our own
+`mascot-animate` skill (committed) drives Claude Animation Base (`vendor/claude-animation-base`, MIT) from a
+character sheet. Same precedence as above: Hardik's feedback still wins.
+
 ## Step 0, always: watch
 
 | Skill | Use |
