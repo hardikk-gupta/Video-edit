@@ -2,7 +2,7 @@
 
 A 45 s, 1080×1920 reel. Clawd, the Claude Code mascot, walks into a spotlight and acts out our six-step process while
 UI cards explain each step. It opens with a 2.7 s match-cut hook. Brief, answers and rules: [instructions.md](instructions.md).
-Voice-over script with times: [script.md](script.md). **Status: v1 rendered, Hardik's review pending.**
+Voice-over script with times: [script.md](script.md). **Status: v1 rendered 2026-11-02 (341 Clawd frames, ~1 h on 4 CPUs; final MP4 kept outside Git). Hardik's review pending.**
 
 ## How it's built
 
