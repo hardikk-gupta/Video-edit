@@ -202,3 +202,15 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
 - **Mid-build:** "change the bg of Clawd mascot, keep it something like a feel of cinematic type thing."
 - **Lesson (agent):** a mascot stage should be lit like a scene (dark ground, one motivated light, haze), not left
   on a flat default paper. Ask up front, then only report progress: Hardik wants no questions mid-job.
+
+## 2026-11-03 · "Editing with Claude" v1 → v2
+
+- **Hardik's words (close paraphrase):** asked whether v1 was final or whether it should use other effects, transitions
+  or styles (Claude Animation Base, OneTake…). After the agent's critique: "Create version 2 with all the new changes you
+  suggested."
+- **The critique he approved:** v1 read as a slideshow (same layout every step, cards replaced instead of carried, ~5 s
+  metronome beats); Clawd stood on one mark for 35 s; the hook landed on a flat colour; the intro card sat empty; and the
+  reel-review gate had been skipped. Don't mix in other looks (collage, Lemo styles): one film, one look.
+- **Lesson (agent):** OneTake's rhythm checks passed v1 anyway. Rhythm numbers don't catch a slideshow; only "what
+  survives each cut and moves into the next beat" does. Plan a carry at every boundary before building. Run reel-review
+  before sending, every time.

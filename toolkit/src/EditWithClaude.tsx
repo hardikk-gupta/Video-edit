@@ -290,7 +290,7 @@ const StepWatch: React.FC = () => {
   return (
     <Scene i={2} delay={.35}>
       <div style={{position: 'absolute', inset: 18, borderRadius: 20, background: '#F4EEE5', opacity: 1 - ease(t, 13.0, .5)}} />
-      {THUMBS.map((s, i) => { const k = ease(t, 13.0 + i * .3, .35); const r = thumbR(i); if (PICKS.includes(i) && t >= FLY3.a) return null;
+      {THUMBS.map((s, i) => { const k = ease(t, 12.7 + i * .26, .35); const r = thumbR(i); if (PICKS.includes(i) && t >= FLY3.a) return null;
         return <div key={i} style={{position: 'absolute', left: r.x - BX, top: r.y - BY, opacity: k, transform: `scale(${.92 + .08 * k})`}}>
           <Thumb s={s} w={TW} h={TH} />
           <div style={{fontFamily: MONO, fontSize: 18, color: MUTED, marginTop: 8}}>00:{String(Math.floor(s)).padStart(2, '0')}.{Math.round((s % 1) * 10)}</div>

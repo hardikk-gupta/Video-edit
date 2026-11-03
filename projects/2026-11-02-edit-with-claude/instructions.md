@@ -50,3 +50,16 @@ look **painted Clawd + clean UI**; sound **quiet SFX only** (his VO and any musi
 
 ### v1 (2026-11-02)
 - Built to the brief above; cinematic background applied mid-build at Hardik's request. Review pending.
+
+### v2 (2026-11-03): Hardik: "Create version 2 with all the new changes you suggested"
+- **One workspace window for the whole film.** The hook's "Claude" box grows into it, it changes shape for each step,
+  and it ends as the comment field. Step content rises in and lifts out inside it.
+- **A carry at every step boundary** (OneTake): "01 One folder" flies up to become the headline; the "references" folder
+  opens into the contact sheet; four contact-sheet frames fly into the storyboard; the approved panels drop into the
+  timeline as clips; the "make the font bigger" note becomes line v1 of the feedback log.
+- **Clawd moves with the UI**: under each folder as it lands, along with the scan line, over to tap Approve, along with
+  the playhead (same screen x, same smoothstep). A follow spot trails him.
+- **The hook lands on the lit stage** (not a flat colour); a slow camera drift (1.00→1.03) and a push-in for the close;
+  speed-based blur on anything that flies; headline words roll in one by one.
+- The intro card fills as soon as the window lands (no empty card). Script and timings unchanged, so a VO recorded to
+  v1 fits v2.
