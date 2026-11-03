@@ -17,9 +17,17 @@ where Hardik's own words override a skill are listed at the bottom.
 | The 28 below except `watch` | [ritu-dadhwal4/instagram-video-skills](https://github.com/ritu-dadhwal4/instagram-video-skills) | `0b7daf3` (2026-10-14), v0.1, not yet run end to end upstream | MIT, `.claude/skills/_licenses/instagram-video-skills.LICENSE` |
 | `watch` | [victor-shulga/watch](https://github.com/victor-shulga/watch) | `b9a6ee3` (2026-09-23) | MIT, `.claude/skills/_licenses/watch.LICENSE` |
 
-The files were copied as-is. If you change one for our use, say so in CHANGELOG.md. Hardik shared a screenshot
+The upstream README (stage walkthrough, the seven questions, style and caption menus) is in [16](16-skills-guide.md). The files were copied as-is. If you change one for our use, say so in CHANGELOG.md. Hardik shared a screenshot
 of a paid "skills.zip" with the same skill names. Its extra `docs/` style specs, `tools/` scripts and 115-page
 PDF are **not** in this repo and were not obtained.
+
+**Fetched skills (2026-11-02, docs/15):** `toolkit/scripts/fetch_vendor.sh` pulls five pinned projects into `vendor/`
+(gitignored) and links their skills here: `onetake` (PolyForm **Noncommercial**: not for paid videos),
+`gbro-collage-broll` (MIT, needs `GEMINI_API_KEY`), `lemo-opuscar` (MIT, 66 code-film styles), and HyperFrames'
+`hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `remotion-to-hyperframes`, `reverse-any-video`,
+`slideshow` (Apache-2.0). The links are gitignored too, so a fresh clone runs the script again. Our own
+`mascot-animate` skill (committed) drives Claude Animation Base (`vendor/claude-animation-base`, MIT) from a
+character sheet. Same precedence as above: Hardik's feedback still wins.
 
 ## Step 0, always: watch
 
@@ -68,9 +76,9 @@ Pick one per video, or a stated mix, and record the choice in the project's `ins
 
 Only his explicit words beat the skills. Everything else follows the skill.
 
-- **`sfx-design`** says "a sound for each thing that moves". Hardik on the jinn v2 (2026-10-22): the SFX were
-  "so loud", "swoosh everywhere", "supposed to be very supporting". So keep `sfx-design`'s method (timed to the
-  motion peak, mixed under the voice) but place sounds only where something lands, quietly, no swooshes ([05](05-sound.md)).
+- **`sfx-design`:** no longer overridden. The user (2026-10-26) asked to follow the skill; use it as written,
+  with its level (≈12 dB under the voice) and spacing (≤1 per 1.5 s) rules ([05](05-sound.md), `scripts/mix_sfx.py`).
+  The 2026-10-22 "so loud, swoosh everywhere" note is history.
 - **`split-screen`** layout: for Hardik's split videos his whole face is always visible, there's no inner card,
   and no page screenshots when he rejects them (his v1 feedback, [12](12-split-screen-explainer.md)). The
   skill's process (stages, sync to speech) applies as written.
@@ -79,6 +87,7 @@ Only his explicit words beat the skills. Everything else follows the skill.
 
 ## Tool mapping (not a conflict)
 
-The skills assume HyperFrames, whisperx and Palmier. Here: Remotion (`toolkit/`), faster-whisper
+The skills assume HyperFrames, whisperx and Palmier. Renderer: choose Remotion or HyperFrames per video by the table in
+[06](06-tools-skills-mcp.md) (user, 2026-10-26). Otherwise here: Remotion (`toolkit/`) when chosen, faster-whisper
 (`toolkit/scripts/transcribe.py`) and Remotion Studio for `editor-handoff`. Use the skill's step with the
 equivalent tool ([06](06-tools-skills-mcp.md)).

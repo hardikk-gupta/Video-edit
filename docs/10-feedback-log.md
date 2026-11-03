@@ -188,3 +188,76 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
 - **Agent interpretation:** the installed skills (`reel-edit` and its stages) are now the default process;
   our older docs give way where they differ. His own explicit feedback still overrides a skill (it is his
   direction, e.g. the quiet-SFX rule). Recorded in docs/13 and instruction.md.
+
+## 2026-10-26 · Renderer choice per video
+
+- **User's words:** "every time see which is best for what remotion or hyperframes" (sent while the
+  "Claude did" paper-drawer edit was being built in Remotion).
+- **Agent interpretation:** no fixed default renderer. At the brief stage, weigh Remotion against
+  HyperFrames for that video and record the pick and reason in its `instructions.md`. Table in docs/06;
+  step added to instruction.md "Start here".
+
+## 2026-10-26 · "Claude did" teaser v2 → v3
+
+- **User's words (v2):** "it is good enough, but I was supposed to be at the bottom frame, everything was
+  supposed to be at the top frame"; "the sound effects, pull the skill for sound effects"; the colour scheme
+  "was looking like it was something given by Claude itself… no orangish kind of feel"; "create a mix of
+  whiteout edit, paper drawer edit… split screen… caption edit"; add "that person working on laptop kind of
+  stuff… a doodle pet kind of stuff that we are currently using"; "show me some zoom effects, zoom cuts…
+  omni restyle, do it whatever the way you want".
+- **Agent interpretation / rules changed:** speaker in the bottom panel with graphics on top for split beats
+  (docs/12 Mode E); sound per `sfx-design` as written (docs/05, docs/13); palette must not echo the subject's
+  brand (instruction.md); zoom cuts allowed on full-face lines (AGENTS.md rule 2); mixed formats in one reel
+  are fine when each beat's job is clear. "Doodle pet we are currently using" was read as our own hand-drawn
+  pet in the Hairline-style line language; if a specific existing mascot was meant, swap it in.
+- **Applied in v3:** `toolkit/src/SplitMixWA.tsx`. Review: second model PASS; its "likely" notes (harsh sketch,
+  crowded folder labels, hard-cropped push-in) fixed before sending. The user's review: pending.
+
+## 2026-10-27 · "Claude did" v3 → v4
+
+- **User's words:** "is thsi best you can do foret all my instrution give me one best from your side".
+- **Agent interpretation:** v3 met the instructions literally but not the bar. Lessons kept for future reels
+  (added to docs/04): give a recurring doodle character a job in the story instead of using it as a prop;
+  connect beats with motivated transitions (zoom-through, whip pan, pencil wipe) instead of only hard cuts;
+  draw doodles on and build type word by word rather than popping finished graphics; never leave the top
+  panel as empty white (a quiet texture such as a dot grid); hold a punchline long enough to read (use the
+  pause after it).
+- **Applied in v4:** `toolkit/src/ClaudeDidV4.tsx`. Second-model review PASS. The user's review: pending.
+## 2026-11-02 · "Editing with Claude" mascot reel (brief + mid-build note)
+
+- **Hardik's words (close paraphrase):** make a captioned video on how to edit videos using Claude ("no one is telling
+  this… this is your final stop, save this"). It tells our portable process, and the repo can be shared. A 2–3 s **match cut** hook
+  with short catchy text like "Editing with Claude", then the **mascot explains everything**, and the **script at the end**
+  for his voice-over. Learn from the five reference reels; the match-cut reference is one of them. "Fully well
+  designed… a story well explained like a senior filmmaker… crazy taste… UI/UX designer and design engineer." Ask
+  everything up front, nothing in the middle or at the end.
+- Up-front choices: "Editing with Claude"; ~45 s English; Clawd acts (no lip sync); only "Comment EDIT"; references
+  learned, not shown; one-word centred captions; painted Clawd + clean UI; quiet SFX only.
+- **Mid-build:** "change the bg of Clawd mascot, keep it something like a feel of cinematic type thing."
+- **Lesson (agent):** a mascot stage should be lit like a scene (dark ground, one motivated light, haze), not left
+  on a flat default paper. Ask up front, then only report progress: Hardik wants no questions mid-job.
+
+## 2026-11-03 · "Editing with Claude" v1 → v2
+
+- **Hardik's words (close paraphrase):** asked whether v1 was final or whether it should use other effects, transitions
+  or styles (Claude Animation Base, OneTake…). After the agent's critique: "Create version 2 with all the new changes you
+  suggested."
+- **The critique he approved:** v1 read as a slideshow (same layout every step, cards replaced instead of carried, ~5 s
+  metronome beats); Clawd stood on one mark for 35 s; the hook landed on a flat colour; the intro card sat empty; and the
+  reel-review gate had been skipped. Don't mix in other looks (collage, Lemo styles): one film, one look.
+- **Lesson (agent):** OneTake's rhythm checks passed v1 anyway. Rhythm numbers don't catch a slideshow; only "what
+  survives each cut and moves into the next beat" does. Plan a carry at every boundary before building. Run reel-review
+  before sending, every time.
+
+## 2026-11-03 · "Editing with Claude" v2 → v3
+
+- **Hardik's words (close paraphrase):** the SFX are only two sounds (a tap when something arrives, and one other);
+  he wants real ones, such as squash, sweep, camera zoom-in and camera shutter, from a GitHub repo that has them, each checked for where it fits.
+  He doesn't want Clawd going left, then right, then left again with the screen, or sitting on the podium under a card:
+  "it looks like a person is giving a presentation but in an animated form". He wants a new storyboard in different styles:
+  the paper look, conversation, images, the real timeline of how we edit in Remotion or HyperFrames (a screenshot),
+  full-bleed content, and the mascot "over something and sitting, thinking". Finish it, then show v3.
+- He also asked for a fluent VO script with no colons or semicolons to read, only spoken sentences. Given in chat and
+  now in `script.md` and `SCRIPT` (v3).
+- **Lesson (agent):** a mascot that moves with the UI still reads as a presenter if the frame is "a card above, the
+  character below" every time. Put the character *in* the scene's world, and change the world each beat.

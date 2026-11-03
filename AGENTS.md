@@ -29,7 +29,9 @@ Details per mode: [docs/01-inputs-and-modes.md](docs/01-inputs-and-modes.md).
 1. **Story first.** The edit tells the story. The face is not the subject. Show the idea, not the speaker.
 2. **Face: one small tile, natural colour.** The person appears in exactly one place at a time, as a small
    cell in the layout. Never full-frame, never two copies, never tinted (no red duotone, no halftone of the
-   face), and no tight punch-ins: framing between 1.00× and 1.05×. When the brief explicitly requests
+   face), and no slow creeping punch-ins beyond 1.05×. Exception (user, 2026-10-26): on full-face lines,
+   zoom cuts are wanted (a hard scale step of ~1.15–1.2× on a spoken word, inside one take, whole head kept in
+   frame). When the brief explicitly requests
    [Mode E](docs/12-split-screen-explainer.md), the single presenter fills the lower panel instead of a
    small tile; keep natural colour, stable framing and no duplicate speaker.
 3. **Nothing typed crosses a guide line.** Every element sits inside a grid cell with at least 40px padding.
@@ -89,7 +91,9 @@ Working habits that made the difference:
 - `docs/11-pulling-references.md`: how to source real product imagery when a video is about real products.
 - `docs/12-split-screen-explainer.md`: the 9:16 split format (sources on top, speaker below) and `toolkit/scripts/web_shot.mjs` for page captures with element boxes.
 - `projects/<date>-<name>/`: what was decided for each video.
-- `.claude/skills/` (symlinked as `.agents/skills/`): 29 skills: 28 editing skills incl. ten edit formats, and `watch`. All MIT, third-party. Index, sources and conflicts: `docs/13-skills.md`. Their process is the default (Hardik, 2026-10-26); only Hardik's explicit feedback overrides a skill.
+- `.claude/skills/` (symlinked as `.agents/skills/`): 30 skills: 28 editing skills incl. ten edit formats, `watch`, and our own `mascot-animate`; `fetch_vendor.sh` links 10 more (docs/15). All MIT, third-party. Index, sources and conflicts: `docs/13-skills.md`. Their process is the default (Hardik, 2026-10-26); only Hardik's explicit feedback overrides a skill.
+- `docs/15-mascot-and-collage.md`: the six-reel tools (Claude Animation Base/Clawd, collage B-roll, OneTake, Lemo-Opuscar, HyperFrames), `toolkit/scripts/fetch_vendor.sh` to pull them into `vendor/`, and the character-sheet method for a mascot (`mascot-animate` skill, `projects/_template/character-sheet.md`).
+- `docs/16-skills-guide.md`: the skills' own guide (upstream README, MIT): the stage-by-stage walkthrough, the seven brief questions, editing and caption style menus, b-roll order, giving notes, limits.
 - `docs/14-ecosystem.md`: what other creators use (Remotion, HyperFrames, FFmpeg skills), repos by need (effects, orbs, overlays, background removal, reframe, captions, SFX) and our gap list.
 - `projects/_template/instructions.md`: the per-video instruction file every job starts with.
 - `docs/06-tools-skills-mcp.md`: the tools, MCP servers, skills and repos used, and how.

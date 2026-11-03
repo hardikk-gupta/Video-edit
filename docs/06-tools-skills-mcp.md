@@ -42,7 +42,7 @@ No other memory was used. Lesson: don't borrow a repo's website design system fo
 
 | Tool | Version | Why |
 |---|---|---|
-| **Remotion** (`remotion`, `@remotion/cli`) | 4.0.537 | React → video. Frame-exact, code-driven motion; best for type, UI and data-driven graphics. `npx remotion still` for single frames, `npx remotion render` for the video. Free for individuals and small teams; companies need a licence (remotion.dev/license). |
+| **Remotion** (`remotion`, `@remotion/cli`, `@remotion/bundler`, `@remotion/renderer`) | 4.0.540 (2026-11-03) | React → video. Frame-exact, code-driven motion; best for type, UI and data-driven graphics. `./node_modules/.bin/remotion still` for single frames, `remotion render` for the video, `node scripts/stills.mjs` for many stills from one bundle. **Studio's timeline** (`remotion studio src/ewc.ts`) shows every named `<Sequence>` as a track, audio with waveforms and image layers as filmstrips; select and scrub there to review an edit, and name sequences so the timeline reads like an edit. Upgrade all Remotion packages together (`npx remotion versions` checks that they match). Free for individuals and small teams; companies need a licence (remotion.dev/license). |
 | React | 19.1 | Remotion's renderer. |
 | TypeScript | 7.x (`tsc -p .`) | Type-check before every render. |
 | Chromium headless shell | preinstalled at `/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell` | Remotion's browser in the cloud container (see gotchas). |
@@ -50,8 +50,19 @@ No other memory was used. Lesson: don't borrow a repo's website design system fo
 | faster-whisper | latest (pip), model `medium`, int8 on CPU | Word-level transcripts. ~1 min for 80s of speech on 4 cores. |
 | numpy, PIL | system/venv | Cut snapping (RMS), SFX synthesis, colour sampling. |
 
-Alternatives considered: **HyperFrames** (HTML-based video framework) exists and is fine for HTML-first
-templates; Remotion was chosen for its maturity, React component model and frame-exact control.
+### Remotion or HyperFrames: decide per video
+
+Rule (user, 2026-10-26: "every time see which is best for what, remotion or hyperframes"): at the brief
+stage, pick the renderer for **this** video and write the choice and the reason in the project's
+`instructions.md`. Neither is the default by habit.
+
+| Pick | When the video needs | Why |
+|---|---|---|
+| **Remotion** (`toolkit/`) | Data-driven motion: per-frame face tracking, word-timed captions from JSON, grids, Hairline figures, anything reusing `toolkit/src` components; logic-heavy layouts; many renders/iterations in the cloud container | React + TypeScript (typecheck catches mistakes), frame-exact, our components and fixes already exist, renders here are proven and fast enough. Studio edits are text/props; timing changes are code. |
+| **HyperFrames** (`npx hyperframes`, HeyGen, HTML + GSAP) | The creator wants to trim, split, drag and retime clips by hand on a timeline afterwards; the look is plain HTML/CSS/GSAP (a web-page-like layout, a template from a HyperFrames skill, one of its 35 caption styles); simple overlays on mostly straight footage | The installed skills' default; its Studio is a real timeline for hand edits. One public test found renders slow (23.5 min for a 15 s brief), and we have no components or render notes for it yet: budget time for setup and check renders in this container first. |
+
+Tie-breakers: if the editor chosen for hand review (`editor-handoff`) is HyperFrames, build in HyperFrames; if the
+edit depends on measured face data or toolkit components, build in Remotion. Say which, and why, in one line to the creator.
 
 ## Libraries and assets brought in
 

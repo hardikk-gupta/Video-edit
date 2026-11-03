@@ -28,7 +28,31 @@
 To get more from Remotion's library: `npm pack @remotion/sfx`, then grep `dist` for `remotion.media/*.wav`
 URLs and `curl` them. Many of them are meme sounds (vine-boom, bruh…); only the neutral ones above suit premium work.
 
-## Hardik's sound rule (2026-10-22, jinn v2 feedback, overrides the placement defaults below)
+## Hardik's sound rule, updated 2026-11-03 (the newest; builds on the 2026-10-26 `sfx-design` rule below)
+
+On "Editing with Claude" v2 he said the SFX were just one tap and one bloom everywhere, and asked for real variety:
+**squash, sweep, camera zoom, camera shutter**, from a proper library, each where it fits. So:
+- Use **`wyzowl/sfx-kit`** (CC0, 320 sounds, `vendor/sfx-kit`, served as `public/sfx/kit`; fetched by
+  `toolkit/scripts/fetch_vendor.sh`). Read its `GUIDE.md` and `catalogue.md`; every sound has `use_for`, `avoid_for`,
+  a **sync point** and a level. Place each sound at *moment − sync.at* (`at()` in `toolkit/src/EditWithClaudeV3.tsx`,
+  with the used ids exported to `src/sfxkit.ts`).
+- One sound per **visible cause**: a zoom gets `move-zoom-in/out`, a whip pan gets a whoosh, a frame captured gets
+  `mechanical-shutter-light`, a landing gets an `impact-*` and a squash, paper gets `foley-paper-*`, typing gets
+  `keyboard-*`, a stamp gets `impact-heavy-firm`, a chat gets `notification-message-*`. Not a sound on every move.
+- Still quiet under the voice: volumes 0.15–0.6 on the kit's matched levels, then master the mix to −14 LUFS.
+
+## Rule of 2026-10-26: follow the `sfx-design` skill (still applies for levels, spacing and `mix_sfx.py`)
+
+On the "Claude did" v2 the user asked to "pull the skill for sound effects". Default now is `sfx-design` as
+written: a sound for each thing that moves (whoosh/swoosh/whip for slides, wipes and zoom cuts, pop/tap for
+pop-ins, tick for highlights, ding for number reveals and end cards), loudest moment on the fastest frame, at
+most one every 1.5 s, never the same variant twice in a row, about 12 dB under the voice. Do it with
+`toolkit/scripts/mix_sfx.py` and a cue sheet (`projects/<video>/sfx.json`): the script gains each effect so
+its loudest 100 ms sits at the target (speech median − 12 dB) and aligns that peak to the cue. The older
+rule below stays as history: the "too loud, swoosh everywhere" problem is handled by the level and spacing
+rules, not by banning variants.
+
+## Earlier sound rule (2026-10-22, jinn v2 feedback; superseded 2026-10-26 and 2026-11-03)
 
 SFX are **supporting, not decoration**. He called v2's sound "so loud" with "swoosh everywhere" and said he
 doesn't like the other effects used so far. Default now:

@@ -1,3 +1,19 @@
 # Creator footage, generated media, and review frames stay local.
 edits/
 toolkit/public/edits/
+
+# Third-party projects fetched by toolkit/scripts/fetch_vendor.sh (docs/15) and their linked skills.
+vendor/
+.claude/skills/onetake
+.claude/skills/gbro-collage-broll
+.claude/skills/lemo-opuscar
+.claude/skills/hyperframes
+.claude/skills/hyperframes-cli
+.claude/skills/hyperframes-registry
+.claude/skills/media-use
+.claude/skills/remotion-to-hyperframes
+.claude/skills/reverse-any-video
+.claude/skills/slideshow
+# Mascot renders and per-project sheets stay local too.
+mascot/out/
+toolkit/public/sfx/kit
