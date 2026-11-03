@@ -60,3 +60,7 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   drawn on threes) acting out the six-step process beside clean UI cards, one-word captions, quiet SFX and a
   "Comment EDIT" close. Code: `toolkit/src/EditWithClaude.tsx`, `toolkit/src/ewc.ts`, `toolkit/clawd/`. Project
   record and VO script in `projects/2026-11-02-edit-with-claude/`. Rendered (not committed); Hardik's review pending.
+- 2026-11-03 · "Editing with Claude" v2 at Hardik's request: one persistent workspace window, a carry at every step
+  boundary, Clawd moving with the UI under a follow spot, the hook resolving onto the lit stage, a holding camera and
+  speed blur. Reel-review (second model) failed the first v2 render; its fixes are applied and the re-render passed.
+  Updated the project README and instructions, docs/10 (feedback) and docs/15 (v2 lessons). Render not committed.

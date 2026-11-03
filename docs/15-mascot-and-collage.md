@@ -134,3 +134,12 @@ subject imagery (docs/11) or generated pieces he approved, never random web phot
 - **Dark (cinematic) stages:** set `PAL.paper` to the night colour at the top of the scene. A full-frame background wash
   sometimes fails under software GL and leaves a pale frame. Light comes from translucent washes (a beam), `glow()` (halo,
   dust) and a warm pool on the floor. Hardik asked for this cinematic look over the default paper.
+
+### v2 lessons (2026-11-03)
+- **Tie the mascot's moves to the UI**: share screen x and the easing (CAB `ease` is smoothstep) between the scene's
+  `MOVES` and the overlay, so Clawd walks *with* the scan line or playhead instead of standing beside it.
+- **A follow spot** sells the moves: point the beam at a lagged copy of the mascot's x (`spotX`), with the lamp top
+  pivoting a third as far. Hold it on the mark until he arrives.
+- **Leave headroom**: at U=30 Clawd with a hat reaches about y 1080 at the peak of a hop. Keep UI windows above y 1060.
+- **Test 2 frames** (`--range=a:a+.25`) before an hour-long render, and lay out the overlay against the previous
+  frames (`--props='{"frameDir":"frames_v1"}'`) while the new ones render.

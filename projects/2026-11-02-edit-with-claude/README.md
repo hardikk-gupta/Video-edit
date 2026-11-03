@@ -2,7 +2,7 @@
 
 A 45 s, 1080×1920 reel. Clawd, the Claude Code mascot, walks into a spotlight and acts out our six-step process while
 UI cards explain each step. It opens with a 2.7 s match-cut hook. Brief, answers and rules: [instructions.md](instructions.md).
-Voice-over script with times: [script.md](script.md). **Status: v1 rendered 2026-11-02 (341 Clawd frames, ~1 h on 4 CPUs; final MP4 kept outside Git). Hardik's review pending.**
+Voice-over script with times: [script.md](script.md). **Status: v2 rendered 2026-11-03 and passed reel-review (second model); Hardik's review pending. v1 kept as history below.**
 
 ## How it's built
 
@@ -33,3 +33,20 @@ REMOTION_BROWSER=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-s
 - Night-indigo stage with a warm beam (his "cinematic" note), and cream cards over it.
 - Clawd drawn on threes (8 fps) to fit the render budget; the UI and camera stay at 30 fps.
 - No repo URL on screen (his choice: "Comment EDIT" only).
+
+## v2 (2026-11-03)
+
+What changed from v1, and why (Hardik approved the critique: v1 read as a slideshow):
+- **One workspace window** (`Workspace`): born from the hook's "Claude" box, changes shape per step (`SHAPES`), ends as the
+  comment field. Step content rises in and lifts out inside it (`Scene`).
+- **Carries** (`Carries`, `Fly`): list row → headline; "references" folder → contact sheet; 4 frames → storyboard;
+  storyboard → timeline clips; "make the font bigger" → feedback-log line v1. Speed-based blur on anything that flies.
+- **Clawd moves with the UI** (`MOVES` in `toolkit/clawd/edit-with-claude.js`, `scanX`/`playX` in the TSX: same screen x,
+  same smoothstep) and a **follow spot** trails him. The hook resolves onto the lit stage.
+- **Camera** holds, then nudges in 0.5 % at each step change, and pushes in for the close.
+- **Review:** reel-review (a second model) failed the first v2 render: the window covered Clawd's hats, two windows sat
+  empty for about 1 s, the transcript was clipped, the captions sat too low, and the final "EDIT" floated. All fixed. The
+  re-render passed with only "maybe" notes (hat tips touch the window edge at about 27 s and 37 s).
+- **OneTake oracle** (`verify_promo.py`, rhythm legs only; continuity needs a OneTake HTML comp): cadence, burst and audio
+  pass. Rest has 22 % still frames against its 25 % target, because Clawd's painted boil changes 8×/s; accepted.
+- Loudness is −27.7 LUFS with SFX only, on purpose: master to −14 LUFS after the voice-over goes in.
