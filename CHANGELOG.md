@@ -82,3 +82,4 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   video, "Claude did" teaser v2–v4, `mix_sfx.py`) into this one so both reach `main`. Its `docs/15-skills-guide.md` is
   now `docs/16-skills-guide.md` (15 was already the mascot doc) and its links are updated. In the docs/05 sound rules,
   the 2026-11-03 sfx-kit rule sits on top of the 2026-10-26 `sfx-design` rule, which still sets levels and spacing.
+- 2026-11-03 · docs/07: logged the five "Editing with Claude" reference reels and the repos found for it (OneTake, sfx-kit, CAB, HyperFrames).

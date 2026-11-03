@@ -70,9 +70,30 @@ Original media stays outside Git. No engagement, trend or toolchain inference is
 Grid, Anton headlines, red cells and labels from Smart Studios + black, glass, slate pills, blur and
 furniture from Jitter + dashed-underlined sentences and functional UI cards from Base44. One red, one slate.
 
+## "Editing with Claude" references (5 reels uploaded by Hardik, 2026-11-02)
+
+Watched with the `watch` skill (frames + faster-whisper). Hardik's rule for this video: learn from them, don't show them.
+Full notes: projects/2026-11-02-edit-with-claude/instructions.md.
+
+- **@corbinsylk, `/match-cut` (26 s, 0:06–0:09):** a new article page every 2–3 frames in different typefaces, the word
+  "Claude" in a red box locked in the same spot, surrounding text blurred, a slow push-in. **Took:** the locked word,
+  the cut rate, the blur falloff → our hook. **Not taken:** their pages, the red, the newsprint.
+- **@george.automates (60 s) and Web Lab (59 s):** the five-repo list (HyperFrames, OneTake, collage B-roll, Claude
+  Animation Base, Lemo-Opuscar). **Took:** the numbered structure and "comment for links"; the repos became
+  `toolkit/scripts/fetch_vendor.sh` (docs/15).
+- **Step-by-step tutorial (65 s):** folder → tools → a style sheet from 3–5 reels → storyboard first → plain-English
+  changes. **Took:** the step order. Ours adds the second review and the feedback log.
+- **Hinglish talking head (60 s):** one-word centred captions, light UI cards over the speaker, a step counter.
+  **Took:** the caption style, cards as explainers, the progress bar.
+- **Libraries found for v3:** OneTake's rules ("carry each beat", rest, its rhythm oracle), and
+  [wyzowl/sfx-kit](https://github.com/wyzowl/sfx-kit) (CC0 SFX with sync points; Hardik asked for a GitHub SFX library).
+
 ## Libraries and repos referred to
 
 - Remotion: remotion.dev, github.com/remotion-dev/remotion (framework, `@remotion/sfx`)
 - Hairline: github.com/lucasmarkes/hairline (explainer figures; suggested by Hardik)
 - Fontsource: fontsource.org (Anton, Space Mono, Montserrat via npm)
-- HyperFrames: mentioned by Hardik as an option; not used
+- HyperFrames: github.com/heygen-com/hyperframes (fetched into vendor/, docs/15; chosen per video, docs/06)
+- Claude Animation Base: github.com/JohnHeibel/ClaudeAnimationBase (Clawd, docs/15)
+- OneTake: github.com/feitangyuan/onetake (motion rules + oracle; noncommercial licence)
+- sfx-kit: github.com/wyzowl/sfx-kit (CC0 sound effects, docs/05)
