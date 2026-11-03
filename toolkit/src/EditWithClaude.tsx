@@ -2,8 +2,10 @@
 // Layers: a 2.7 s match-cut hook (pages flip, "Claude" stays locked), then Clawd's hand-painted performance
 // (8 fps frames on a cinematic night stage, rendered by toolkit/clawd, symlinked to public/edits/ewc/frames) under crisp UI cards, one-word
 // captions timed to the voice-over script, and sparse quiet SFX. Hardik records the VO to SCRIPT below.
+// v2 (2026-11-03): one workspace window for the whole film (born from the hook's box, ends as the comment field),
+// carries at every step boundary (Carries), a slow camera, speed blur on flying parts, and Clawd moving with the UI.
 import React from 'react';
-import {AbsoluteFill, Audio, Easing, Img, Sequence, getInputProps, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Easing, Img, Sequence, getInputProps, interpolate, interpolateColors, staticFile, useCurrentFrame} from 'remotion';
 
 export const W = 1080, H = 1920, FPS = 30, DUR = 45, FRAMES = DUR * FPS;
 const CLAWD_FPS = 8;   // Clawd is drawn on threes (8 drawings/s): software-GL render cost, docs/15
@@ -55,13 +57,15 @@ const PAGES: {font: string; size: number; weight: number; italic?: boolean; colo
 const FLIP = 3 / FPS;                          // a new page every 3 frames
 const HOOK_FLIPS_END = 1.5, RESOLVE = 1.55, HOOK_END = 2.75;
 const BOX = {w: 330, h: 112, y: 860};          // the locked word sits here on every page
+// final line "Editing with [Claude]" is centred: text ~450 px + gap + box
+const TEXT_W = 450, GAP = 34, LEFT0 = (W - TEXT_W - GAP - BOX.w) / 2, BOX_X = LEFT0 + TEXT_W + GAP;
 
 const ClaudeBox: React.FC<{s?: number}> = ({s = 1}) => (
   <div style={{width: BOX.w * s, height: BOX.h * s, background: CLAY, borderRadius: 10 * s, display: 'flex', alignItems: 'center', justifyContent: 'center',
     fontFamily: '"Bitstream Charter", serif', fontWeight: 700, fontSize: 84 * s, color: '#FFF6EE', letterSpacing: -1 * s, boxShadow: '0 10px 30px rgba(120,50,25,.25)'}}>Claude</div>
 );
 
-const Page: React.FC<{p: typeof PAGES[number]; t: number}> = ({p, t}) => {
+const Page: React.FC<{p: typeof PAGES[number]; t: number}> = ({p}) => {
   const size = p.size * 1.5, lh = size * 1.3, N = 9;   // a full page: 9 lines above and below, blurring with distance
   const pick = (i: number) => p.lines[((i % p.lines.length) + p.lines.length) % p.lines.length];
   const above = Array.from({length: N}, (_, i) => pick(i + 2)), below = Array.from({length: N}, (_, i) => pick(i + 3));
@@ -81,64 +85,370 @@ const Page: React.FC<{p: typeof PAGES[number]; t: number}> = ({p, t}) => {
   );
 };
 
+// v2: the page dissolves straight onto Clawd's empty, lit stage (no flat colour card). "Claude" slides into place, and
+// at HOOK_END the box itself becomes the workspace window (Workspace below takes over the same rect, same colour).
 const Hook: React.FC = () => {
   const t = useT(); if (t >= HOOK_END + .4) return null;
   const idx = Math.min(PAGES.length - 1, Math.floor(t / FLIP) % PAGES.length);
   const page = PAGES[t < HOOK_FLIPS_END ? idx : (Math.floor(HOOK_FLIPS_END / FLIP) - 1) % PAGES.length];
   const push = interpolate(t, [0, RESOLVE], [1.0, 1.1], clamp);
-  const settle = ease(t, RESOLVE, .5);                 // page dissolves to paper, the sentence assembles
-  const out = ease(t, HOOK_END - .2, .45);             // hand-off to Clawd's stage
-  // final line "Editing with [Claude]" is centred: text ~450 px + 26 gap + box 330
-  const TEXT_W = 450, GAP = 34, LEFT0 = (W - TEXT_W - GAP - BOX.w) / 2, BOX_X = LEFT0 + TEXT_W + GAP;
-  const slide = ease(t, RESOLVE, .4), lead = ease(t, RESOLVE + .32, .5);
+  const settle = ease(t, RESOLVE, .5);
+  const slide = ease(t, RESOLVE, .4), lead = ease(t, RESOLVE + .32, .5), leave = ease(t, HOOK_END, .3);
   const boxX = interpolate(slide, [0, 1], [(W - BOX.w) / 2, BOX_X]);
   return (
-    <AbsoluteFill style={{opacity: 1 - out}}>
-      <AbsoluteFill style={{transform: `scale(${push})`, opacity: 1 - settle}}><Page p={page} t={t} /></AbsoluteFill>
-      <AbsoluteFill style={{background: NIGHT, opacity: settle}} />
+    <AbsoluteFill>
+      {settle < 1 ? <AbsoluteFill style={{transform: `scale(${push})`, opacity: 1 - settle}}><Page p={page} t={t} /></AbsoluteFill> : null}
       <div style={{position: 'absolute', left: BOX_X - GAP - 520, top: BOX.y + 10, width: 520, textAlign: 'right', fontFamily: SANS, fontWeight: 600, fontSize: 86,
-        letterSpacing: -2.6, color: LIGHT, opacity: lead, transform: `translateX(${(1 - lead) * 30}px)`, lineHeight: '92px', whiteSpace: 'nowrap'}}>Editing with</div>
-      <div style={{position: 'absolute', left: boxX, top: BOX.y, transform: `scale(${t < RESOLVE ? push : 1})`, transformOrigin: 'center'}}><ClaudeBox /></div>
+        letterSpacing: -2.6, color: LIGHT, opacity: lead * (1 - leave), transform: `translateX(${(1 - lead) * 30}px) translateY(${-leave * 40}px)`, filter: `blur(${leave * 8}px)`,
+        lineHeight: '92px', whiteSpace: 'nowrap', textShadow: '0 6px 30px rgba(0,0,0,.35)'}}>Editing with</div>
+      {t < HOOK_END ? <div style={{position: 'absolute', left: boxX, top: BOX.y, transform: `scale(${t < RESOLVE ? push : 1})`, transformOrigin: 'center'}}><ClaudeBox /></div> : null}
     </AbsoluteFill>
   );
 };
 
 // ---------------------------------------------------------------- Clawd's painted stage (8 fps frames)
+// --props='{"stageFrame":24}' pins one frame (layout stills while frames render); "frameDir" picks another folder.
+const props = () => getInputProps() as {stageFrame?: number; frameDir?: string};
+const frameSrc = (i: number) => staticFile(`edits/ewc/${props().frameDir ?? 'frames'}/f${String(props().stageFrame ?? i).padStart(5, '0')}.jpg`);
 const Stage: React.FC = () => {
-  const t = useT(); if (t < 2.4) return null;
-  // --props='{"stageFrame":24}' pins one frame: layout stills while the Clawd frames are still rendering
-  const pin = (getInputProps() as {stageFrame?: number}).stageFrame;
-  const i = pin ?? Math.max(19, Math.min(359, Math.floor(t * CLAWD_FPS + 1e-6)));
-  return <Img src={staticFile(`edits/ewc/frames/f${String(i).padStart(5, '0')}.jpg`)} style={{position: 'absolute', inset: 0, width: W, height: H}} />;
+  const t = useT(); if (t < RESOLVE) return null;
+  const i = Math.max(19, Math.min(359, Math.floor(t * CLAWD_FPS + 1e-6)));
+  const settle = interpolate(t, [RESOLVE, 3.6], [1.08, 1], {...clamp, easing: EO});   // the stage settles as the page dissolves
+  return <Img src={frameSrc(i)} style={{position: 'absolute', inset: 0, width: W, height: H, transform: `scale(${settle})`, transformOrigin: '540px 1300px'}} />;
 };
 
-// ---------------------------------------------------------------- shared UI
+// ---------------------------------------------------------------- motion helpers
+type R = {x: number; y: number; w: number; h: number; r: number};
+const lerpR = (a: R, b: R, k: number): R => ({x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k, w: a.w + (b.w - a.w) * k, h: a.h + (b.h - a.h) * k, r: a.r + (b.r - a.r) * k});
+const smooth = (x: number) => { const k = Math.min(1, Math.max(0, x)); return k * k * (3 - 2 * k); };   // = Clawd's ease()
+const seg = (t: number, a: number, b: number) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+// blur from speed: a stand-in for shutter blur on things that fly (px of travel per frame → px of blur)
+const speedBlur = (t: number, a: number, d: number, dist: number) => {
+  const h = .5 / FPS, v = Math.abs(ease(t + h, a, d) - ease(t - h, a, d)) * dist;   // px per frame
+  return Math.min(14, v * .22);
+};
+const TITLE = 64;   // window title bar height
+
 const BEATS = [[2.75, 7.5], [7.5, 12.45], [12.45, 17.85], [17.85, 23.45], [23.45, 29.25], [29.25, 34.85], [34.85, 40.3], [40.3, 45.2]] as const;
-const inBeat = (t: number, a: number, b: number) => t >= a - .05 && t < b + .4;
-// enter from below with a soft spring, leave upward
-const beatStyle = (t: number, a: number, b: number, delay = 0): React.CSSProperties => {
-  const i = ease(t, a + delay, .55), o = ease(t, b - .05, .35);
-  return {opacity: Math.min(i, 1 - o), transform: `translateY(${(1 - i) * 50 - o * 40}px)`};
+
+// ---------------------------------------------------------------- the workspace: one window for the whole film
+// It is born from the hook's "Claude" box, changes shape for each step, and ends as the comment field.
+const R_BOX: R = {x: BOX_X, y: BOX.y, w: BOX.w, h: BOX.h, r: 10};
+const R_FULL: R = {x: M, y: 440, w: CW, h: 700, r: 30};
+const R_STYLE: R = {x: M, y: 420, w: CW, h: 400, r: 30};
+const R_REVIEW: R = {x: M, y: 420, w: CW, h: 420, r: 30};
+const R_FIELD: R = {x: M + 60, y: 690, w: CW - 120, h: 104, r: 52};
+const SHAPES: [number, number, R][] = [[2.75, .62, R_FULL], [17.85, .55, R_STYLE], [23.45, .55, R_FULL], [29.25, .55, R_REVIEW], [34.85, .55, R_FULL], [40.3, .65, R_FIELD]];
+const rectAt = (t: number) => { let r = R_BOX; for (const [a, d, s] of SHAPES) { if (t < a) break; r = lerpR(r, s, ease(t, a, d)); } return r; };
+const TITLES: [number, string][] = [[2.75, 'the-process.md'], [7.5, '~/AI Video Editor'], [12.45, 'watch · contact sheet'], [17.85, 'style_sheet.md'],
+  [23.45, 'timeline · v1'], [29.25, 'review · second pass'], [34.85, 'feedback-log.md']];
+
+// a step's content inside the window: rises in softly, lifts out with blur (the window itself stays)
+const Scene: React.FC<{i: number; delay?: number; children: React.ReactNode}> = ({i, delay = .12, children}) => {
+  const t = useT(); const [a, b] = BEATS[i]; if (t < a - .05 || t > b + .4) return null;
+  const k = ease(t, a + delay, .5), o = ease(t, b - .05, .3);
+  return <div style={{position: 'absolute', inset: 0, opacity: Math.min(k, 1 - o), transform: `translateY(${(1 - k) * 24 - o * 30}px)`, filter: `blur(${(1 - k) * 8 + o * 10}px)`}}>{children}</div>;
 };
 
-const Window: React.FC<{title: string; top: number; height: number; children: React.ReactNode; style?: React.CSSProperties}> = ({title, top, height, children, style}) => (
-  <div style={{position: 'absolute', left: M, top, width: CW, height, background: CARD, borderRadius: 30, border: `1.5px solid ${LINE}`,
-    boxShadow: '0 40px 80px -24px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.25)', overflow: 'hidden', ...style}}>
-    <div style={{height: 64, display: 'flex', alignItems: 'center', gap: 10, padding: '0 28px', borderBottom: `1.5px solid ${LINE}`}}>
-      {[0, 1, 2].map(k => <div key={k} style={{width: 14, height: 14, borderRadius: 7, background: '#E4DDD2'}} />)}
-      <div style={{marginLeft: 14, fontFamily: MONO, fontSize: 22, color: MUTED}}>{title}</div>
+const Workspace: React.FC = () => {
+  const t = useT(); if (t < HOOK_END) return null;
+  const r = rectAt(t), born = ease(t, HOOK_END, .45), sent = ease(t, 42.4, .35);
+  if (sent >= 1) return null;
+  const bg = interpolateColors(born, [0, 1], [CLAY, CARD]);
+  const chrome = ease(t, 3.05, .35) * (1 - ease(t, 40.3, .25));
+  let title = TITLES[0][1]; let tk = 1;
+  for (const [a, s] of TITLES) if (t >= a) { title = s; tk = ease(t, a + .1, .35); }
+  const field = ease(t, 40.75, .3), typed = 'EDIT'.slice(0, Math.max(0, Math.floor((t - 41.6) * 9)));
+  return (
+    <div style={{position: 'absolute', left: r.x, top: r.y, width: r.w, height: r.h, background: bg, borderRadius: r.r, overflow: 'hidden',
+      border: `1.5px solid ${born > .5 ? LINE : 'transparent'}`, boxShadow: '0 40px 80px -24px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.25)',
+      opacity: 1 - sent, transform: `translateY(${-sent * 30}px)`}}>
+      {/* the word that was in the box */}
+      <div style={{position: 'absolute', left: 0, right: 0, top: (BOX.h - 100) / 2, height: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 1 - ease(t, HOOK_END, .18),
+        fontFamily: '"Bitstream Charter", serif', fontWeight: 700, fontSize: 84, color: '#FFF6EE', letterSpacing: -1}}>Claude</div>
+      <div style={{height: TITLE, display: 'flex', alignItems: 'center', gap: 10, padding: '0 28px', borderBottom: `1.5px solid ${LINE}`, opacity: chrome}}>
+        {[0, 1, 2].map(k => <div key={k} style={{width: 14, height: 14, borderRadius: 7, background: '#E4DDD2'}} />)}
+        <div style={{marginLeft: 14, fontFamily: MONO, fontSize: 22, color: MUTED, opacity: tk, whiteSpace: 'nowrap'}}>{title}</div>
+      </div>
+      <div style={{position: 'absolute', left: 0, top: TITLE, width: R_FULL.w, height: R_FULL.h - TITLE}}>
+        <Intro /><StepFolder /><StepWatch /><StepStyle /><StepEdit /><StepReview /><StepLearn />
+      </div>
+      {t >= 40.3 ? <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', padding: '0 16px 0 40px', opacity: field}}>
+        <span style={{fontFamily: SANS, fontSize: 36, fontWeight: typed ? 600 : 400, color: typed ? INK : 'rgba(31,30,29,.35)', flex: 1}}>{typed || 'Add a comment…'}</span>
+        <div style={{width: 74, height: 74, borderRadius: 37, background: typed.length === 4 ? CLAY : 'rgba(31,30,29,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <svg width={30} height={30} viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" stroke="#fff" strokeWidth={2.6} fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+      </div> : null}
     </div>
-    <div style={{position: 'relative', height: height - 64}}>{children}</div>
+  );
+};
+
+// ---------------------------------------------------------------- headline: words roll in, roll out
+const HEADS: [number, string][] = [[0, 'The whole process.'], [1, 'One folder.'], [2, 'Claude watches first.'], [3, 'Style sheet, then storyboard.'],
+  [4, 'The edit.'], [5, 'A second Claude reviews.'], [6, 'It learns every round.']];
+const HeadText: React.FC<{n?: number; text: string; k?: (i: number) => number; style?: React.CSSProperties; accent?: string}> = ({n, text, k = () => 1, style, accent}) => (
+  <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 76, letterSpacing: -2.4, lineHeight: '82px', color: LIGHT, ...style}}>
+    {[...(n ? [String(n)] : []), ...text.split(' ')].map((w, i) => { const e = k(i); return (
+      <span key={i} style={{display: 'inline-block', marginRight: n && i === 0 ? 22 : 19, color: (n && i === 0) || w === accent ? CLAY_ON_DARK : undefined, fontVariantNumeric: 'tabular-nums',
+        opacity: e, transform: `translateY(${(1 - e) * 34}px)`, filter: `blur(${(1 - e) * 8}px)`}}>{w}</span>); })}
+  </div>
+);
+const Headlines: React.FC = () => {
+  const t = useT();
+  return <>{HEADS.map(([i, text]) => {
+    const [a, b] = BEATS[i]; if (t < a - .05 || t > b + .4) return null;
+    const flown = i === 1;                                   // step 1's headline arrives from the list (Carry1)
+    if (flown && t < FLY1.a + FLY1.d) return null;
+    const o = ease(t, b - .1, .3);
+    return <div key={i} style={{position: 'absolute', left: M, top: 214, width: CW, opacity: 1 - o, transform: `translateY(${-o * 30}px)`, filter: `blur(${o * 8}px)`}}>
+      <HeadText n={i || undefined} text={text} k={flown ? undefined : w => ease(t, a + .08 + w * .055, .45)} /></div>;
+  })}</>;
+};
+
+// ---------------------------------------------------------------- steps (coordinates are inside the window body)
+const Check: React.FC<{on: number; size?: number}> = ({on, size = 34}) => (
+  <div style={{width: size, height: size, borderRadius: size / 2, border: `2px solid ${on > .5 ? CLAY : 'rgba(31,30,29,.25)'}`, background: on > .5 ? CLAY : 'transparent',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${1 + .18 * Math.sin(Math.min(1, on) * Math.PI)})`}}>
+    <svg width={size * .55} height={size * .55} viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#FFF6EE" strokeWidth={2.8} strokeLinecap="round" strokeLinejoin="round"
+      strokeDasharray={24} strokeDashoffset={24 * (1 - Math.min(1, on))} /></svg>
   </div>
 );
 
-const Headline: React.FC<{n?: number; text: string; a: number; b: number}> = ({n, text, a, b}) => {
-  const t = useT(); if (!inBeat(t, a, b)) return null;
+const FolderIcon: React.FC<{w: number; h?: number; color?: string}> = ({w, h = w * .8, color = CLAY}) => (
+  <svg width={w} height={h} viewBox="0 0 100 80" preserveAspectRatio="none"><path d="M6 14a6 6 0 0 1 6-6h24l8 9h44a6 6 0 0 1 6 6v45a6 6 0 0 1-6 6H12a6 6 0 0 1-6-6z" fill={color} />
+    <path d="M6 28h88v40a6 6 0 0 1-6 6H12a6 6 0 0 1-6-6z" fill="#fff" opacity=".18" /></svg>
+);
+
+// A frame of Clawd's own stage, cropped to him: the contact sheet and storyboard show this film's frames.
+const Thumb: React.FC<{s: number; w: number | string; h: number | string; r?: number}> = ({s, w, h, r = 12}) => (
+  <div style={{width: w, height: h, borderRadius: r, overflow: 'hidden', border: `1.5px solid ${LINE}`, background: PAPER}}>
+    <Img src={frameSrc(Math.round(s * CLAWD_FPS))} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 70%'}} />
+  </div>
+);
+
+// screen positions of things that carry across a cut (window body origin = R_FULL.x, R_FULL.y + TITLE)
+const BX = R_FULL.x, BY = R_FULL.y + TITLE;
+const ROW0 = {x: BX + 40, y: BY + 34};                                           // "01 One folder" in the list
+const FOLDER_REF: R = {x: BX + 348 + 25, y: BY + 70, w: 190, h: 152, r: 14};     // the "references" folder
+const SHEET: R = {x: BX + 18, y: BY + 18, w: CW - 36, h: R_FULL.h - TITLE - 36, r: 20};
+const TW = 196, TH = 176, TGX = 18;
+const THUMBS = [3.2, 4.7, 6.9, 9.0, 10.0, 11.2, 13.4, 15.7];
+const thumbR = (i: number): R => ({x: BX + 40 + (i % 4) * (TW + TGX), y: BY + 34 + Math.floor(i / 4) * (TH + 54), w: TW, h: TH, r: 12});
+const PICKS = [0, 2, 5, 7];                                                       // the frames that become the storyboard
+const SB = {top: 846, h: 300};
+const panelR = (j: number): R => ({x: M + 40 + j * 148, y: SB.top + TITLE + 34, w: 130, h: 160, r: 10});
+const LANE_W = CW - 80, CLIPS = [[0, 150], [190, 140], [370, 210], [620, 120], [780, 90]];
+const clipR = (j: number): R => ({x: BX + 40 + CLIPS[j][0] * (LANE_W / 900) + 8, y: BY + 30 + 32 + 8, w: CLIPS[j][1] * (LANE_W / 900) - 6, h: 48, r: 8});
+const NOTE: R = {x: W - M - 440, y: 880, w: 440, h: 88, r: 30};                  // "make the font bigger"
+const LOG0: R = {x: BX + 40, y: BY + 30, w: CW - 80, h: 76, r: 16};             // feedback-log row v1
+const FLY1 = {a: 7.3, d: .6}, FLY2 = {a: 12.15, d: .6}, FLY3 = {a: 17.85, d: .65}, FLY4 = {a: 23.45, d: .65}, FLY5 = {a: 34.85, d: .6};
+// both Clawd (toolkit/clawd/edit-with-claude.js MOVES) and these lines travel 260→820 px on the same smoothstep
+const scanX = (t: number) => 260 + 560 * smooth(seg(t, 13.4, 15.5));
+const playX = (t: number) => 260 + 560 * smooth(seg(t, 24.6, 28.9));
+
+const Intro: React.FC = () => {     // the process at a glance + "save it"
+  const t = useT();
+  const items = ['One folder', 'Claude watches first', 'Style sheet + storyboard', 'The edit', 'A second review', 'It learns'];
+  const save = ease(t, 6.45, .4);
   return (
-    <div style={{position: 'absolute', left: M, top: 214, width: CW, fontFamily: SANS, fontWeight: 600, fontSize: 76, letterSpacing: -2.4, lineHeight: '82px', color: LIGHT, ...beatStyle(t, a, b)}}>
-      {n ? <span style={{color: CLAY_ON_DARK, marginRight: 22, fontVariantNumeric: 'tabular-nums'}}>{n}</span> : null}{text}
+    <Scene i={0} delay={.3}>
+      {items.map((x, i) => { const k = ease(t, 3.35 + i * .14, .4); if (i === 0 && t >= FLY1.a) return null; return (
+        <div key={x} style={{position: 'absolute', left: 40, top: 34 + i * 96, display: 'flex', alignItems: 'center', gap: 26, opacity: k, transform: `translateY(${(1 - k) * 16}px)`}}>
+          <div style={{width: 52, fontFamily: MONO, fontSize: 26, color: CLAY}}>{String(i + 1).padStart(2, '0')}</div>
+          <div style={{fontFamily: SANS, fontSize: 40, fontWeight: 500, letterSpacing: -.8, color: INK}}>{x}</div>
+        </div>); })}
+      <div style={{position: 'absolute', right: 34, top: 30, transform: `scale(${.6 + .4 * save})`, opacity: save, display: 'flex', alignItems: 'center', gap: 12,
+        background: CLAY, color: '#FFF6EE', borderRadius: 999, padding: '14px 26px', fontFamily: SANS, fontWeight: 600, fontSize: 30}}>
+        <svg width={22} height={28} viewBox="0 0 22 28"><path d="M2 3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v23l-9-6-9 6z" fill='#FFF6EE' /></svg>Save this
+      </div>
+    </Scene>
+  );
+};
+
+const StepFolder: React.FC = () => {
+  const t = useT();
+  const names = ['raw', 'references', 'exports'], at = [8.75, 9.35, 9.95];
+  const term = ease(t, 10.9, .45), typed = 'claude'.slice(0, Math.max(0, Math.floor((t - 11.15) * 14)));
+  return (
+    <Scene i={1}>
+      {names.map((n, i) => { const k = ease(t, at[i] - .25, .5); return (
+        <div key={n} style={{position: 'absolute', left: 48 + i * 300, top: 70, width: 240, textAlign: 'center', opacity: k, transform: `translateY(${(1 - k) * -90}px)`}}>
+          <div style={{opacity: i === 1 && t >= FLY2.a ? 0 : 1}}><FolderIcon w={190} color={i === 0 ? CLAY : i === 1 ? '#D98A6A' : '#B5543A'} /></div>
+          <div style={{fontFamily: SANS, fontSize: 32, fontWeight: 500, color: INK, marginTop: 14}}>{n}</div>
+        </div>); })}
+      <div style={{position: 'absolute', left: 40, right: 40, top: 636 - 44 - 110, height: 110, borderRadius: 20, background: INK, opacity: term, transform: `translateY(${(1 - term) * 20}px)`,
+        display: 'flex', alignItems: 'center', padding: '0 34px', fontFamily: MONO, fontSize: 34, color: '#F5EEE6'}}>
+        <span style={{color: CLAY_LT, marginRight: 18}}>~/AI Video Editor ›</span>{typed}<span style={{opacity: Math.floor(t * 2) % 2 ? 1 : 0, marginLeft: 2}}>▍</span>
+      </div>
+    </Scene>
+  );
+};
+
+const StepWatch: React.FC = () => {
+  const t = useT();
+  const words = 'Every reference, frame by frame, with a transcript.'.split(' ');
+  const sx = scanX(t) - BX, scanning = t > 13.4 && t < 15.5;
+  return (
+    <Scene i={2} delay={.35}>
+      <div style={{position: 'absolute', inset: 18, borderRadius: 20, background: '#F4EEE5', opacity: 1 - ease(t, 13.0, .5)}} />
+      {THUMBS.map((s, i) => { const k = ease(t, 13.0 + i * .3, .35); const r = thumbR(i); if (PICKS.includes(i) && t >= FLY3.a) return null;
+        return <div key={i} style={{position: 'absolute', left: r.x - BX, top: r.y - BY, opacity: k, transform: `scale(${.92 + .08 * k})`}}>
+          <Thumb s={s} w={TW} h={TH} />
+          <div style={{fontFamily: MONO, fontSize: 18, color: MUTED, marginTop: 8}}>00:{String(Math.floor(s)).padStart(2, '0')}.{Math.round((s % 1) * 10)}</div>
+        </div>; })}
+      <div style={{position: 'absolute', left: sx, top: 26, width: 3, height: 2 * (TH + 54) - 30, background: CLAY, opacity: scanning ? .85 : 0, borderRadius: 2,
+        boxShadow: `0 0 18px ${CLAY}`}} />
+      <div style={{position: 'absolute', left: 40, right: 40, top: 636 - 34 - 92, height: 92, borderRadius: 18, background: '#F4EEE5', display: 'flex', alignItems: 'center', padding: '0 26px', gap: 12, flexWrap: 'nowrap', overflow: 'hidden'}}>
+        <span style={{fontFamily: MONO, fontSize: 20, color: MUTED, marginRight: 8}}>transcript</span>
+        {words.map((w, i) => { const on = t > 15.6 + i * .22; return <span key={i} style={{fontFamily: SANS, fontSize: 28, fontWeight: 500, color: on ? INK : 'rgba(31,30,29,.25)'}}>{w}</span>; })}
+      </div>
+    </Scene>
+  );
+};
+
+const StepStyle: React.FC = () => {
+  const t = useT();
+  const rows: [string, React.ReactNode][] = [
+    ['Type', <span style={{fontFamily: SANS, fontWeight: 600, fontSize: 40, letterSpacing: -1}}>Aa <span style={{fontWeight: 400, fontSize: 30, color: MUTED, letterSpacing: 0}}>Inter, 2 sizes</span></span>],
+    ['Colour', <div style={{display: 'flex', gap: 10}}>{[PAPER, INK, CLAY, '#E8AA38'].map(c => <div key={c} style={{width: 44, height: 44, borderRadius: 12, background: c, border: `1.5px solid ${LINE}`}} />)}</div>],
+    ['Pacing', <span style={{fontFamily: SANS, fontSize: 32, color: INK}}>a cut every 1.6 s</span>],
+    ['Sound', <span style={{fontFamily: SANS, fontSize: 32, color: INK}}>quiet taps, no swooshes</span>],
+  ];
+  return (
+    <Scene i={3} delay={.3}>
+      {rows.map(([k, v], i) => { const e = ease(t, 18.45 + i * .3, .4); return (
+        <div key={k} style={{position: 'absolute', left: 40, right: 40, top: 22 + i * 76, height: 64, display: 'flex', alignItems: 'center', opacity: e, transform: `translateX(${(1 - e) * 24}px)`, borderBottom: i < 3 ? `1.5px solid ${LINE}` : 'none'}}>
+          <div style={{width: 190, fontFamily: MONO, fontSize: 24, color: MUTED}}>{k}</div>{v}
+        </div>); })}
+    </Scene>
+  );
+};
+
+// the storyboard is a second card under the style sheet; its panels arrive from the contact sheet (Carry3)
+const Storyboard: React.FC = () => {
+  const t = useT(); if (t < 17.9 || t > 24.0) return null;
+  const k = ease(t, 17.95, .5), o = ease(t, FLY4.a + .1, .4), on = ease(t, 22.2, .3);
+  return (
+    <div style={{position: 'absolute', left: M, top: SB.top, width: CW, height: SB.h, background: CARD, borderRadius: 30, border: `1.5px solid ${LINE}`, overflow: 'hidden',
+      boxShadow: '0 40px 80px -24px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.25)', opacity: Math.min(k, 1 - o), transform: `translateY(${(1 - k) * 30}px)`}}>
+      <div style={{height: TITLE, display: 'flex', alignItems: 'center', gap: 10, padding: '0 28px', borderBottom: `1.5px solid ${LINE}`}}>
+        {[0, 1, 2].map(q => <div key={q} style={{width: 14, height: 14, borderRadius: 7, background: '#E4DDD2'}} />)}
+        <div style={{marginLeft: 14, fontFamily: MONO, fontSize: 22, color: MUTED}}>storyboard</div>
+      </div>
+      {PICKS.map((_, j) => { const p = panelR(j); return <div key={j} style={{position: 'absolute', left: p.x - M, top: p.y - SB.top, width: p.w, height: p.h, borderRadius: 10, border: '2px dashed rgba(31,30,29,.25)'}}>
+        {t >= FLY3.a + FLY3.d + j * .06 && t < FLY4.a ? <Thumb s={THUMBS[PICKS[j]]} w={p.w - 4} h={p.h - 4} r={8} /> : null}</div>; })}
+      <div style={{position: 'absolute', right: 40, top: TITLE + 86, display: 'flex', alignItems: 'center', gap: 20}}>
+        <span style={{fontFamily: SANS, fontSize: 32, fontWeight: 500, color: INK}}>Approve</span>
+        <div style={{width: 96, height: 56, borderRadius: 28, background: on > .5 ? CLAY : 'rgba(31,30,29,.16)', position: 'relative'}}>
+          <div style={{position: 'absolute', top: 4, left: 4 + on * 40, width: 48, height: 48, borderRadius: 24, background: '#fff', boxShadow: '0 2px 6px rgba(0,0,0,.2)'}} /></div>
+      </div>
     </div>
   );
+};
+
+const StepEdit: React.FC = () => {
+  const t = useT();
+  const close = ease(t, 24.7, .6), cap = (i: number) => ease(t, 25.7 + i * .14, .25), kfs = ease(t, 27.0, .4), aud = ease(t, 27.9, .4);
+  let x = 0; const tight = CLIPS.map(([, w]) => { const o = x; x += w; return o; });
+  const L = 40, lane = (y: number, label: string, child: React.ReactNode) => (
+    <div style={{position: 'absolute', left: L, top: y, width: LANE_W, height: 96}}>
+      <div style={{fontFamily: MONO, fontSize: 20, lineHeight: '24px', color: MUTED, marginBottom: 8}}>{label}</div>
+      <div style={{position: 'relative', height: 64, borderRadius: 12, background: '#F4EEE5'}}>{child}</div>
+    </div>);
+  const landed = t >= FLY4.a + FLY4.d + .2;
+  return (
+    <Scene i={4}>
+      {lane(30, 'video', CLIPS.map(([o, w], i) => (i < 4 && !landed) ? null : <div key={i} style={{position: 'absolute', top: 8, height: 48, borderRadius: 8, background: i % 2 ? '#D98A6A' : CLAY,
+        opacity: i === 4 ? ease(t, 24.2, .3) : 1, left: interpolate(close, [0, 1], [o, tight[i]]) * (LANE_W / 900) + 8, width: w * (LANE_W / 900) - 6}} />))}
+      {lane(170, 'captions', ['Step', 'four.', 'The', 'edit:', 'clean', 'cuts'].map((w, i) => <div key={i} style={{position: 'absolute', top: 12, left: 10 + i * 128, height: 40, padding: '0 14px', borderRadius: 8,
+        background: INK, color: '#F5EEE6', fontFamily: SANS, fontSize: 22, lineHeight: '40px', opacity: cap(i), transform: `scale(${.8 + .2 * cap(i)})`}}>{w}</div>))}
+      {lane(310, 'motion', [0.12, 0.34, 0.56, 0.8].map((p, i) => <div key={i} style={{position: 'absolute', top: 20, left: p * LANE_W, width: 24, height: 24, background: CLAY, transform: `rotate(45deg) scale(${kfs})`, borderRadius: 4}} />))}
+      {lane(450, 'sound  −14 LUFS', <svg width={LANE_W} height={64} style={{opacity: aud}}>{Array.from({length: 70}, (_, i) => { const h = 6 + 14 * Math.abs(Math.sin(i * 1.7) * Math.sin(i * .37)); return <rect key={i} x={10 + i * ((LANE_W - 20) / 70)} y={32 - h / 2} width={5} height={h} rx={2.5} fill={INK} opacity={.55} />; })}</svg>)}
+      <div style={{position: 'absolute', left: playX(t) - BX, top: 20, width: 3, height: 560, background: CLAY, borderRadius: 2, opacity: ease(t, 24.4, .3), boxShadow: `0 0 18px ${CLAY}`}} />
+    </Scene>
+  );
+};
+
+const StepReview: React.FC = () => {
+  const t = useT();
+  const checks = ['Every cut lands on a word', 'Captions inside the safe zone', 'Loudness at −14 LUFS', 'Nothing covers the face'];
+  return (
+    <Scene i={5} delay={.3}>
+      {checks.map((c, i) => <div key={c} style={{position: 'absolute', left: 40, top: 30 + i * 80, display: 'flex', alignItems: 'center', gap: 24, opacity: ease(t, 30.45 + i * .38, .3)}}>
+        <Check on={ease(t, 30.7 + i * .38, .3)} /><span style={{fontFamily: SANS, fontSize: 34, fontWeight: 500, letterSpacing: -.5, color: INK}}>{c}</span></div>)}
+    </Scene>
+  );
+};
+
+// the note and the reply sit under the review window; the note later flies into the feedback log (Carry5)
+const Conversation: React.FC = () => {
+  const t = useT(); if (t < 32.6 || t > 35.3) return null;
+  const note = ease(t, 32.85, .4), reply = ease(t, 33.75, .4), out = ease(t, FLY5.a, .3);
+  return <>
+    {t < FLY5.a ? <div style={{position: 'absolute', left: NOTE.x, top: NOTE.y, width: NOTE.w, height: NOTE.h, background: CLAY, color: '#FFF6EE', borderRadius: '30px 30px 8px 30px',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SANS, fontSize: 36, fontWeight: 500, opacity: note, transform: `translateY(${(1 - note) * 24}px)`}}>make the font bigger</div> : null}
+    <div style={{position: 'absolute', left: M, top: 1000, background: CARD, border: `1.5px solid ${LINE}`, color: INK, borderRadius: '30px 30px 30px 8px', padding: '22px 30px',
+      fontFamily: SANS, fontSize: 36, fontWeight: 500, opacity: reply * (1 - out), transform: `translateY(${(1 - reply) * 24 - out * 20}px)`, boxShadow: '0 12px 30px -12px rgba(80,55,30,.25)'}}>Done. v2 is ready.</div>
+  </>;
+};
+
+const LOG = [['v1', 'font bigger'], ['v2', 'sound quieter'], ['v3', 'hook faster'], ['v4', 'approved']];
+const LogRow: React.FC<{v: string; n: string; last?: boolean; check?: number}> = ({v, n, last, check = 0}) => (
+  <div style={{height: 76, display: 'flex', alignItems: 'center', gap: 26, borderRadius: 16, background: last ? '#F7E6DC' : '#F4EEE5', padding: '0 26px'}}>
+    <span style={{fontFamily: MONO, fontSize: 24, color: CLAY}}>{v}</span><span style={{fontFamily: SANS, fontSize: 34, fontWeight: 500, color: INK}}>{n}</span>
+    {last ? <div style={{marginLeft: 'auto'}}><Check on={check} size={36} /></div> : null}
+  </div>
+);
+const StepLearn: React.FC = () => {
+  const t = useT();
+  const next = ease(t, 38.4, .45), at = [FLY5.a + FLY5.d, 36.0, 36.5, 37.0];
+  return (
+    <Scene i={6} delay={0}>
+      {LOG.map(([v, n], i) => { if (t < at[i] - (i ? .3 : 0)) return null; const e = i ? ease(t, at[i] - .3, .4) : 1; return (
+        <div key={v} style={{position: 'absolute', left: 40, right: 40, top: 30 + i * 96, opacity: e, transform: `translateY(${(1 - e) * -30}px)`}}>
+          <LogRow v={v} n={n} last={i === 3} check={ease(t, 37.3, .3)} /></div>); })}
+      <div style={{position: 'absolute', left: 40, right: 40, top: 636 - 44 - 120, height: 120, borderRadius: 20, background: INK, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 34px', opacity: next, transform: `translateY(${(1 - next) * 20}px)`}}>
+        <span style={{fontFamily: SANS, fontSize: 38, fontWeight: 600, color: '#F5EEE6', letterSpacing: -.8}}>Next video starts here</span>
+        <svg width={54} height={54} viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" stroke={CLAY_LT} strokeWidth={2.4} fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      </div>
+    </Scene>
+  );
+};
+
+// ---------------------------------------------------------------- carries: things that survive a cut and move into the next step
+const Fly: React.FC<{from: R; to: R; a: number; d: number; children: (k: number) => React.ReactNode; bg?: [string, string]; delay?: number}> = ({from, to, a, d, children, bg, delay = 0}) => {
+  const t = useT(), s = a + delay; if (t < s || t >= s + d) return null;
+  const k = ease(t, s, d), r = lerpR(from, to, k);
+  const dist = Math.hypot(to.x - from.x, to.y - from.y) + Math.abs(to.w - from.w) * .5;
+  return <div style={{position: 'absolute', left: r.x, top: r.y, width: r.w, height: r.h, borderRadius: r.r, overflow: 'hidden', filter: `blur(${speedBlur(t, s, d, dist)}px)`,
+    background: bg ? interpolateColors(k, [0, 1], bg) : undefined, boxShadow: `0 ${20 + 20 * Math.sin(k * Math.PI)}px 50px -20px rgba(0,0,0,.55)`}}>{children(k)}</div>;
+};
+
+const Carries: React.FC = () => {
+  const t = useT();
+  // 1 · "01 One folder" leaves the list and becomes the headline
+  const k1 = ease(t, FLY1.a, FLY1.d), on1 = t >= FLY1.a && t < FLY1.a + FLY1.d;
+  const fs = 40 + 36 * k1, b1 = speedBlur(t, FLY1.a, FLY1.d, 330);
+  return <>
+    {on1 ? <div style={{position: 'absolute', left: ROW0.x + (M - ROW0.x) * k1, top: ROW0.y + (214 - ROW0.y) * k1, display: 'flex', alignItems: 'baseline', whiteSpace: 'nowrap',
+      fontFamily: SANS, fontWeight: 500 + 100 * k1, fontSize: fs, letterSpacing: -.8 - 1.6 * k1, lineHeight: `${fs * 1.08}px`, color: interpolateColors(k1, [0, 1], [INK, LIGHT]), filter: `blur(${b1}px)`}}>
+      <span style={{position: 'relative', width: 78 * (1 - k1) + (fs * .62 + 22) * k1, color: interpolateColors(k1, [0, 1], [CLAY, CLAY_ON_DARK])}}>
+        <span style={{position: 'absolute', left: 0, bottom: 0, fontFamily: MONO, fontSize: 26, fontWeight: 400, opacity: 1 - k1}}>01</span>
+        <span style={{opacity: k1}}>1</span></span>
+      One folder<span style={{opacity: k1}}>.</span>
+    </div> : null}
+    {/* 2 · the "references" folder opens into the contact sheet */}
+    <Fly from={FOLDER_REF} to={SHEET} a={FLY2.a} d={FLY2.d} bg={['rgba(217,138,106,0)', '#F4EEE5']}>{k => <div style={{opacity: 1 - ease(t, FLY2.a + .15, .3)}}><FolderIcon w={lerpR(FOLDER_REF, SHEET, k).w} h={lerpR(FOLDER_REF, SHEET, k).h} color="#D98A6A" /></div>}</Fly>
+    {t >= FLY2.a + FLY2.d && t < 13.6 ? <div style={{position: 'absolute', left: SHEET.x, top: SHEET.y, width: SHEET.w, height: SHEET.h, borderRadius: SHEET.r, background: '#F4EEE5', opacity: 1 - ease(t, 12.85, .6)}} /> : null}
+    {/* 3 · four frames from the contact sheet become the storyboard */}
+    {PICKS.map((i, j) => <Fly key={'p' + j} from={thumbR(i)} to={panelR(j)} a={FLY3.a} d={FLY3.d} delay={j * .06}>{() => <Thumb s={THUMBS[i]} w="100%" h="100%" r={0} />}</Fly>)}
+    {/* 4 · the approved storyboard panels drop into the timeline as clips */}
+    {PICKS.map((i, j) => <Fly key={'c' + j} from={panelR(j)} to={clipR(j)} a={FLY4.a} d={FLY4.d} delay={j * .06} bg={[CARD, j % 2 ? '#D98A6A' : CLAY]}>{k => <div style={{position: 'absolute', inset: 0, opacity: 1 - ease(t, FLY4.a + .15 + j * .06, .3)}}><Thumb s={THUMBS[i]} w="100%" h="100%" r={0} /></div>}</Fly>)}
+    {/* 5 · the note becomes the first line of the feedback log */}
+    <Fly from={NOTE} to={LOG0} a={FLY5.a} d={FLY5.d} bg={[CLAY, '#F4EEE5']}>{k => <>
+      <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SANS, fontSize: 36, fontWeight: 500, color: '#FFF6EE', opacity: 1 - ease(t, FLY5.a, .3), whiteSpace: 'nowrap'}}>make the font bigger</div>
+      <div style={{position: 'absolute', inset: 0, opacity: ease(t, FLY5.a + .3, .3)}}><LogRow v="v1" n="font bigger" /></div></>}</Fly>
+  </>;
 };
 
 const Progress: React.FC = () => {
@@ -156,205 +466,23 @@ const Progress: React.FC = () => {
   );
 };
 
-const Check: React.FC<{on: number; size?: number}> = ({on, size = 34}) => (
-  <div style={{width: size, height: size, borderRadius: size / 2, border: `2px solid ${on > .5 ? CLAY : 'rgba(31,30,29,.25)'}`, background: on > .5 ? CLAY : 'transparent',
-    display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${1 + .18 * Math.sin(Math.min(1, on) * Math.PI)})`}}>
-    <svg width={size * .55} height={size * .55} viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#FFF6EE" strokeWidth={2.8} strokeLinecap="round" strokeLinejoin="round"
-      strokeDasharray={24} strokeDashoffset={24 * (1 - Math.min(1, on))} /></svg>
-  </div>
-);
-
-const FolderIcon: React.FC<{size: number; color?: string}> = ({size, color = CLAY}) => (
-  <svg width={size} height={size * .8} viewBox="0 0 100 80"><path d="M6 14a6 6 0 0 1 6-6h24l8 9h44a6 6 0 0 1 6 6v45a6 6 0 0 1-6 6H12a6 6 0 0 1-6-6z" fill={color} />
-    <path d="M6 28h88v40a6 6 0 0 1-6 6H12a6 6 0 0 1-6-6z" fill="#fff" opacity=".18" /></svg>
-);
-
-// ---------------------------------------------------------------- beats
-const Intro: React.FC = () => {     // the process at a glance + "save it"
-  const t = useT(); const [a, b] = BEATS[0]; if (!inBeat(t, a, b)) return null;
-  const items = ['One folder', 'Claude watches first', 'Style sheet + storyboard', 'The edit', 'A second review', 'It learns'];
-  const save = ease(t, 6.45, .4);
-  return (
-    <div style={beatStyle(t, a, b, .1)}>
-      <Window title="the-process.md" top={440} height={700}>
-        {items.map((x, i) => { const k = ease(t, 5.15 + i * .16, .4); return (
-          <div key={x} style={{position: 'absolute', left: 40, top: 34 + i * 96, display: 'flex', alignItems: 'center', gap: 26, opacity: k, transform: `translateY(${(1 - k) * 16}px)`}}>
-            <div style={{width: 52, fontFamily: MONO, fontSize: 26, color: CLAY}}>{String(i + 1).padStart(2, '0')}</div>
-            <div style={{fontFamily: SANS, fontSize: 40, fontWeight: 500, letterSpacing: -.8, color: INK}}>{x}</div>
-          </div>); })}
-      </Window>
-      <div style={{position: 'absolute', right: M + 26, top: 470, transform: `scale(${.6 + .4 * save})`, opacity: save, display: 'flex', alignItems: 'center', gap: 12,
-        background: CLAY, color: '#FFF6EE', borderRadius: 999, padding: '14px 26px', fontFamily: SANS, fontWeight: 600, fontSize: 30}}>
-        <svg width={22} height={28} viewBox="0 0 22 28"><path d="M2 3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v23l-9-6-9 6z" fill='#FFF6EE' /></svg>Save this
-      </div>
-    </div>
-  );
-};
-
-const StepFolder: React.FC = () => {
-  const t = useT(); const [a, b] = BEATS[1]; if (!inBeat(t, a, b)) return null;
-  const names = ['raw', 'references', 'exports'], at = [8.75, 9.35, 9.95];
-  const term = ease(t, 10.9, .45), typed = 'claude'.slice(0, Math.max(0, Math.floor((t - 11.15) * 14)));
-  return (
-    <div style={beatStyle(t, a, b, .1)}>
-      <Window title="~/AI Video Editor" top={440} height={700}>
-        {names.map((n, i) => { const k = ease(t, at[i] - .25, .5); return (
-          <div key={n} style={{position: 'absolute', left: 48 + i * 300, top: 70, width: 240, textAlign: 'center', opacity: k, transform: `translateY(${(1 - k) * -90}px)`}}>
-            <FolderIcon size={190} color={i === 0 ? CLAY : i === 1 ? '#D98A6A' : '#B5543A'} />
-            <div style={{fontFamily: SANS, fontSize: 32, fontWeight: 500, color: INK, marginTop: 14}}>{n}</div>
-          </div>); })}
-        <div style={{position: 'absolute', left: 40, right: 40, bottom: 44, height: 110, borderRadius: 20, background: INK, opacity: term, transform: `translateY(${(1 - term) * 20}px)`,
-          display: 'flex', alignItems: 'center', padding: '0 34px', fontFamily: MONO, fontSize: 34, color: '#F5EEE6'}}>
-          <span style={{color: CLAY_LT, marginRight: 18}}>~/AI Video Editor ›</span>{typed}<span style={{opacity: Math.floor(t * 2) % 2 ? 1 : 0, marginLeft: 2}}>▍</span>
-        </div>
-      </Window>
-    </div>
-  );
-};
-
-const THUMBS = [3.2, 4.7, 6.9, 9.0, 10.0, 11.2, 13.4, 15.7];
-const StepWatch: React.FC = () => {
-  const t = useT(); const [a, b] = BEATS[2]; if (!inBeat(t, a, b)) return null;
-  const cols = 4, tw = 196, th = 176, gx = 18;
-  const words = 'Every reference, frame by frame, with a transcript.'.split(' ');
-  const scan = interpolate(t, [13.0, 15.5], [0, 1], clamp);
-  return (
-    <div style={beatStyle(t, a, b, .1)}>
-      <Window title="watch · contact sheet" top={440} height={700}>
-        {THUMBS.map((s, i) => { const k = ease(t, 13.0 + i * .3, .35); const x = 40 + (i % cols) * (tw + gx), y = 34 + Math.floor(i / cols) * (th + 54);
-          return <div key={i} style={{position: 'absolute', left: x, top: y, opacity: k, transform: `scale(${.92 + .08 * k})`}}>
-            <div style={{width: tw, height: th, borderRadius: 12, overflow: 'hidden', border: `1.5px solid ${LINE}`, background: PAPER}}>
-              <Img src={staticFile(`edits/ewc/frames/f${String((getInputProps() as {stageFrame?: number}).stageFrame ?? Math.round(s * CLAWD_FPS)).padStart(5, '0')}.jpg`)} style={{width: tw, height: tw * 16 / 9, marginTop: -tw * 16 / 9 * .6}} />
-            </div>
-            <div style={{fontFamily: MONO, fontSize: 18, color: MUTED, marginTop: 8}}>00:{String(Math.floor(s)).padStart(2, '0')}.{Math.round((s % 1) * 10)}</div>
-          </div>; })}
-        <div style={{position: 'absolute', left: 40 + scan * (cols * (tw + gx) - 4), top: 26, width: 3, height: 2 * (th + 54) - 30, background: CLAY, opacity: scan > 0 && scan < 1 ? .8 : 0, borderRadius: 2}} />
-        <div style={{position: 'absolute', left: 40, right: 40, bottom: 34, height: 92, borderRadius: 18, background: '#F4EEE5', display: 'flex', alignItems: 'center', padding: '0 26px', gap: 12, flexWrap: 'nowrap', overflow: 'hidden'}}>
-          <span style={{fontFamily: MONO, fontSize: 20, color: MUTED, marginRight: 8}}>transcript</span>
-          {words.map((w, i) => { const on = t > 15.6 + i * .22; return <span key={i} style={{fontFamily: SANS, fontSize: 28, fontWeight: 500, color: on ? INK : 'rgba(31,30,29,.25)'}}>{w}</span>; })}
-        </div>
-      </Window>
-    </div>
-  );
-};
-
-const StepStyle: React.FC = () => {
-  const t = useT(); const [a, b] = BEATS[3]; if (!inBeat(t, a, b)) return null;
-  const rows: [string, React.ReactNode][] = [
-    ['Type', <span style={{fontFamily: SANS, fontWeight: 600, fontSize: 40, letterSpacing: -1}}>Aa <span style={{fontWeight: 400, fontSize: 30, color: MUTED, letterSpacing: 0}}>Inter, 2 sizes</span></span>],
-    ['Colour', <div style={{display: 'flex', gap: 10}}>{[PAPER, INK, CLAY, '#E8AA38'].map(c => <div key={c} style={{width: 44, height: 44, borderRadius: 12, background: c, border: `1.5px solid ${LINE}`}} />)}</div>],
-    ['Pacing', <span style={{fontFamily: SANS, fontSize: 32, color: INK}}>a cut every 1.6 s</span>],
-    ['Sound', <span style={{fontFamily: SANS, fontSize: 32, color: INK}}>quiet taps, no swooshes</span>],
-  ];
-  const sb = ease(t, 20.0, .5), on = ease(t, 22.2, .3);
-  return (
-    <div style={beatStyle(t, a, b, .1)}>
-      <Window title="style_sheet.md" top={420} height={400}>
-        {rows.map(([k, v], i) => { const e = ease(t, 18.35 + i * .3, .4); return (
-          <div key={k} style={{position: 'absolute', left: 40, right: 40, top: 22 + i * 76, height: 64, display: 'flex', alignItems: 'center', opacity: e, transform: `translateX(${(1 - e) * 24}px)`, borderBottom: i < 3 ? `1.5px solid ${LINE}` : 'none'}}>
-            <div style={{width: 190, fontFamily: MONO, fontSize: 24, color: MUTED}}>{k}</div>{v}
-          </div>); })}
-      </Window>
-      <Window title="storyboard" top={846} height={300} style={{opacity: sb, transform: `translateY(${(1 - sb) * 30}px)`}}>
-        {[0, 1, 2, 3].map(i => <div key={i} style={{position: 'absolute', left: 40 + i * 116, top: 30, width: 96, height: 140, borderRadius: 10, border: `2px dashed rgba(31,30,29,.3)`,
-          display: 'flex', alignItems: 'flex-end', padding: 8, fontFamily: MONO, fontSize: 18, color: MUTED, opacity: ease(t, 20.2 + i * .15, .3)}}>{i + 1}</div>)}
-        <div style={{position: 'absolute', right: 40, top: 58, display: 'flex', alignItems: 'center', gap: 20}}>
-          <span style={{fontFamily: SANS, fontSize: 32, fontWeight: 500, color: INK}}>Approve</span>
-          <div style={{width: 96, height: 56, borderRadius: 28, background: on > .5 ? CLAY : 'rgba(31,30,29,.16)', position: 'relative'}}>
-            <div style={{position: 'absolute', top: 4, left: 4 + on * 40, width: 48, height: 48, borderRadius: 24, background: '#fff', boxShadow: '0 2px 6px rgba(0,0,0,.2)'}} /></div>
-        </div>
-      </Window>
-    </div>
-  );
-};
-
-const StepEdit: React.FC = () => {
-  const t = useT(); const [a, b] = BEATS[4]; if (!inBeat(t, a, b)) return null;
-  const close = ease(t, 24.7, .6), cap = (i: number) => ease(t, 25.7 + i * .14, .25), kfs = ease(t, 27.0, .4), aud = ease(t, 27.9, .4);
-  const play = interpolate(t, [24.0, 29.0], [0, 1], clamp);
-  const clips = [[0, 150], [190, 140], [370, 210], [620, 120], [780, 90]];           // raw, with gaps
-  let x = 0; const tight = clips.map(([, w]) => { const o = x; x += w; return o; });
-  const L = 40, laneW = CW - 80, lane = (y: number, label: string, child: React.ReactNode) => (
-    <div style={{position: 'absolute', left: L, top: y, width: laneW, height: 96}}>
-      <div style={{fontFamily: MONO, fontSize: 20, color: MUTED, marginBottom: 8}}>{label}</div>
-      <div style={{position: 'relative', height: 64, borderRadius: 12, background: '#F4EEE5'}}>{child}</div>
-    </div>);
-  return (
-    <div style={beatStyle(t, a, b, .1)}>
-      <Window title="timeline · v1" top={440} height={700}>
-        {lane(30, 'video', clips.map(([o, w], i) => <div key={i} style={{position: 'absolute', top: 8, height: 48, borderRadius: 8, background: i % 2 ? '#D98A6A' : CLAY,
-          left: interpolate(close, [0, 1], [o, tight[i]]) * (laneW / 900) + 8, width: w * (laneW / 900) - 6}} />))}
-        {lane(170, 'captions', ['Step', 'four.', 'The', 'edit:', 'clean', 'cuts'].map((w, i) => <div key={i} style={{position: 'absolute', top: 12, left: 10 + i * 128, height: 40, padding: '0 14px', borderRadius: 8,
-          background: INK, color: '#F5EEE6', fontFamily: SANS, fontSize: 22, lineHeight: '40px', opacity: cap(i), transform: `scale(${.8 + .2 * cap(i)})`}}>{w}</div>))}
-        {lane(310, 'motion', [0.12, 0.34, 0.56, 0.8].map((p, i) => <div key={i} style={{position: 'absolute', top: 20, left: p * laneW, width: 24, height: 24, background: CLAY, transform: `rotate(45deg) scale(${kfs})`, borderRadius: 4}} />))}
-        {lane(450, 'sound  −14 LUFS', <svg width={laneW} height={64} style={{opacity: aud}}>{Array.from({length: 70}, (_, i) => { const h = 6 + 14 * Math.abs(Math.sin(i * 1.7) * Math.sin(i * .37)); return <rect key={i} x={10 + i * ((laneW - 20) / 70)} y={32 - h / 2} width={5} height={h} rx={2.5} fill={INK} opacity={.55} />; })}</svg>)}
-        <div style={{position: 'absolute', left: L + play * laneW, top: 20, width: 3, height: 560, background: CLAY, borderRadius: 2}} />
-      </Window>
-    </div>
-  );
-};
-
-const StepReview: React.FC = () => {
-  const t = useT(); const [a, b] = BEATS[5]; if (!inBeat(t, a, b)) return null;
-  const checks = ['Every cut lands on a word', 'Captions inside the safe zone', 'Loudness at −14 LUFS', 'Nothing covers the face'];
-  const note = ease(t, 32.85, .4), reply = ease(t, 33.75, .4);
-  return (
-    <div style={beatStyle(t, a, b, .1)}>
-      <Window title="review · second pass" top={420} height={420}>
-        {checks.map((c, i) => <div key={c} style={{position: 'absolute', left: 40, top: 30 + i * 86, display: 'flex', alignItems: 'center', gap: 24}}>
-          <Check on={ease(t, 30.7 + i * .38, .3)} /><span style={{fontFamily: SANS, fontSize: 34, fontWeight: 500, letterSpacing: -.5, color: INK}}>{c}</span></div>)}
-      </Window>
-      <div style={{position: 'absolute', right: M, top: 880, maxWidth: 700, background: CLAY, color: '#FFF6EE', borderRadius: '30px 30px 8px 30px', padding: '22px 30px',
-        fontFamily: SANS, fontSize: 36, fontWeight: 500, opacity: note, transform: `translateY(${(1 - note) * 24}px)`}}>make the font bigger</div>
-      <div style={{position: 'absolute', left: M, top: 1010, background: CARD, border: `1.5px solid ${LINE}`, color: INK, borderRadius: '30px 30px 30px 8px', padding: '22px 30px',
-        fontFamily: SANS, fontSize: 36, fontWeight: 500, opacity: reply, transform: `translateY(${(1 - reply) * 24}px)`, boxShadow: '0 12px 30px -12px rgba(80,55,30,.25)'}}>Done. v2 is ready.</div>
-    </div>
-  );
-};
-
-const StepLearn: React.FC = () => {
-  const t = useT(); const [a, b] = BEATS[6]; if (!inBeat(t, a, b)) return null;
-  const rows = [['v1', 'font bigger'], ['v2', 'sound quieter'], ['v3', 'hook faster'], ['v4', 'approved']];
-  const next = ease(t, 38.4, .45);
-  return (
-    <div style={beatStyle(t, a, b, .1)}>
-      <Window title="feedback-log.md" top={440} height={700}>
-        {rows.map(([v, n], i) => { const e = ease(t, 35.6 + i * .5, .4); return (
-          <div key={v} style={{position: 'absolute', left: 40, right: 40, top: 30 + i * 96, height: 76, display: 'flex', alignItems: 'center', gap: 26, borderRadius: 16,
-            background: i === 3 ? '#F7E6DC' : '#F4EEE5', padding: '0 26px', opacity: e, transform: `translateY(${(1 - e) * -30}px)`}}>
-            <span style={{fontFamily: MONO, fontSize: 24, color: CLAY}}>{v}</span><span style={{fontFamily: SANS, fontSize: 34, fontWeight: 500, color: INK}}>{n}</span>
-            {i === 3 ? <div style={{marginLeft: 'auto'}}><Check on={ease(t, 37.3, .3)} size={36} /></div> : null}
-          </div>); })}
-        <div style={{position: 'absolute', left: 40, right: 40, bottom: 44, height: 120, borderRadius: 20, background: INK, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '0 34px', opacity: next, transform: `translateY(${(1 - next) * 20}px)`}}>
-          <span style={{fontFamily: SANS, fontSize: 38, fontWeight: 600, color: '#F5EEE6', letterSpacing: -.8}}>Next video starts here</span>
-          <svg width={54} height={54} viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" stroke={CLAY_LT} strokeWidth={2.4} fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
-        </div>
-      </Window>
-    </div>
-  );
-};
-
 const Outro: React.FC = () => {
   const t = useT(); const [a] = BEATS[7]; if (t < a - .05) return null;
-  const head = ease(t, 40.45, .55), field = ease(t, 41.0, .45), typed = 'EDIT'.slice(0, Math.max(0, Math.floor((t - 41.6) * 9))), sent = ease(t, 42.4, .35);
+  const sent = ease(t, 42.4, .35);
   return (
     <>
-      <div style={{position: 'absolute', left: M, top: 300, width: CW, textAlign: 'center', opacity: head, transform: `translateY(${(1 - head) * 30}px)`}}>
-        <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 112, letterSpacing: -4, lineHeight: '116px', color: LIGHT}}>Comment <span style={{color: CLAY_ON_DARK}}>EDIT</span></div>
-        <div style={{fontFamily: SANS, fontWeight: 400, fontSize: 40, letterSpacing: -.6, color: LIGHT_MUTED, marginTop: 26}}>I'll send you the whole setup.</div>
-      </div>
-      <div style={{position: 'absolute', left: M + 60, width: CW - 120, top: 690, height: 104, borderRadius: 52, background: CARD, border: `1.5px solid ${LINE}`, boxShadow: '0 20px 40px -18px rgba(80,55,30,.25)',
-        display: 'flex', alignItems: 'center', padding: '0 16px 0 40px', opacity: field * (1 - sent), transform: `translateY(${(1 - field) * 24 - sent * 30}px)`}}>
-        <span style={{fontFamily: SANS, fontSize: 36, fontWeight: typed ? 600 : 400, color: typed ? INK : 'rgba(31,30,29,.35)', flex: 1}}>{typed || 'Add a comment…'}</span>
-        <div style={{width: 74, height: 74, borderRadius: 37, background: typed.length === 4 ? CLAY : 'rgba(31,30,29,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <svg width={30} height={30} viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" stroke="#fff" strokeWidth={2.6} fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+      <div style={{position: 'absolute', left: M, top: 300, width: CW, textAlign: 'center'}}>
+        <HeadText text="Comment EDIT" accent="EDIT" k={i => ease(t, 40.45 + i * .1, .5)} style={{fontSize: 112, letterSpacing: -4, lineHeight: '116px', textAlign: 'center'}} />
+        <div style={{fontFamily: SANS, fontWeight: 400, fontSize: 40, letterSpacing: -.6, color: LIGHT_MUTED, marginTop: 26, opacity: ease(t, 40.8, .5)}}>I'll send you the whole setup.</div>
       </div>
       <div style={{position: 'absolute', right: M + 60, top: 720, background: CLAY, color: '#FFF6EE', borderRadius: '30px 30px 8px 30px', padding: '20px 34px',
         fontFamily: SANS, fontSize: 42, fontWeight: 600, opacity: sent, transform: `translateY(${(1 - sent) * 30}px) scale(${.9 + .1 * sent})`}}>EDIT</div>
     </>
   );
 };
+
+// a slow camera on everything but the captions and progress: still at the hand-off, drifting in, pushing in for the close
+const cam = (t: number) => t < HOOK_END ? 1 : t < 40.3 ? 1 + .03 * seg(t, HOOK_END, 40.3) : 1.03 + .05 * ease(t, 40.3, 1.6);
 
 // ---------------------------------------------------------------- captions: one word, centred under Clawd
 const Captions: React.FC = () => {
@@ -372,25 +500,30 @@ const Captions: React.FC = () => {
 const SFX: [number, string, number][] = [
   ...Array.from({length: Math.floor(HOOK_FLIPS_END / FLIP)}, (_, i) => [i * FLIP, 'tick', .07] as [number, string, number]),
   [RESOLVE + .1, 'bloom', .22],
-  [2.85, 'tap', .14], [5.2, 'tap', .1], [6.5, 'tap', .14],
-  [8.6, 'tap', .14], [9.2, 'tap', .14], [9.8, 'tap', .14], [11.0, 'tap', .1],
-  [12.6, 'tap', .14], [18.0, 'tap', .14], [22.25, 'bloom', .2],
-  [23.6, 'tap', .14], [24.75, 'tap', .12], [29.4, 'tap', .14], [32.85, 'tap', .14], [33.75, 'tap', .1],
-  [35.0, 'tap', .14], [37.3, 'bloom', .16], [40.45, 'tap', .14], [42.4, 'bloom', .24],
+  [3.3, 'tap', .14], [3.45, 'tap', .08], [6.5, 'tap', .14],
+  [7.85, 'tap', .12], [8.75, 'tap', .14], [9.35, 'tap', .14], [9.95, 'tap', .14], [11.0, 'tap', .1],
+  [12.7, 'tap', .12], [18.4, 'tap', .14], [22.25, 'bloom', .2],
+  [24.1, 'tap', .14], [24.75, 'tap', .12], [29.7, 'tap', .12], [32.85, 'tap', .14], [33.75, 'tap', .1],
+  [35.4, 'tap', .14], [37.3, 'bloom', .16], [40.9, 'tap', .14], [42.4, 'bloom', .24],
 ];
+
+const Camera: React.FC<{children: React.ReactNode}> = ({children}) => {
+  const t = useT();
+  return <AbsoluteFill style={{transform: `scale(${cam(t)})`, transformOrigin: '540px 1150px'}}>{children}</AbsoluteFill>;
+};
 
 export const EditWithClaude: React.FC = () => (
   <AbsoluteFill style={{background: NIGHT}}>
-    <Stage />
+    <Camera>
+      <Stage />
+      <Headlines />
+      <Workspace />
+      <Storyboard />
+      <Conversation />
+      <Carries />
+      <Outro />
+    </Camera>
     <Progress />
-    <Headline text="The whole process."  a={BEATS[0][0]} b={BEATS[0][1]} />
-    <Headline n={1} text="One folder." a={BEATS[1][0]} b={BEATS[1][1]} />
-    <Headline n={2} text="Claude watches first." a={BEATS[2][0]} b={BEATS[2][1]} />
-    <Headline n={3} text="Style sheet, then storyboard." a={BEATS[3][0]} b={BEATS[3][1]} />
-    <Headline n={4} text="The edit." a={BEATS[4][0]} b={BEATS[4][1]} />
-    <Headline n={5} text="A second Claude reviews." a={BEATS[5][0]} b={BEATS[5][1]} />
-    <Headline n={6} text="It learns every round." a={BEATS[6][0]} b={BEATS[6][1]} />
-    <Intro /><StepFolder /><StepWatch /><StepStyle /><StepEdit /><StepReview /><StepLearn /><Outro />
     <Captions />
     <Hook />
     {SFX.map(([at, name, v], i) => <Sequence key={i} from={Math.round(at * FPS)} durationInFrames={Math.round(1.2 * FPS)}><Audio src={staticFile(`sfx/${name}.wav`)} volume={v} /></Sequence>)}
