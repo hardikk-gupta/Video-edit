@@ -26,6 +26,8 @@ Do these in order before cutting or designing anything:
    working file for the job; update it with every round of feedback.
    **Ask every question at this point, all at once** (Hardik, 2026-11-02): once the job starts, don't stop to ask;
    report progress in a line and finish. Decide anything new yourself and record it in the project file.
+   Also decide the renderer for this video, **Remotion or HyperFrames**, using the table in
+   [docs/06](docs/06-tools-skills-mcp.md#remotion-or-hyperframes-decide-per-video), and record the choice and reason there.
 5. **Edit, then watch your own render** (the `watch` and `reel-review` steps) before Hardik sees it.
 6. **Push lessons up into this file.** When feedback or an approval shows a rule that should hold for future
    videos, move it from the project's `instructions.md` into this file (and the affected doc), in the same
@@ -46,6 +48,10 @@ Do these in order before cutting or designing anything:
 - Do not leave lessons only in chat, an agent's memory, or a generic changelog entry.
 - Do not make another video just because feedback arrived. Follow the requested scope: documentation-only
   feedback means update the repo, without rendering or changing the video.
+
+- Do not make a video about Claude look like Claude's own branding: no cream/terracotta/orange palette and no
+  serif headings that echo it (user, 2026-10-26: v2 "was looking like it was something given by Claude itself").
+  Pick a palette that is the creator's, not the subject's.
 
 ## What to do
 

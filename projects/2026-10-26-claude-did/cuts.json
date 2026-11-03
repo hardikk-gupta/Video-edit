@@ -1,0 +1,44 @@
+[
+ {
+  "id": 1,
+  "src": "raw/main.mp4",
+  "in": 0.9,
+  "out": 3.9,
+  "text": "I didn't edit a single second of this video, Claude did."
+ },
+ {
+  "id": 2,
+  "src": "raw/main.mp4",
+  "in": 4.74,
+  "out": 7.92,
+  "text": "And no one is telling how this actually works"
+ },
+ {
+  "id": 3,
+  "src": "raw/main.mp4",
+  "in": 8.15,
+  "out": 9.04,
+  "text": "in an easier way"
+ },
+ {
+  "id": 4,
+  "src": "raw/main.mp4",
+  "in": 9.18,
+  "out": 13.84,
+  "text": "because everyone has their own repo, everyone has their own secret methods that are going on."
+ },
+ {
+  "id": 5,
+  "src": "raw/main.mp4",
+  "in": 14.46,
+  "out": 15.06,
+  "text": "So"
+ },
+ {
+  "id": 6,
+  "src": "raw/main.mp4",
+  "in": 15.66,
+  "out": 18.42,
+  "text": "I will tell you how to do this."
+ }
+]

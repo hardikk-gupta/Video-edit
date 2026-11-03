@@ -1,0 +1,16 @@
+{
+  "rule": "sfx-design: one sound per moving thing, its loudest moment on the fastest frame, at most one every 1.5 s, never the same variant twice in a row, about 12 dB under the voice (speech median -23 dBFS RMS -> effect peak -35 dBFS RMS). Effects only, no music (brief).",
+  "target_peak_dbfs": -35,
+  "events": [
+    {"t": 0.56, "sfx": "whip",   "motion": "zoom cut on 'edit'"},
+    {"t": 2.56, "sfx": "whoosh", "motion": "whiteout hit 'Claude did.'"},
+    {"t": 4.07, "sfx": "swoosh", "motion": "paper drawer slides up (fastest frames)"},
+    {"t": 5.72, "sfx": "pop",    "motion": "second '?' pops over the pet"},
+    {"t": 7.58, "sfx": "tap",    "motion": "first folder pops in"},
+    {"t": 10.14,"sfx": "tick",   "motion": "padlocks land on 'secret'"},
+    {"t": 13.52,"sfx": "swoosh", "motion": "steps drawer slides up"},
+    {"t": 15.10,"sfx": "ding",   "motion": "end card"}
+  ],
+  "skipped_for_spacing": ["1.30 number reveal (0.74 s after the zoom cut)", "9.28 title swap", "10.48 folder push-in", "12.82 zoom cut on 'tell you'"],
+  "sources": "toolkit/public/sfx: @remotion/sfx downloads and toolkit/scripts/synth_sfx.py (see docs/06)"
+}

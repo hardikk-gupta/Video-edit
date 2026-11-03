@@ -13,3 +13,4 @@ public/imagery/*
 public/refs/*
 !public/refs/.gitkeep
 src/duet-paths.json
+public/wa1832/

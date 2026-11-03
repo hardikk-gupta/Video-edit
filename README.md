@@ -22,6 +22,7 @@ work happens. This repo holds only methods, rules, references and code.
 | [docs/15-mascot-and-collage.md](docs/15-mascot-and-collage.md) | Mascot animation from character sheets (Clawd / our own), collage B-roll, OneTake, Lemo-Opuscar, HyperFrames: where each lives and how to pull it (`toolkit/scripts/fetch_vendor.sh`). |
 | [docs/14-ecosystem.md](docs/14-ecosystem.md) | Other creators' tools and repos by need (effects, background removal, reframe, captions, sound) and what we should add next. |
 | [docs/13-skills.md](docs/13-skills.md) | The skills in `.claude/skills/` (edit formats, pipeline stages, `watch`), where they came from, and where our rules override them. |
+| [docs/16-skills-guide.md](docs/16-skills-guide.md) | The skills' own guide (upstream README): how one edit goes, the seven brief questions, editing and caption styles, b-roll order, notes. |
 | [docs/07-references.md](docs/07-references.md) | Reference videos we studied and what we took from each. |
 | [docs/08-environment-gotchas.md](docs/08-environment-gotchas.md) | Things that broke and the fix. |
 | [docs/09-review-checklist.md](docs/09-review-checklist.md) | Check before you send any render. |
