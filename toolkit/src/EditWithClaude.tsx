@@ -134,9 +134,9 @@ const BEATS = [[2.75, 7.5], [7.5, 12.45], [12.45, 17.85], [17.85, 23.45], [23.45
 // ---------------------------------------------------------------- the workspace: one window for the whole film
 // It is born from the hook's "Claude" box, changes shape for each step, and ends as the comment field.
 const R_BOX: R = {x: BOX_X, y: BOX.y, w: BOX.w, h: BOX.h, r: 10};
-const R_FULL: R = {x: M, y: 440, w: CW, h: 700, r: 30};
-const R_STYLE: R = {x: M, y: 420, w: CW, h: 400, r: 30};
-const R_REVIEW: R = {x: M, y: 420, w: CW, h: 420, r: 30};
+const R_FULL: R = {x: M, y: 410, w: CW, h: 650, r: 30};   // bottom 1060: clear of Clawd's tallest hat
+const R_STYLE: R = {x: M, y: 400, w: CW, h: 380, r: 30};
+const R_REVIEW: R = {x: M, y: 400, w: CW, h: 400, r: 30};
 const R_FIELD: R = {x: M + 60, y: 690, w: CW - 120, h: 104, r: 52};
 const SHAPES: [number, number, R][] = [[2.75, .62, R_FULL], [17.85, .55, R_STYLE], [23.45, .55, R_FULL], [29.25, .55, R_REVIEW], [34.85, .55, R_FULL], [40.3, .65, R_FIELD]];
 const rectAt = (t: number) => { let r = R_BOX; for (const [a, d, s] of SHAPES) { if (t < a) break; r = lerpR(r, s, ease(t, a, d)); } return r; };
@@ -227,18 +227,20 @@ const Thumb: React.FC<{s: number; w: number | string; h: number | string; r?: nu
 
 // screen positions of things that carry across a cut (window body origin = R_FULL.x, R_FULL.y + TITLE)
 const BX = R_FULL.x, BY = R_FULL.y + TITLE;
-const ROW0 = {x: BX + 40, y: BY + 34};                                           // "01 One folder" in the list
+const ROW0 = {x: BX + 40, y: BY + 30};                                           // "01 One folder" in the list
 const FOLDER_REF: R = {x: BX + 348 + 25, y: BY + 70, w: 190, h: 152, r: 14};     // the "references" folder
 const SHEET: R = {x: BX + 18, y: BY + 18, w: CW - 36, h: R_FULL.h - TITLE - 36, r: 20};
-const TW = 196, TH = 176, TGX = 18;
+const TW = 196, TH = 150, TGX = 18;
+const BODY_H = R_FULL.h - TITLE;   // 586
+
 const THUMBS = [3.2, 4.7, 6.9, 9.0, 10.0, 11.2, 13.4, 15.7];
-const thumbR = (i: number): R => ({x: BX + 40 + (i % 4) * (TW + TGX), y: BY + 34 + Math.floor(i / 4) * (TH + 54), w: TW, h: TH, r: 12});
+const thumbR = (i: number): R => ({x: BX + 40 + (i % 4) * (TW + TGX), y: BY + 30 + Math.floor(i / 4) * (TH + 48), w: TW, h: TH, r: 12});
 const PICKS = [0, 2, 5, 7];                                                       // the frames that become the storyboard
-const SB = {top: 846, h: 300};
-const panelR = (j: number): R => ({x: M + 40 + j * 148, y: SB.top + TITLE + 34, w: 130, h: 160, r: 10});
+const SB = {top: 800, h: 260};
+const panelR = (j: number): R => ({x: M + 40 + j * 148, y: SB.top + TITLE + 26, w: 130, h: 140, r: 10});
 const LANE_W = CW - 80, CLIPS = [[0, 150], [190, 140], [370, 210], [620, 120], [780, 90]];
 const clipR = (j: number): R => ({x: BX + 40 + CLIPS[j][0] * (LANE_W / 900) + 8, y: BY + 30 + 32 + 8, w: CLIPS[j][1] * (LANE_W / 900) - 6, h: 48, r: 8});
-const NOTE: R = {x: W - M - 440, y: 880, w: 440, h: 88, r: 30};                  // "make the font bigger"
+const NOTE: R = {x: W - M - 440, y: 830, w: 440, h: 88, r: 30};                  // "make the font bigger"
 const LOG0: R = {x: BX + 40, y: BY + 30, w: CW - 80, h: 76, r: 16};             // feedback-log row v1
 const FLY1 = {a: 7.3, d: .6}, FLY2 = {a: 12.15, d: .6}, FLY3 = {a: 17.85, d: .65}, FLY4 = {a: 23.45, d: .65}, FLY5 = {a: 34.85, d: .6};
 // both Clawd (toolkit/clawd/edit-with-claude.js MOVES) and these lines travel 260→820 px on the same smoothstep
@@ -252,7 +254,7 @@ const Intro: React.FC = () => {     // the process at a glance + "save it"
   return (
     <Scene i={0} delay={.3}>
       {items.map((x, i) => { const k = ease(t, 3.35 + i * .14, .4); if (i === 0 && t >= FLY1.a) return null; return (
-        <div key={x} style={{position: 'absolute', left: 40, top: 34 + i * 96, display: 'flex', alignItems: 'center', gap: 26, opacity: k, transform: `translateY(${(1 - k) * 16}px)`}}>
+        <div key={x} style={{position: 'absolute', left: 40, top: 30 + i * 88, display: 'flex', alignItems: 'center', gap: 26, opacity: k, transform: `translateY(${(1 - k) * 16}px)`}}>
           <div style={{width: 52, fontFamily: MONO, fontSize: 26, color: CLAY}}>{String(i + 1).padStart(2, '0')}</div>
           <div style={{fontFamily: SANS, fontSize: 40, fontWeight: 500, letterSpacing: -.8, color: INK}}>{x}</div>
         </div>); })}
@@ -271,11 +273,14 @@ const StepFolder: React.FC = () => {
   return (
     <Scene i={1}>
       {names.map((n, i) => { const k = ease(t, at[i] - .25, .5); return (
-        <div key={n} style={{position: 'absolute', left: 48 + i * 300, top: 70, width: 240, textAlign: 'center', opacity: k, transform: `translateY(${(1 - k) * -90}px)`}}>
+        <div key={n} style={{position: 'absolute', left: 48 + i * 300, top: 70, width: 240, textAlign: 'center', opacity: k, transform: `translateY(${(1 - k) * -90}px)`, zIndex: 1}}>
           <div style={{opacity: i === 1 && t >= FLY2.a ? 0 : 1}}><FolderIcon w={190} color={i === 0 ? CLAY : i === 1 ? '#D98A6A' : '#B5543A'} /></div>
-          <div style={{fontFamily: SANS, fontSize: 32, fontWeight: 500, color: INK, marginTop: 14}}>{n}</div>
         </div>); })}
-      <div style={{position: 'absolute', left: 40, right: 40, top: 636 - 44 - 110, height: 110, borderRadius: 20, background: INK, opacity: term, transform: `translateY(${(1 - term) * 20}px)`,
+      {names.map((n, i) => <div key={'s' + n} style={{position: 'absolute', left: 48 + i * 300 + 25, top: 70, width: 190, height: 152, borderRadius: 16, border: '2.5px dashed rgba(31,30,29,.22)',
+        opacity: 1 - ease(t, at[i] - .1, .2)}} />)}
+      {names.map((n, i) => <div key={'l' + n} style={{position: 'absolute', left: 48 + i * 300, top: 70 + 152 + 14, width: 240, textAlign: 'center', fontFamily: SANS, fontSize: 32, fontWeight: 500,
+        color: t >= at[i] ? INK : 'rgba(31,30,29,.35)'}}>{n}</div>)}
+      <div style={{position: 'absolute', left: 40, right: 40, top: BODY_H - 40 - 110, height: 110, borderRadius: 20, background: INK, opacity: term, transform: `translateY(${(1 - term) * 20}px)`,
         display: 'flex', alignItems: 'center', padding: '0 34px', fontFamily: MONO, fontSize: 34, color: '#F5EEE6'}}>
         <span style={{color: CLAY_LT, marginRight: 18}}>~/AI Video Editor ›</span>{typed}<span style={{opacity: Math.floor(t * 2) % 2 ? 1 : 0, marginLeft: 2}}>▍</span>
       </div>
@@ -295,11 +300,11 @@ const StepWatch: React.FC = () => {
           <Thumb s={s} w={TW} h={TH} />
           <div style={{fontFamily: MONO, fontSize: 18, color: MUTED, marginTop: 8}}>00:{String(Math.floor(s)).padStart(2, '0')}.{Math.round((s % 1) * 10)}</div>
         </div>; })}
-      <div style={{position: 'absolute', left: sx, top: 26, width: 3, height: 2 * (TH + 54) - 30, background: CLAY, opacity: scanning ? .85 : 0, borderRadius: 2,
+      <div style={{position: 'absolute', left: sx, top: 26, width: 3, height: 2 * (TH + 48) - 20, background: CLAY, opacity: scanning ? .85 : 0, borderRadius: 2,
         boxShadow: `0 0 18px ${CLAY}`}} />
-      <div style={{position: 'absolute', left: 40, right: 40, top: 636 - 34 - 92, height: 92, borderRadius: 18, background: '#F4EEE5', display: 'flex', alignItems: 'center', padding: '0 26px', gap: 12, flexWrap: 'nowrap', overflow: 'hidden'}}>
-        <span style={{fontFamily: MONO, fontSize: 20, color: MUTED, marginRight: 8}}>transcript</span>
-        {words.map((w, i) => { const on = t > 15.6 + i * .22; return <span key={i} style={{fontFamily: SANS, fontSize: 28, fontWeight: 500, color: on ? INK : 'rgba(31,30,29,.25)'}}>{w}</span>; })}
+      <div style={{position: 'absolute', left: 40, right: 40, top: BODY_H - 30 - 92, height: 92, borderRadius: 18, background: '#F4EEE5', display: 'flex', alignItems: 'center', padding: '0 24px', gap: 9, flexWrap: 'nowrap', overflow: 'hidden'}}>
+        <span style={{fontFamily: MONO, fontSize: 18, color: MUTED, marginRight: 6}}>transcript</span>
+        {words.map((w, i) => { const on = t > 15.6 + i * .22; return <span key={i} style={{fontFamily: SANS, fontSize: 25, letterSpacing: -.3, fontWeight: 500, color: on ? INK : 'rgba(31,30,29,.25)'}}>{w}</span>; })}
       </div>
     </Scene>
   );
@@ -315,7 +320,7 @@ const StepStyle: React.FC = () => {
   ];
   return (
     <Scene i={3} delay={.3}>
-      {rows.map(([k, v], i) => { const e = ease(t, 18.45 + i * .3, .4); return (
+      {rows.map(([k, v], i) => { const e = ease(t, 18.2 + i * .18, .4); return (
         <div key={k} style={{position: 'absolute', left: 40, right: 40, top: 22 + i * 76, height: 64, display: 'flex', alignItems: 'center', opacity: e, transform: `translateX(${(1 - e) * 24}px)`, borderBottom: i < 3 ? `1.5px solid ${LINE}` : 'none'}}>
           <div style={{width: 190, fontFamily: MONO, fontSize: 24, color: MUTED}}>{k}</div>{v}
         </div>); })}
@@ -336,7 +341,7 @@ const Storyboard: React.FC = () => {
       </div>
       {PICKS.map((_, j) => { const p = panelR(j); return <div key={j} style={{position: 'absolute', left: p.x - M, top: p.y - SB.top, width: p.w, height: p.h, borderRadius: 10, border: '2px dashed rgba(31,30,29,.25)'}}>
         {t >= FLY3.a + FLY3.d + j * .06 && t < FLY4.a ? <Thumb s={THUMBS[PICKS[j]]} w={p.w - 4} h={p.h - 4} r={8} /> : null}</div>; })}
-      <div style={{position: 'absolute', right: 40, top: TITLE + 86, display: 'flex', alignItems: 'center', gap: 20}}>
+      <div style={{position: 'absolute', right: 40, top: TITLE + 68, display: 'flex', alignItems: 'center', gap: 20}}>
         <span style={{fontFamily: SANS, fontSize: 32, fontWeight: 500, color: INK}}>Approve</span>
         <div style={{width: 96, height: 56, borderRadius: 28, background: on > .5 ? CLAY : 'rgba(31,30,29,.16)', position: 'relative'}}>
           <div style={{position: 'absolute', top: 4, left: 4 + on * 40, width: 48, height: 48, borderRadius: 24, background: '#fff', boxShadow: '0 2px 6px rgba(0,0,0,.2)'}} /></div>
@@ -363,17 +368,17 @@ const StepEdit: React.FC = () => {
         background: INK, color: '#F5EEE6', fontFamily: SANS, fontSize: 22, lineHeight: '40px', opacity: cap(i), transform: `scale(${.8 + .2 * cap(i)})`}}>{w}</div>))}
       {lane(310, 'motion', [0.12, 0.34, 0.56, 0.8].map((p, i) => <div key={i} style={{position: 'absolute', top: 20, left: p * LANE_W, width: 24, height: 24, background: CLAY, transform: `rotate(45deg) scale(${kfs})`, borderRadius: 4}} />))}
       {lane(450, 'sound  −14 LUFS', <svg width={LANE_W} height={64} style={{opacity: aud}}>{Array.from({length: 70}, (_, i) => { const h = 6 + 14 * Math.abs(Math.sin(i * 1.7) * Math.sin(i * .37)); return <rect key={i} x={10 + i * ((LANE_W - 20) / 70)} y={32 - h / 2} width={5} height={h} rx={2.5} fill={INK} opacity={.55} />; })}</svg>)}
-      <div style={{position: 'absolute', left: playX(t) - BX, top: 20, width: 3, height: 560, background: CLAY, borderRadius: 2, opacity: ease(t, 24.4, .3), boxShadow: `0 0 18px ${CLAY}`}} />
+      <div style={{position: 'absolute', left: playX(t) - BX, top: 20, width: 3, height: 530, background: CLAY, borderRadius: 2, opacity: ease(t, 24.4, .3), boxShadow: `0 0 18px ${CLAY}`}} />
     </Scene>
   );
 };
 
 const StepReview: React.FC = () => {
   const t = useT();
-  const checks = ['Every cut lands on a word', 'Captions inside the safe zone', 'Loudness at −14 LUFS', 'Nothing covers the face'];
+  const checks = ['Every cut lands on a word', 'Captions inside the safe zone', 'Loudness at −14 LUFS', 'Text never covers Clawd'];
   return (
-    <Scene i={5} delay={.3}>
-      {checks.map((c, i) => <div key={c} style={{position: 'absolute', left: 40, top: 30 + i * 80, display: 'flex', alignItems: 'center', gap: 24, opacity: ease(t, 30.45 + i * .38, .3)}}>
+    <Scene i={5} delay={.15}>
+      {checks.map((c, i) => <div key={c} style={{position: 'absolute', left: 40, top: 30 + i * 80, display: 'flex', alignItems: 'center', gap: 24, opacity: ease(t, 29.55 + i * .1, .35)}}>
         <Check on={ease(t, 30.7 + i * .38, .3)} /><span style={{fontFamily: SANS, fontSize: 34, fontWeight: 500, letterSpacing: -.5, color: INK}}>{c}</span></div>)}
     </Scene>
   );
@@ -386,7 +391,7 @@ const Conversation: React.FC = () => {
   return <>
     {t < FLY5.a ? <div style={{position: 'absolute', left: NOTE.x, top: NOTE.y, width: NOTE.w, height: NOTE.h, background: CLAY, color: '#FFF6EE', borderRadius: '30px 30px 8px 30px',
       display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SANS, fontSize: 36, fontWeight: 500, opacity: note, transform: `translateY(${(1 - note) * 24}px)`}}>make the font bigger</div> : null}
-    <div style={{position: 'absolute', left: M, top: 1000, background: CARD, border: `1.5px solid ${LINE}`, color: INK, borderRadius: '30px 30px 30px 8px', padding: '22px 30px',
+    <div style={{position: 'absolute', left: M, top: 950, background: CARD, border: `1.5px solid ${LINE}`, color: INK, borderRadius: '30px 30px 30px 8px', padding: '22px 30px',
       fontFamily: SANS, fontSize: 36, fontWeight: 500, opacity: reply * (1 - out), transform: `translateY(${(1 - reply) * 24 - out * 20}px)`, boxShadow: '0 12px 30px -12px rgba(80,55,30,.25)'}}>Done. v2 is ready.</div>
   </>;
 };
@@ -406,7 +411,7 @@ const StepLearn: React.FC = () => {
       {LOG.map(([v, n], i) => { if (t < at[i] - (i ? .3 : 0)) return null; const e = i ? ease(t, at[i] - .3, .4) : 1; return (
         <div key={v} style={{position: 'absolute', left: 40, right: 40, top: 30 + i * 96, opacity: e, transform: `translateY(${(1 - e) * -30}px)`}}>
           <LogRow v={v} n={n} last={i === 3} check={ease(t, 37.3, .3)} /></div>); })}
-      <div style={{position: 'absolute', left: 40, right: 40, top: 636 - 44 - 120, height: 120, borderRadius: 20, background: INK, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      <div style={{position: 'absolute', left: 40, right: 40, top: BODY_H - 40 - 120, height: 120, borderRadius: 20, background: INK, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 34px', opacity: next, transform: `translateY(${(1 - next) * 20}px)`}}>
         <span style={{fontFamily: SANS, fontSize: 38, fontWeight: 600, color: '#F5EEE6', letterSpacing: -.8}}>Next video starts here</span>
         <svg width={54} height={54} viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" stroke={CLAY_LT} strokeWidth={2.4} fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -475,14 +480,20 @@ const Outro: React.FC = () => {
         <HeadText text="Comment EDIT" accent="EDIT" k={i => ease(t, 40.45 + i * .1, .5)} style={{fontSize: 112, letterSpacing: -4, lineHeight: '116px', textAlign: 'center'}} />
         <div style={{fontFamily: SANS, fontWeight: 400, fontSize: 40, letterSpacing: -.6, color: LIGHT_MUTED, marginTop: 26, opacity: ease(t, 40.8, .5)}}>I'll send you the whole setup.</div>
       </div>
-      <div style={{position: 'absolute', right: M + 60, top: 720, background: CLAY, color: '#FFF6EE', borderRadius: '30px 30px 8px 30px', padding: '20px 34px',
-        fontFamily: SANS, fontSize: 42, fontWeight: 600, opacity: sent, transform: `translateY(${(1 - sent) * 30}px) scale(${.9 + .1 * sent})`}}>EDIT</div>
+      <div style={{position: 'absolute', left: R_FIELD.x, top: R_FIELD.y - 6, width: R_FIELD.w, display: 'flex', alignItems: 'center', gap: 24, padding: '20px 28px', borderRadius: 30,
+        background: 'rgba(255,252,246,.08)', border: '1.5px solid rgba(244,236,224,.14)', opacity: sent, transform: `translateY(${(1 - sent) * 30}px)`}}>
+        <div style={{width: 72, height: 72, borderRadius: 36, background: CLAY_ON_DARK, flexShrink: 0}} />
+        <div><div style={{fontFamily: SANS, fontSize: 26, color: LIGHT_MUTED}}>you · just now</div>
+          <div style={{fontFamily: SANS, fontSize: 46, fontWeight: 700, letterSpacing: -.5, color: LIGHT, marginTop: 2}}>EDIT</div></div>
+        <svg style={{marginLeft: 'auto'}} width={40} height={40} viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill={CLAY_ON_DARK} opacity={ease(t, 43.0, .3)} /></svg>
+      </div>
     </>
   );
 };
 
-// a slow camera on everything but the captions and progress: still at the hand-off, drifting in, pushing in for the close
-const cam = (t: number) => t < HOOK_END ? 1 : t < 40.3 ? 1 + .03 * seg(t, HOOK_END, 40.3) : 1.03 + .05 * ease(t, 40.3, 1.6);
+// the camera moves everything but the captions and progress
+// a camera that holds, then nudges in at each step change (a still frame between moves: OneTake's rest rule)
+const cam = (t: number) => { let s = 1; for (let i = 1; i < 7; i++) s += .005 * ease(t, BEATS[i][0], .9); return s + .05 * ease(t, 40.3, 1.6); };
 
 // ---------------------------------------------------------------- captions: one word, centred under Clawd
 const Captions: React.FC = () => {
@@ -491,7 +502,7 @@ const Captions: React.FC = () => {
   if (i < 0) return null;
   const w = WORDS[i], k = ease(t, w.s, .12);
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 1592, textAlign: 'center', fontFamily: SANS, fontWeight: 600, fontSize: 66, letterSpacing: -1.6,
+    <div style={{position: 'absolute', left: 0, right: 0, top: 1530, textAlign: 'center', fontFamily: SANS, fontWeight: 600, fontSize: 66, letterSpacing: -1.6,
       color: STRESS.test(w.w) ? CLAY_ON_DARK : LIGHT, textShadow: '0 4px 24px rgba(0,0,0,.45)', opacity: .4 + .6 * k, transform: `translateY(${(1 - k) * 8}px)`}}>{w.w.replace(/[.,:]$/, '')}</div>
   );
 };
