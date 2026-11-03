@@ -2,7 +2,7 @@
 
 A 45 s, 1080×1920 reel. Clawd, the Claude Code mascot, walks into a spotlight and acts out our six-step process while
 UI cards explain each step. It opens with a 2.7 s match-cut hook. Brief, answers and rules: [instructions.md](instructions.md).
-Voice-over script with times: [script.md](script.md). **Status: v2 rendered 2026-11-03 and passed reel-review (second model); Hardik's review pending. v1 kept as history below.**
+Voice-over script with times: [script.md](script.md). **Status: v3 rendered 2026-11-03 and passed reel-review; Hardik's review pending. v3 is a new storyboard ([storyboard-v3.md](storyboard-v3.md)); v1 and v2 are kept below as history.**
 
 ## How it's built
 
@@ -50,3 +50,36 @@ What changed from v1, and why (Hardik approved the critique: v1 read as a slides
 - **OneTake oracle** (`verify_promo.py`, rhythm legs only; continuity needs a OneTake HTML comp): cadence, burst and audio
   pass. Rest has 22 % still frames against its 25 % target, because Clawd's painted boil changes 8×/s; accepted.
 - Loudness is −27.7 LUFS with SFX only, on purpose: master to −14 LUFS after the voice-over goes in.
+
+## v3 (2026-11-03): new storyboard, Clawd in the scene, real sound
+
+Hardik: more SFX than one tap (squash, sweep, zoom, shutter, from a GitHub library), no presenter mascot sliding left
+and right under cards, and new styles (paper, conversation, images, the real editing timeline, full-bleed, a mascot that
+sits and thinks). Composition `toolkit/src/EditWithClaudeV3.tsx` (id `EditWithClaudeV3` in `src/ewc.ts` and `Root.tsx`).
+
+| Layer | How it's made |
+|---|---|
+| Scenes | Nine full-bleed scenes (`S`, the `TR` transitions: zoom in, whip, paper up, zoom out). Each scene is a function of `t`, so the end grid re-renders scenes 1–6 as live thumbnails. |
+| Clawd | `toolkit/clawd/ewc-v3-cast.js`: eight short clips painted on chroma green, 640×640 at 8 fps (`setup_cast.sh`, then `render.mjs --png`), keyed to alpha with `key_cast.sh`, placed by `Cast` (sitting ledge = the clip's y 552). About 10 s a frame, so ~20 min in 3 processes. |
+| Real material | Feed and strip frames are from our own v1/v2 renders (`v3assets/feed`, `strip`). `studio.png` is a real 1920×1500 screenshot of Remotion Studio with this composition open at 26.5 s. It was captured twice, so the preview inside it shows the timeline too. The review terminal shows the reviewer's actual v2 findings. The notebook lines are condensed from `docs/10-feedback-log.md`. |
+| Sound | `wyzowl/sfx-kit` (CC0) via `public/sfx/kit`; 44 sounds, placed by their sync points (`SFX3`, `at()`), mixed by `MIX`. |
+| Captions | One word in a dark pill at y 1528, from the v3 `SCRIPT` (the fluent wording). |
+
+Rebuild (after `toolkit/scripts/fetch_vendor.sh`):
+```bash
+toolkit/clawd/setup_cast.sh toolkit/clawd/ewc-v3-cast.js edits/2026-11-02-edit-with-claude/cast 45 640
+cd edits/2026-11-02-edit-with-claude/cast   # three ranges in parallel
+node render.mjs --soft-gl --chrome=/usr/bin/google-chrome --png --fps=8 --workers=1 --out=out/raw --range=2.875:7.625
+node render.mjs --soft-gl --chrome=/usr/bin/google-chrome --png --fps=8 --workers=1 --out=out/raw --range=9.75:29.375
+node render.mjs --soft-gl --chrome=/usr/bin/google-chrome --png --fps=8 --workers=1 --out=out/raw --range=29.375:45.125
+cd ../../.. && toolkit/clawd/key_cast.sh edits/2026-11-02-edit-with-claude/cast/out/raw edits/2026-11-02-edit-with-claude/v3assets/cast
+ln -sfn ../../../edits/2026-11-02-edit-with-claude/v3assets toolkit/public/edits/ewc3
+cd toolkit && ./node_modules/.bin/remotion render src/ewc.ts EditWithClaudeV3 out/edit-with-claude-v3.mp4 --crf=18
+```
+The feed/strip frames are pulled from the v1/v2 MP4s with ffmpeg; the Studio screenshot comes from `remotion studio
+src/ewc.ts` plus Playwright at 1920×1500, scrubbed to frame 795.
+
+**Checks:** OneTake's rhythm oracle passes every check, including rest (27 % still frames). Reel-review (a second
+model) passed with only "maybe" notes; the cheap ones were fixed: a callout clipped at the viewport edge, a doubled
+"EDIT" on send, Clawd touching labels, a log line that read as a contradiction. SFX-only loudness is −32.8 LUFS, peak
+−9.4 dBTP, so it sits under a −14 LUFS voice-over. Master after the voice goes in.

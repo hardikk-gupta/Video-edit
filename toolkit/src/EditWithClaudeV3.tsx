@@ -251,7 +251,7 @@ const Watch: React.FC<{t: number}> = ({t}) => {
           <span style={{fontFamily: MONO, fontSize: 22, color: CLAY_ON_DARK, paddingTop: 5}}>{tc}</span>
           <span>{l.split(' ').map((w, wi) => <span key={wi} style={{color: lit(li, wi) ? LIGHT : 'rgba(244,236,224,.22)'}}>{w} </span>)}</span></div>)}</div>
       </div>
-      <Cast t={t} a={12.55} b={17.9} x={830} ledge={1122} s={.85} />
+      <Cast t={t} a={12.55} b={17.9} x={890} ledge={1122} s={.85} />
     </AbsoluteFill>
   );
 };
@@ -268,7 +268,7 @@ const PaperDesk: React.FC<{t: number}> = ({t}) => {
     ['type', <span style={{fontFamily: SANS, fontWeight: 600, fontSize: 38}}>Aa <span style={{fontWeight: 400, fontSize: 30, color: MUTED}}>Inter, two sizes</span></span>],
     ['colour', <div style={{display: 'flex', gap: 10}}>{[PAPER, INK, CLAY, '#E8AA38'].map(c => <div key={c} style={{width: 42, height: 42, borderRadius: 10, background: c, border: `1.5px solid ${LINE}`}} />)}</div>],
     ['pacing', <span style={{fontFamily: SANS, fontSize: 32}}>one idea per beat</span>],
-    ['sound', <span style={{fontFamily: SANS, fontSize: 32}}>quiet, only where things move</span>],
+    ['sound', <span style={{fontFamily: SANS, fontSize: 32}}>quiet, where things move</span>],
   ];
   const sbK = ease(t, a + .3, .5), draw = interpolate(t, [wt(4, 'storyboard'), wt(4, 'storyboard') + .9], [1, 0], clamp);
   const tapes = [0, 1, 2, 3].map(i => ease(t, wt(4, 'nothing') - .5 + i * .16, .25));
@@ -302,7 +302,7 @@ const PaperDesk: React.FC<{t: number}> = ({t}) => {
       {/* the rubber stamp */}
       <div style={{position: 'absolute', left: 300, top: 860, padding: '14px 40px', border: `8px solid ${CLAY_DK}`, borderRadius: 18, color: CLAY_DK, fontFamily: SANS, fontWeight: 800, fontSize: 92, letterSpacing: 6,
         opacity: stamp * .9, transform: `rotate(-12deg) scale(${lerp(2.2, 1, stamp) * (1 + stampSq)}, ${lerp(2.2, 1, stamp) * (1 - stampSq)})`, mixBlendMode: 'multiply'}}>APPROVED</div>
-      <Cast t={t} a={17.95} b={23.5} x={850} ledge={776} s={.85} />
+      <Cast t={t} a={17.95} b={23.5} x={905} ledge={778} s={.85} />
       <svg width={0} height={0}><filter id="rough"><feTurbulence baseFrequency=".04" numOctaves={2} seed={3} /><feDisplacementMap in="SourceGraphic" scale={4} /></filter></svg>
     </AbsoluteFill>
   );
@@ -330,7 +330,7 @@ const Studio: React.FC<{t: number}> = ({t}) => {
         border: '1.5px solid rgba(244,236,224,.12)'}}>
         <div style={{position: 'absolute', left, top, width: STUDIO.w * sc, height: STUDIO.h * sc, filter: `blur(${speedBlur(t, wt(5, 'edit') + .1, .7, 600)}px)`}}>
           <Img src={staticFile('edits/ewc3/studio.png')} style={{width: '100%', height: '100%'}} />
-          {CALLOUTS.map(([label, at], i) => { const k = ease(t, at - .1, .35), [x, y] = spots[i]; return (
+          {CALLOUTS.map(([label, at], i) => { const [x, y] = spots[i], sx = left + x * sc, edge = Math.min(1, Math.max(0, Math.min(sx - 200, VP.w - 200 - sx) / 120)), k = ease(t, at - .1, .35) * edge; return (
             <div key={label} style={{position: 'absolute', left: x * sc, top: y * sc, transform: 'translate(-50%, -100%)', opacity: k}}>
               <div style={{transform: `translateY(${(1 - k) * 16}px) scale(${(.8 + .2 * k) / Math.max(1, sc)})`, transformOrigin: '50% 100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <div style={{background: CLAY, color: '#FFF6EE', borderRadius: 14, padding: '10px 20px', fontFamily: SANS, fontWeight: 600, fontSize: 40, whiteSpace: 'nowrap', boxShadow: '0 10px 24px rgba(0,0,0,.45)'}}>{label}</div>
@@ -387,7 +387,7 @@ const Review: React.FC<{t: number}> = ({t}) => {
 // ================================================================ 7 · the notebook (the real feedback log)
 const LOGLINES: [string, string][] = [   // docs/10-feedback-log.md, condensed
   ['Oct 22', 'tiny overlines → real type'], ['Nov 2', 'make the stage cinematic'], ['Nov 3', 'v1 felt like slides → carry it']];
-const NEWLINE: [string, string] = ['Nov 3', 'real SFX, no presenter mascot'];
+const NEWLINE: [string, string] = ['Nov 3', 'real SFX, mascot in the scene'];
 const Notebook: React.FC<{t: number}> = ({t}) => {
   const [a] = S.log, writeA = wt(7, 'note') - .2, chars = Math.max(0, Math.floor((t - writeA) * 26));
   const TURN = wt(7, 'next') - .35, turn = eio(t, TURN, .7), tick = ease(t, wt(7, 'starts') - .05, .25), glow = ease(t, wt(7, 'smarter'), .4);
@@ -445,12 +445,12 @@ const End: React.FC<{t: number}> = ({t}) => {
         <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 124, letterSpacing: -4.5, lineHeight: '124px', color: LIGHT}}>Comment <span style={{color: CLAY_ON_DARK}}>EDIT</span></div>
         <div style={{fontFamily: SANS, fontSize: 40, color: LIGHT_MUTED, marginTop: 24}}>I'll send you the whole setup.</div></div>
       <div style={{position: 'absolute', left: 132, width: W - 264, top: 700, height: 108, borderRadius: 54, background: CARD, display: 'flex', alignItems: 'center', padding: '0 18px 0 42px',
-        opacity: field * (1 - sent), transform: `translateY(${(1 - field) * 30 - sent * 30}px)`}}>
+        opacity: field * (1 - ease(t, SENT - .05, .12)), transform: `translateY(${(1 - field) * 30 - sent * 30}px)`}}>
         <span style={{flex: 1, fontFamily: SANS, fontSize: 38, fontWeight: typed ? 700 : 400, color: typed ? INK : 'rgba(31,30,29,.35)'}}>{typed || 'Add a comment…'}</span>
         <div style={{width: 76, height: 76, borderRadius: 38, background: typed.length === 4 ? CLAY : 'rgba(31,30,29,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <svg width={32} height={32} viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" stroke="#fff" strokeWidth={2.6} fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg></div></div>
       <div style={{position: 'absolute', left: 132, width: W - 264, top: 694, display: 'flex', alignItems: 'center', gap: 24, padding: '20px 30px', borderRadius: 32, background: 'rgba(255,252,246,.08)',
-        border: '1.5px solid rgba(244,236,224,.14)', opacity: sent, transform: `translateY(${(1 - sent) * 30}px)`}}>
+        border: '1.5px solid rgba(244,236,224,.14)', opacity: ease(t, SENT + .1, .3), transform: `translateY(${(1 - sent) * 30}px)`}}>
         <div style={{width: 74, height: 74, borderRadius: 37, background: CLAY_ON_DARK}} />
         <div><div style={{fontFamily: SANS, fontSize: 26, color: LIGHT_MUTED}}>you · just now</div><div style={{fontFamily: SANS, fontSize: 48, fontWeight: 700, color: LIGHT}}>EDIT</div></div>
         <svg style={{marginLeft: 'auto', transform: `scale(${heart + .3 * Math.sin(heart * Math.PI)})`}} width={44} height={44} viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill={CLAY_ON_DARK} /></svg></div>
@@ -507,6 +507,8 @@ const Film: React.FC = () => {
 };
 
 // ---------------------------------------------------------------- sound: sfx-kit, each placed by its sync point
+// MIX: the whole SFX bed. 1.8 (+5 dB) puts the SFX-only file near −33 LUFS with peaks around −9 dBTP, under a −14 LUFS voice.
+const MIX = 1.8;
 const at = (id: string, moment: number, vol: number): [string, number, number] => [id, moment - (KIT[id]?.sync ?? 0), vol];
 export const SFX3: [string, number, number][] = [
   // 0 · hook: a shutter on every other page, air drawn in to the resolve, a soft boom
@@ -547,6 +549,6 @@ export const EditWithClaudeV3: React.FC = () => (
     <Film />
     {SFX3.map(([id, start, v], i) => { const k = KIT[id]; if (!k) return null; return (
       <Sequence key={i} name={`sfx · ${id}`} from={Math.max(0, Math.round(start * FPS))} durationInFrames={Math.max(2, Math.ceil(k.dur * FPS) + 2)}>
-        <Audio src={staticFile(`sfx/kit/${k.file}`)} volume={v} /></Sequence>); })}
+        <Audio src={staticFile(`sfx/kit/${k.file}`)} volume={Math.min(1, v * MIX)} /></Sequence>); })}
   </AbsoluteFill>
 );

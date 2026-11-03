@@ -143,3 +143,14 @@ subject imagery (docs/11) or generated pieces he approved, never random web phot
 - **Leave headroom**: at U=30 Clawd with a hat reaches about y 1080 at the peak of a hop. Keep UI windows above y 1060.
 - **Test 2 frames** (`--range=a:a+.25`) before an hour-long render, and lay out the overlay against the previous
   frames (`--props='{"frameDir":"frames_v1"}'`) while the new ones render.
+
+### Clawd as a cut-out cast member (v3, 2026-11-03)
+- **Don't make him a presenter.** "Card above, character below" every beat reads as someone giving a talk, even when he
+  moves. Put him inside each scene's world (on a ledge, in a folder, on the timeline, on the notebook), with a prop or
+  hat only where it means something (headphones while watching, a pencil while logging, a magnifying glass on the reviewer).
+- **Cut-outs:** `toolkit/clawd/ewc-v3-cast.js` overrides `makePaper`/`makeGrain` to paint on flat `#00FF00`;
+  `key_cast.sh` keys to alpha (colorkey .30/.12 + despill). A truly transparent canvas fails: p5.brush watercolour fills
+  blend against nothing and leave white blots. Turn off `noShadow` and draw shadows in the compositor.
+- **Sitting:** body bottom = y − 2u; with `noShadow` and a slow `walk` the legs swing over the ledge. In the 3/4 view the
+  *left* arm is the front one (`aL`, `armL`) for a prop the viewer must see.
+- Small canvas = fast: 640×640 renders in ~10 s/frame under SwiftShader (vs 20–30 s for 1080×1920).

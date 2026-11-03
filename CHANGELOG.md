@@ -64,3 +64,9 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   boundary, Clawd moving with the UI under a follow spot, the hook resolving onto the lit stage, a holding camera and
   speed blur. Reel-review (second model) failed the first v2 render; its fixes are applied and the re-render passed.
   Updated the project README and instructions, docs/10 (feedback) and docs/15 (v2 lessons). Render not committed.
+- 2026-11-03 · "Editing with Claude" v3 at Hardik's request: a new storyboard (`storyboard-v3.md`) of nine full-bleed
+  scenes in different styles (feed and torn paper, paper-cut folder, film strip with shutter, paper desk with stamp,
+  the real Remotion Studio timeline, review terminal and chat, notebook log, system grid). Clawd is now cut-out
+  clips sitting inside each scene (`toolkit/clawd/ewc-v3-cast.js`, `setup_cast.sh`, `key_cast.sh`). Sound comes from
+  `wyzowl/sfx-kit` (CC0, pinned in `fetch_vendor.sh`, `src/sfxkit.ts`). Fluent VO script. Caveat font (OFL) added.
+  Updated docs/05 (sound rule), docs/10, docs/15 and the project README. Reel-review passed. Render not committed.
