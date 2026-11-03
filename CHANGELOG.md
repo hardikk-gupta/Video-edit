@@ -70,3 +70,6 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   clips sitting inside each scene (`toolkit/clawd/ewc-v3-cast.js`, `setup_cast.sh`, `key_cast.sh`). Sound comes from
   `wyzowl/sfx-kit` (CC0, pinned in `fetch_vendor.sh`, `src/sfxkit.ts`). Fluent VO script. Caveat font (OFL) added.
   Updated docs/05 (sound rule), docs/10, docs/15 and the project README. Reel-review passed. Render not committed.
+- 2026-11-03 · Upgraded Remotion and all its packages from 4.0.537 to 4.0.540 (latest; newer Studio timeline). Added
+  `@remotion/bundler` and `@remotion/renderer` as direct dependencies for `scripts/stills.mjs`. v3 still renders;
+  docs/06 updated.

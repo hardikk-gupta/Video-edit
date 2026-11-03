@@ -42,7 +42,7 @@ No other memory was used. Lesson: don't borrow a repo's website design system fo
 
 | Tool | Version | Why |
 |---|---|---|
-| **Remotion** (`remotion`, `@remotion/cli`) | 4.0.537 | React → video. Frame-exact, code-driven motion; best for type, UI and data-driven graphics. `npx remotion still` for single frames, `npx remotion render` for the video. Free for individuals and small teams; companies need a licence (remotion.dev/license). |
+| **Remotion** (`remotion`, `@remotion/cli`, `@remotion/bundler`, `@remotion/renderer`) | 4.0.540 (2026-11-03) | React → video. Frame-exact, code-driven motion; best for type, UI and data-driven graphics. `./node_modules/.bin/remotion still` for single frames, `remotion render` for the video, `node scripts/stills.mjs` for many stills from one bundle. **Studio's timeline** (`remotion studio src/ewc.ts`) shows every named `<Sequence>` as a track, audio with waveforms and image layers as filmstrips; select and scrub there to review an edit, and name sequences so the timeline reads like an edit. Upgrade all Remotion packages together (`npx remotion versions` checks that they match). Free for individuals and small teams; companies need a licence (remotion.dev/license). |
 | React | 19.1 | Remotion's renderer. |
 | TypeScript | 7.x (`tsc -p .`) | Type-check before every render. |
 | Chromium headless shell | preinstalled at `/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell` | Remotion's browser in the cloud container (see gotchas). |
