@@ -16,6 +16,7 @@ REPOS=(
   "lemo-opuscar          lemomo-ai/lemo-opuscar         bebbbe1aa92a3cb4bb6f83500e61b23a17d1aa00 MIT"
   "onetake               feitangyuan/onetake            013a61ac8d98883c73733f59c06e49e9ba444f14 PolyForm-Noncommercial-1.0.0"
   "hyperframes           heygen-com/hyperframes         2bdc866c85198acb143accaf1dedfeff22b6f9d0 Apache-2.0"
+  "sfx-kit               wyzowl/sfx-kit                 92780e7ab0cdfb557497a988089c47f46e8c7412 CC0-1.0"
 )
 
 mkdir -p vendor
@@ -44,5 +45,8 @@ link lemo-opuscar       lemo-opuscar/plugin/skills/lemo-opuscar
 for s in hyperframes hyperframes-cli hyperframes-registry media-use remotion-to-hyperframes reverse-any-video slideshow; do
   link "$s" "hyperframes/skills/$s"
 done
+
+# sfx-kit (320 CC0 sound effects with sync points and levels): served to Remotion as public/sfx/kit
+[[ -d vendor/sfx-kit/sounds ]] && ln -sfn ../../../vendor/sfx-kit/sounds toolkit/public/sfx/kit && echo "  sfx: toolkit/public/sfx/kit -> vendor/sfx-kit/sounds"
 
 echo "Done. onetake is noncommercial-only: do not use it on paid or sponsored videos (docs/15)."

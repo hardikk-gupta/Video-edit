@@ -16,3 +16,4 @@ vendor/
 .claude/skills/slideshow
 # Mascot renders and per-project sheets stay local too.
 mascot/out/
+toolkit/public/sfx/kit

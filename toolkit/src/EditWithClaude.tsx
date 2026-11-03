@@ -42,7 +42,7 @@ const WORDS: Word[] = SCRIPT.slice(1).flatMap(([a, b, line]) => {
 const STRESS = /^(Claude|EDIT|one|two|three|four|five|six|save|approve|smarter)[.,:]?$/i;
 
 // ---------------------------------------------------------------- the hook: a match cut on one locked word
-const PAGES: {font: string; size: number; weight: number; italic?: boolean; color: string; bg: string; left: string; right: string; lines: string[]}[] = [
+export const PAGES: {font: string; size: number; weight: number; italic?: boolean; color: string; bg: string; left: string; right: string; lines: string[]}[] = [
   {font: 'Bitstream Charter', size: 46, weight: 400, color: '#2B2620', bg: '#F4EEE3', left: 'editors now hand raw footage to', right: 'and get a cut back', lines: ['Most of the week went into trimming silences.', 'The rough cut used to take a full day,', 'then a second day for captions alone.', 'Now the first pass is ready before lunch,', 'and the editor spends the day on taste.']},
   {font: 'JetBrains Mono', size: 36, weight: 400, color: '#24292F', bg: '#F6F8FA', left: '## Edit with', right: 'Code', lines: ['git clone video-edit && cd video-edit', 'toolkit/scripts/fetch_vendor.sh', '# skills load from .claude/skills', '1. watch every reference first', '2. storyboard, then approval']},
   {font: 'Caladea', size: 50, weight: 700, color: '#1C1A17', bg: '#EFE7D8', left: 'the storyboard came from', right: 'first', lines: ['The process starts with watching.', 'Every reference, frame by frame,', 'broken into hook, beats and type.', 'Only then does anything get cut,', 'and only after a yes.']},
@@ -56,16 +56,16 @@ const PAGES: {font: string; size: number; weight: number; italic?: boolean; colo
 ];
 const FLIP = 3 / FPS;                          // a new page every 3 frames
 const HOOK_FLIPS_END = 1.5, RESOLVE = 1.55, HOOK_END = 2.75;
-const BOX = {w: 330, h: 112, y: 860};          // the locked word sits here on every page
+export const BOX = {w: 330, h: 112, y: 860};          // the locked word sits here on every page
 // final line "Editing with [Claude]" is centred: text ~450 px + gap + box
-const TEXT_W = 450, GAP = 34, LEFT0 = (W - TEXT_W - GAP - BOX.w) / 2, BOX_X = LEFT0 + TEXT_W + GAP;
+export const TEXT_W = 450, GAP = 34, LEFT0 = (W - TEXT_W - GAP - BOX.w) / 2, BOX_X = LEFT0 + TEXT_W + GAP;
 
-const ClaudeBox: React.FC<{s?: number}> = ({s = 1}) => (
+export const ClaudeBox: React.FC<{s?: number}> = ({s = 1}) => (
   <div style={{width: BOX.w * s, height: BOX.h * s, background: CLAY, borderRadius: 10 * s, display: 'flex', alignItems: 'center', justifyContent: 'center',
     fontFamily: '"Bitstream Charter", serif', fontWeight: 700, fontSize: 84 * s, color: '#FFF6EE', letterSpacing: -1 * s, boxShadow: '0 10px 30px rgba(120,50,25,.25)'}}>Claude</div>
 );
 
-const Page: React.FC<{p: typeof PAGES[number]; t: number}> = ({p}) => {
+export const Page: React.FC<{p: typeof PAGES[number]; t: number}> = ({p}) => {
   const size = p.size * 1.5, lh = size * 1.3, N = 9;   // a full page: 9 lines above and below, blurring with distance
   const pick = (i: number) => p.lines[((i % p.lines.length) + p.lines.length) % p.lines.length];
   const above = Array.from({length: N}, (_, i) => pick(i + 2)), below = Array.from({length: N}, (_, i) => pick(i + 3));
