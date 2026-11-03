@@ -214,3 +214,16 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
 - **Lesson (agent):** OneTake's rhythm checks passed v1 anyway. Rhythm numbers don't catch a slideshow; only "what
   survives each cut and moves into the next beat" does. Plan a carry at every boundary before building. Run reel-review
   before sending, every time.
+
+## 2026-11-03 · "Editing with Claude" v2 → v3
+
+- **Hardik's words (close paraphrase):** the SFX are only two sounds (a tap when something arrives, and one other);
+  he wants real ones, such as squash, sweep, camera zoom-in and camera shutter, from a GitHub repo that has them, each checked for where it fits.
+  He doesn't want Clawd going left, then right, then left again with the screen, or sitting on the podium under a card:
+  "it looks like a person is giving a presentation but in an animated form". He wants a new storyboard in different styles:
+  the paper look, conversation, images, the real timeline of how we edit in Remotion or HyperFrames (a screenshot),
+  full-bleed content, and the mascot "over something and sitting, thinking". Finish it, then show v3.
+- He also asked for a fluent VO script with no colons or semicolons to read, only spoken sentences. Given in chat and
+  now in `script.md` and `SCRIPT` (v3).
+- **Lesson (agent):** a mascot that moves with the UI still reads as a presenter if the frame is "a card above, the
+  character below" every time. Put the character *in* the scene's world, and change the world each beat.

@@ -1,4 +1,22 @@
-# Voice-over script: "Editing with Claude" (45 s)
+# Voice-over script: "Editing with Claude" (45 s), v3 wording
+
+Hardik asked for spoken sentences only, with no colons or semicolons to read. Record to these times; the captions in
+v3 follow them. The source of truth is `SCRIPT` in `toolkit/src/EditWithClaudeV3.tsx`. Change both together. After
+recording, the captions are re-timed to the real voice (faster-whisper word times).
+
+| Time | Say |
+|---|---|
+| 0.0–2.6 | Editing with Claude. |
+| 2.8–7.4 | Everyone edits with Claude right now, but nobody shows the process. This is your final stop, so save it. |
+| 7.6–12.3 | Step one. Put your footage, your references and your exports in one folder, and open it in Claude Code. |
+| 12.6–17.7 | Step two. Before it edits anything, Claude watches every reference, frame by frame, with a transcript. |
+| 18.0–23.3 | Step three. It writes a style sheet and a storyboard, and nothing gets cut until you approve them. |
+| 23.6–29.1 | Step four is the edit, with clean cuts, captions on the exact frame, smooth motion and quiet sound. |
+| 29.4–34.7 | Step five. A second Claude reviews every frame, and then you give your notes in plain English. |
+| 35.0–40.1 | Step six. Every note gets saved, so your next video starts smarter. |
+| 40.4–44.6 | That's the whole system. Comment EDIT and I'll send it to you. |
+
+## v1/v2 wording (history)
 
 Record it to these times. The captions in the video follow them, so if a line runs long, speed up a little rather
 than shifting it. The source of truth is `SCRIPT` in `toolkit/src/EditWithClaude.tsx`. Change both together.
