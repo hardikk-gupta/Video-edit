@@ -88,6 +88,28 @@ Full notes: projects/2026-11-02-edit-with-claude/instructions.md.
 - **Libraries found for v3:** OneTake's rules ("carry each beat", rest, its rhythm oracle), and
   [wyzowl/sfx-kit](https://github.com/wyzowl/sfx-kit) (CC0 SFX with sync points; Hardik asked for a GitHub SFX library).
 
+## "Only learning Figma?" motion references (Hardik, Pinterest, 2026-11-04)
+
+Both are 736×414 landscape promo films, watched as 1 fps sheets plus 6 fps motion strips. He asked "can we pull
+this type of motion graphics, exact same, in HyperFrames JS?". We take the craft and the techniques, not their
+content, brand or frame-by-frame layouts.
+
+- **Pin 333759022406800725 (47 s, a design-studio promo, green):** deep green ground (`#052E25`, `#0B4835`) with huge
+  soft blurred rings and light blooms in teal and lime (`#0D9572`, `#AEC64D`, lime accent `#DBE942`). A flower/spark
+  icon is the recurring carrier. The kinetic line "Everything starts with a [Spark pill]" is typed, and a cursor
+  clicks the pill. The pill morphs into a blob, then an orb. Thin line arcs frame the word "Idea". A UI dashboard
+  (login, chart, avatars, pie, calendar) assembles card by card in a tilted 3D perspective. There's stock footage
+  behind kinetic text, a light mint section (`#EEFADC`) with blobs morphing into "GROWTH", a ring wipe around a photo,
+  and the end line "Ready to grow?". New beat every ~1–1.5 s.
+- **Pin 333759022407379112 (29 s, a fintech app launch, "Bleap"):** a black ground with a blue-violet light bloom
+  rising from the bottom. A sans + italic serif pairing ("Everything • *evolved*", "So we *rebuilt*.") with blur-to-focus
+  pulls. A grid that splits into image cells with UI icons. A white section where giant blurred type resolves ("Tra" →
+  "Trade & withdraw"). Cards fanned in 3D, glossy 3D objects and letters scattering ("beyond money"), and a logo
+  build. Very fast, precise easing.
+- **Taken for the Figma video:** ref 1's green light fields, perspective UI assembly, the morphing pill and the cursor
+  that causes things; ref 2's sans + italic-serif type pairing, focus pulls and theme flips. We keep Hardik's gridded
+  mat as a faint texture. **Not taken:** their words, logos, footage or exact compositions.
+
 ## Libraries and repos referred to
 
 - Remotion: remotion.dev, github.com/remotion-dev/remotion (framework, `@remotion/sfx`)
