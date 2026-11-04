@@ -6,7 +6,17 @@ description: Stage 0 of a video edit. Use before any cutting to list every visua
 
 **In plain words:** a shopping list before cooking. Before one cut is made, write down every picture, screen recording and graphic the video will need, and check that every fact the creator says on camera is true today.
 
+## Before filming: the script (when the creator has no script yet, or asks for one)
+Use the `viral-video-writing` skill (installed by `toolkit/scripts/install_viral_skills.sh`; docs/13). Facts sheet first,
+5 hooks judged with its `hook-craft.md`, 3 drafts, then score and rewrite until 90+ with no hard fails:
+`python3 -I .claude/skills/viral-video-writing/scripts/score.py script.txt`. Deliver the script with times, 2 spare hooks
+and the caption. The creator films from that; this plan starts when the footage arrives.
+
 ## Steps
+0. **Script check on the footage** (2 minutes, even when the creator wrote it): put the spoken lines in a text file
+   and run the `score.py` above. Then check by hand what the scorer can't: is the topic clear in the first 2 s, is there
+   a re-hook every 5–8 s, is there a **proof** beat (a real result, number or footage near the end), one CTA.
+   List anything weak at the top of the plan as a suggestion. Never rewrite the creator's words without asking.
 1. Transcribe the footage (see shortform-cutaway step 1) and read all of it.
 2. Match the extra clips (they come before any stock or generated footage):
    - Number the script lines L1, L2, L3... from the transcript.
@@ -34,3 +44,5 @@ description: Stage 0 of a video edit. Use before any cutting to list every visua
 - STOP after writing the plan. Show it to the creator. Do nothing else until they say yes. *Why: a wrong claim found after render costs a full re-edit.*
 - A claim that cannot be verified is flagged, never silently kept.
 - The creator's own prices and product names come from their live site, not from memory.
+- Every number in the script has a source on the facts sheet. *Why: viral-video-writing's rule, and ours: never invent
+  results, quotes or struggles.*

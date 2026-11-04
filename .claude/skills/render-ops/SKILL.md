@@ -10,6 +10,7 @@ description: Stage 8. Use to export the final video file and verify it - resolut
 1. Render to `out/<name>-v<N>.mp4`: H.264, 30 fps, AAC 48 kHz. Reel 1080x1920, long-form 1920x1080.
 2. Measure: `.claude/skills/render-ops/scripts/loudness.sh measure out/<file>`.
 3. If not within -14 ±1 LUFS: `loudness.sh fix out/<file>` and measure the new file.
+4. Then `python3 -I toolkit/scripts/verify_cut.py out/<file>`: A/V sync within one frame, `+faststart` (Instagram/QuickTime), true peak ≤ −1 dBTP.
 4. Confirm with ffprobe: size, fps, duration, and that audio and video lengths match within 1 frame.
 
 ## Rules

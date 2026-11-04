@@ -29,6 +29,21 @@ PDF are **not** in this repo and were not obtained.
 `mascot-animate` skill (committed) drives Claude Animation Base (`vendor/claude-animation-base`, MIT) from a
 character sheet. Same precedence as above: Hardik's feedback still wins.
 
+**Uploaded skills (Hardik, 2026-11-04):** `viral-video-skills.zip` holds `viral-video-writing` (script writing:
+hooks, story, re-hooks, anti-AI writing, `scripts/score.py`) and `famous-reel-editor` (Riccardo / Martes AI: talking
+head → reel with HyperFrames cards). The zip has **no licence file**, so it's installed locally by
+`toolkit/scripts/install_viral_skills.sh <zip>` into gitignored `vendor/viral-video-skills/` with gitignored links, and
+never committed. How we use them:
+- `viral-video-writing` is stage −1 (no script yet) and the script check inside `asset-plan`.
+- `famous-reel-editor` runs **only when Hardik names it**: the install narrows its trigger, because "edit this reel"
+  belongs to `reel-edit`. Its defaults are not ours: the fixed green "Ambra" look and uppercase Montserrat captions
+  (we choose the look per video), a music bed (we don't add one), 1–2 Higgsfield AI B-roll clips by default (ours:
+  own clips and stock first, ask before spending credits), and ElevenLabs SFX (ours: sfx-kit, docs/05).
+- Its hard-won cut lessons are folded into `shortform-cutaway` and `cut-audit` (edited by us, see CHANGELOG): multi-take
+  director's notes, silence trim at −40 dB, re-transcribe the cut, clipped words that the transcript auto-completes, A/V
+  sync, `+faststart`. They're implemented in our own scripts, `toolkit/scripts/silence_keep.py` and
+  `verify_cut.py`, not copied from the zip.
+
 ## Step 0, always: watch
 
 | Skill | Use |
@@ -60,7 +75,8 @@ Pick one per video, or a stated mix, and record the choice in the project's `ins
 | Stage | Skill | What it does |
 |---|---|---|
 | Router | `reel-edit` | Entry point: asks the brief questions, picks the format, runs the stages in order. Also has `themes.md` and `design.example.md` |
-| 0 | `asset-plan` | Lists every visual needed and fact-checks every claim; stops for approval |
+| −1 | `viral-video-writing` | Only when there's no script yet: writes and scores it (hook, re-hooks, proof, one CTA) with its `score.py` |
+| 0 | `asset-plan` | Script check (`score.py`), lists every visual needed and fact-checks every claim; stops for approval |
 | 1 | `shortform-cutaway` | Rough cut from word timings: best take, no dead air or fumbles |
 | 2 | `cut-audit` | Checks the audio at every cut edge (`scripts/check_cut_edges.py`) |
 | 3 | `take-geometry` | Measures where the face sits, so captions and cards never cover it |

@@ -83,3 +83,9 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   now `docs/16-skills-guide.md` (15 was already the mascot doc) and its links are updated. In the docs/05 sound rules,
   the 2026-11-03 sfx-kit rule sits on top of the 2026-10-26 `sfx-design` rule, which still sets levels and spacing.
 - 2026-11-03 · docs/07: logged the five "Editing with Claude" reference reels and the repos found for it (OneTake, sfx-kit, CAB, HyperFrames).
+- 2026-11-04 · Brought in Hardik's `viral-video-skills.zip` locally (`toolkit/scripts/install_viral_skills.sh`; no licence,
+  so in gitignored vendor/). `viral-video-writing` is stage −1 and the script check in `asset-plan`. famous-reel-editor's
+  lessons folded into our skills (edited by us): `shortform-cutaway` (multi-take director's notes, silence trim at −40 dB,
+  re-transcribe the cut, find the right occurrence), `cut-audit` (clipped words the transcript auto-completes, final
+  checks) and `render-ops` (verify step). New scripts of our own: `toolkit/scripts/silence_keep.py`, `verify_cut.py`.
+  famous-reel-editor's trigger is narrowed locally so "edit this reel" stays with `reel-edit`. docs/13, docs/10, AGENTS.md.

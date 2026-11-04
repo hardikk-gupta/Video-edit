@@ -261,3 +261,13 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
   now in `script.md` and `SCRIPT` (v3).
 - **Lesson (agent):** a mascot that moves with the UI still reads as a presenter if the frame is "a card above, the
   character below" every time. Put the character *in* the scene's world, and change the world each beat.
+
+## 2026-11-04 · viral-video-skills.zip
+
+- **Hardik's words (close paraphrase):** shared `viral-video-skills.zip` ("check it out and tell me how this will help
+  me"), then: "Bring in all the skills that you have asked me: asset plan, cut audit and short form cutaway."
+- **Done:** both skills installed locally (no licence, so not committed). `viral-video-writing` is now stage −1 and the
+  script check in `asset-plan`. famous-reel-editor's cut lessons now live in `shortform-cutaway`, `cut-audit` and
+  `render-ops`, with our own `silence_keep.py` and `verify_cut.py`. Its look and paid defaults were not adopted.
+- **Lesson (agent):** the v3 "Editing with Claude" script scored 100/100 on its checker but still lacks a proof beat and a
+  surprising number in the hook. The scorer is a floor, not taste.
