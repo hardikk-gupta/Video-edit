@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<!-- "Only learning Figma? You're dead." · a OneTake composition (vendor/onetake, PolyForm Noncommercial; its motion.js is
+     loaded from vendor/, not copied). Concept: ONE SELECTION BOX carries the whole film. It selects "Figma?", is
+     abandoned when the AI builds the app by itself, and then becomes the frame of each next idea: the real Figma Make
+     page, the toolbar, the sketch, "you", a viewfinder over references, a pin on a UX question, the agent's target,
+     the proof, and the comment. Every value is a function of t (window.__seek). Look: black ground, a blue-violet bloom
+     from below (ref 2), thin light rings (ref 1, recoloured), Inter + Instrument Serif italic. 1080×1920, 46 s. -->
+<html lang="en"><head><meta charset="utf-8"><title>figma-is-not-enough</title>
+<style>
+@font-face{font-family:'ISerif';src:url('fonts/instrument-serif-latin-400-italic.woff2') format('woff2');font-style:italic;font-weight:400}
+@font-face{font-family:'ISerifR';src:url('fonts/instrument-serif-latin-400-normal.woff2') format('woff2');font-weight:400}
+:root{--ground:#06060A;--deep:#0C0C16;--card:#12121C;--line:rgba(236,234,255,.12);--mute:#8C8CA6;--ink:#F3F2EE;
+  --accent:#7B83FF;--accent2:#FF5A3C;--paper:#F4F2EC;--paperInk:#141418}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--ground)}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;inset:0;overflow:hidden;background:var(--ground)}
+.abs{position:absolute;left:0;top:0;will-change:transform,opacity,filter}
+.it{font-family:'ISerif',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.line{white-space:nowrap;font-weight:600;letter-spacing:-.035em;line-height:1}
+.line span{display:inline-block}
+/* light */
+#bloom,#bloom2{position:absolute;inset:0;pointer-events:none}
+#paper{position:absolute;inset:0;background:var(--paper);opacity:0}
+#rings{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none}
+/* the selection box */
+#sel{position:absolute;left:0;top:0;border:3px solid var(--accent);box-sizing:border-box;will-change:transform,width,height;z-index:40}
+#sel i{position:absolute;width:18px;height:18px;background:#fff;border:3px solid var(--accent);box-sizing:border-box}
+#sel i:nth-child(1){left:-11px;top:-11px} #sel i:nth-child(2){right:-11px;top:-11px} #sel i:nth-child(3){left:-11px;bottom:-11px} #sel i:nth-child(4){right:-11px;bottom:-11px}
+#tag{position:absolute;left:-3px;top:-54px;height:40px;padding:0 16px;border-radius:10px 10px 10px 2px;background:var(--accent);color:#0b0b14;font:600 24px Inter;line-height:40px;white-space:nowrap}
+#cursor{position:absolute;left:0;top:0;width:44px;height:56px;z-index:45;will-change:transform;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+/* cards and UI */
+.card{position:absolute;background:var(--card);border:1.5px solid var(--line);border-radius:28px;box-shadow:0 40px 90px -30px rgba(0,0,0,.8);will-change:transform,opacity,filter;transform-origin:50% 50%}
+.ui{background:#fff;color:#141418;border-radius:26px;border:none}
+#prompt{left:150px;width:780px;height:120px;border-radius:30px;background:#fff;color:#141418;display:flex;align-items:center;padding:0 34px;font-size:38px;font-weight:500;box-sizing:border-box}
+#prompt .send{position:absolute;right:20px;top:20px;width:80px;height:80px;border-radius:50%;background:#141418}
+#prompt .send:after{content:"";position:absolute;left:30px;top:32px;width:18px;height:18px;border-left:4px solid #fff;border-top:4px solid #fff;transform:rotate(45deg)}
+#prompt i{display:inline-block;width:3px;height:44px;background:#141418;margin-left:3px;vertical-align:-8px}
+#win{position:absolute;left:40px;top:408px;width:1000px;height:625px;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 60px 120px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.08)}
+#win img{position:absolute;left:0;top:0;width:1000px;height:625px}
+.app{position:absolute;background:#fff;border-radius:26px;color:#141418;box-shadow:0 40px 80px -24px rgba(0,0,0,.7);padding:26px;box-sizing:border-box;will-change:transform,opacity,filter}
+.app h5{margin:0 0 14px;font-size:26px;font-weight:700;letter-spacing:-.4px}
+.fld{height:52px;border:2px solid #E1E1E6;border-radius:12px;margin-bottom:12px;font-size:21px;color:#6B6B76;display:flex;align-items:center;padding:0 16px}
+.btn{height:56px;border-radius:14px;background:#141418;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:21px}
+.tool{position:absolute;width:118px;height:118px;border-radius:30px;background:#1D1D2A;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;will-change:transform,opacity}
+.tool svg{width:58px;height:58px}
+.sketch path,.sketch rect,.sketch circle,.sketch line{fill:none;stroke:#2A2A33;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.ref{position:absolute;left:140px;top:500px;width:800px;height:500px;border-radius:18px;overflow:hidden;background:#000}
+.ref img{width:100%;height:100%;object-fit:cover;object-position:top}
+.pin{position:absolute;padding:14px 22px;border-radius:18px 18px 18px 4px;background:var(--accent);color:#0b0b14;font:600 30px Inter;white-space:nowrap;will-change:transform,opacity}
+.term{position:absolute;background:#0B0B12;border:1.5px solid var(--line);border-radius:26px;font-family:'JetBrains Mono',ui-monospace,monospace;color:#E8E6E1;box-shadow:0 40px 90px -30px rgba(0,0,0,.85)}
+.tabs{display:flex;gap:10px}
+.tabs span{font:600 22px Inter;padding:8px 16px;border-radius:10px;background:#1A1A26;color:#9a9ab0}
+.tabs span.on{background:var(--ink);color:#0b0b14}
+.doc{position:absolute;width:250px;height:320px;border-radius:18px;background:#16161F;border:1.5px solid var(--line);padding:24px;box-sizing:border-box;font:600 26px Inter;color:#cfcfe0;will-change:transform,opacity}
+.doc b{display:block;height:10px;background:#2A2A38;border-radius:4px;margin-top:16px}
+#cap{position:absolute;left:0;right:0;top:1420px;display:flex;justify-content:center;z-index:50}
+#cap span{padding:8px 24px 12px;border-radius:16px;background:rgba(10,10,18,.72);font:600 56px Inter;letter-spacing:-1.2px;color:var(--ink)}
+#h3{z-index:30}
+#hud{position:absolute;right:14px;bottom:10px;font:20px monospace;color:#f55;display:none;z-index:99}
+</style></head>
+<body><div id="stage">
+  <canvas id="bloom" width="540" height="960" style="width:1080px;height:1920px"></canvas>
+  <div id="paper"></div>
+  <svg id="rings" viewBox="0 0 1080 1920"><g id="ringg" fill="none" stroke="rgba(150,156,255,.35)" stroke-width="2"></g></svg>
+  <div id="content" style="position:absolute;left:0;top:0;width:1080px;height:1920px;transform:translateY(190px)">
+
+  <!-- 0 · hook -->
+  <div id="h1" class="abs line" style="font-size:96px">Only learning</div>
+  <div id="h2" class="abs it" style="font-size:190px;white-space:nowrap;line-height:1">Figma?</div>
+  <div id="h3" class="abs line" style="font-size:118px;z-index:30">you're <span class="it" style="color:var(--accent2);font-size:150px;letter-spacing:0">dead.</span></div>
+  <div id="world" class="abs" style="width:1080px;height:1920px;transform-origin:0 0">
+    <div id="win" style="opacity:0"><img src="../../hyperframes/figma-is-not-enough/assets/captures/figma-make.png"></div>
+    <div id="prompt" class="abs"><span id="ptxt"></span><i id="caret"></i><div class="send" id="send"></div></div>
+  </div>
+  <div id="apps">
+    <div class="app" id="a0" style="width:300px;height:380px"><h5>Create account</h5><div class="fld">Email</div><div class="fld">Password</div><div class="btn">Sign up</div></div>
+    <div class="app" id="a1" style="width:260px;height:180px"><h5>Welcome 👋</h5><div style="height:18px;width:70%;background:#7B83FF;border-radius:9px;margin-top:20px"></div><div style="height:14px;width:45%;background:#E1E1E6;border-radius:7px;margin-top:14px"></div></div>
+    <div class="app" id="a2" style="width:240px;height:240px"><svg viewBox="0 0 100 100" width="188" height="188"><circle cx="50" cy="50" r="38" fill="none" stroke="#E1E1E6" stroke-width="16"/><circle cx="50" cy="50" r="38" fill="none" stroke="#7B83FF" stroke-width="16" stroke-dasharray="160 240" transform="rotate(-90 50 50)"/></svg></div>
+    <div class="app" id="a3" style="width:330px;height:150px;display:flex;gap:14px;align-items:center">
+      <div style="width:70px;height:70px;border-radius:50%;background:#C7CAFF"></div><div style="width:70px;height:70px;border-radius:50%;background:#FFD0C4"></div><div style="width:70px;height:70px;border-radius:50%;background:#D7F0E1"></div></div>
+    <div class="app" id="a4" style="width:280px;height:120px;display:flex;align-items:center;justify-content:space-between"><b style="font-size:24px">Notifications</b><div style="width:86px;height:50px;border-radius:25px;background:#7B83FF;position:relative"><div style="position:absolute;right:5px;top:5px;width:40px;height:40px;border-radius:50%;background:#fff"></div></div></div>
+  </div>
+  <div id="mk" class="abs line" style="font-size:72px">One prompt. <span class="it" style="font-size:96px;color:var(--accent)">A working app.</span></div>
+
+  <!-- 2 · buttons -->
+  <div id="toolbar" class="abs" style="width:0;height:0"></div>
+  <div id="bt" class="abs line" style="font-size:88px">Buttons aren't <span class="it" style="font-size:118px;color:var(--accent)">the job.</span></div>
+
+  <!-- 3 · sketchbook (light) -->
+  <svg id="sk" class="abs sketch" width="1080" height="1100" viewBox="0 0 1080 1100" style="opacity:0">
+    <g id="skA"><rect x="70" y="160" width="270" height="520" rx="36"/><line x1="110" y1="240" x2="250" y2="240"/><rect x="110" y="290" width="190" height="44" rx="10"/><rect x="110" y="350" width="190" height="44" rx="10"/><rect x="110" y="590" width="190" height="52" rx="14"/></g>
+    <g id="skB"><rect x="405" y="120" width="270" height="560" rx="36"/><circle cx="540" cy="260" r="62"/><line x1="450" y1="380" x2="630" y2="380"/><line x1="450" y1="420" x2="600" y2="420"/><rect x="450" y="600" width="180" height="52" rx="14"/></g>
+    <g id="skC"><rect x="740" y="160" width="270" height="520" rx="36"/><path d="M780 260 q 60 -50 120 0 t 80 0"/><line x1="780" y1="360" x2="960" y2="360"/><line x1="780" y1="400" x2="920" y2="400"/><line x1="780" y1="440" x2="940" y2="440"/></g>
+  </svg>
+  <div id="skt" class="abs line" style="font-size:88px;color:var(--paperInk)">Figma is your <span class="it" style="font-size:118px;color:#4E57E0">sketchbook.</span></div>
+  <div id="ss" class="app" style="width:320px;height:600px;padding:36px 30px;opacity:0"><h5 style="font-size:34px;margin-bottom:26px">Create account</h5><div class="fld">Name</div><div class="fld">Email</div><div class="fld" id="ssPhone">Phone number</div><div class="fld">Password</div><div class="btn" style="margin-top:22px">Sign up</div></div>
+
+  <!-- 4 · the rest is you -->
+  <div id="ry" class="abs line" style="font-size:104px">The rest is <span class="it" id="ryYou" style="font-size:150px;color:var(--accent)">you.</span></div>
+
+  <!-- 5 · taste -->
+  <div id="refs" class="ref" style="opacity:0"><img id="refImg" src="../../hyperframes/figma-is-not-enough/assets/captures/stripe.png"></div>
+  <div id="tl" class="abs line" style="font-size:96px"><span style="color:var(--mute);font-size:64px;vertical-align:14px;margin-right:18px">1</span><span class="it" style="font-size:130px">Taste.</span></div>
+  <div id="tl2" class="abs line" style="font-size:44px;color:var(--mute);font-weight:500">the one that feels right</div>
+
+  <!-- 6 · judgment -->
+  <div id="jl" class="abs line" style="font-size:96px"><span style="color:var(--mute);font-size:64px;vertical-align:14px;margin-right:18px">2</span><span class="it" style="font-size:130px">Judgment.</span></div>
+  <div id="p1" class="pin">why is this here?</div>
+  <div id="p2" class="pin">what does the user need next?</div>
+
+  <!-- 7 · agent -->
+  <div id="term" class="term" style="left:70px;top:480px;width:600px;height:560px;padding:28px 30px;font-size:25px;line-height:1.6;box-sizing:border-box;opacity:0">
+    <div class="tabs" id="tabs"><span>Claude Code</span><span>Codex</span><span>Cursor</span></div>
+    <div id="tlines" style="margin-top:26px;white-space:pre"></div></div>
+  <div id="phone" class="abs" style="width:360px;height:700px;border-radius:56px;background:#0a0a0f;padding:14px;box-sizing:border-box;box-shadow:0 50px 100px -30px rgba(0,0,0,.9),0 0 0 2px rgba(255,255,255,.1);opacity:0">
+    <div style="width:100%;height:100%;border-radius:44px;background:#fff;padding:90px 28px;box-sizing:border-box;color:#141418"><h5 style="font-size:32px;margin:0 0 26px;font-weight:700;letter-spacing:-.5px">Create account</h5><div class="fld">Name</div><div class="fld">Email</div><div class="fld">Password</div><div class="btn" style="margin-top:20px">Sign up</div></div></div>
+  <div id="al" class="abs line" style="font-size:96px"><span style="color:var(--mute);font-size:64px;vertical-align:14px;margin-right:18px">3</span><span class="it" style="font-size:130px">The agent.</span></div>
+
+  <!-- 8 · handoff -->
+  <div id="docs"></div>
+  <div id="ip" class="abs line" style="font-size:100px">idea <span style="color:var(--mute)">→</span> <span class="it" style="font-size:136px;color:var(--accent)">product.</span></div>
+
+  <!-- 9 · proof -->
+  <div id="pf" class="term" style="left:70px;top:520px;width:940px;height:520px;padding:34px 38px;font-size:30px;line-height:1.7;box-sizing:border-box;opacity:0;white-space:pre"></div>
+  <div id="pl" class="abs line" style="font-size:96px">No <span class="it" style="font-size:130px;color:var(--accent)">Figma file.</span></div>
+
+  <!-- 10 · callback + CTA -->
+  <div id="c1" class="abs line" style="font-size:110px">Learn <span class="it" style="font-size:150px">Figma.</span></div>
+  <div id="c2" class="abs line" style="font-size:88px;color:var(--mute)">Then train your <span class="it" style="font-size:118px;color:var(--ink)">eye.</span></div>
+  <div id="e1" class="abs line" style="font-size:120px">Comment</div>
+  <div id="field" class="abs" style="width:760px;height:130px;border-radius:65px;background:#fff;color:#141418;display:flex;align-items:center;padding:0 44px;box-sizing:border-box;font:700 64px Inter;letter-spacing:2px"><span id="ftxt"></span><div id="fsend" style="position:absolute;right:18px;top:18px;width:94px;height:94px;border-radius:50%;background:#141418"></div></div>
+
+  </div>
+  <div id="sel"><i></i><i></i><i></i><i></i><div id="tag">you</div></div>
+  <svg id="cursor" viewBox="0 0 44 56"><path d="M4 3 L4 46 L15 35 L23 53 L31 49 L23 32 L39 32 Z" fill="#fff" stroke="#0b0b14" stroke-width="3" stroke-linejoin="round"/></svg>
+  <div id="cap"><span id="capw"></span></div>
+  <div id="hud"></div>
+</div>
+<script src="../../../vendor/onetake/lib/motion.js"></script>
+<script>
+const {clamp, lerp, seg, sstep, ssstep} = OM;
+const $ = id => document.getElementById(id);
+const W = 1080, H = 1920, DUR = 46, FPS = 30, DY = 190;   // DY: the content layer's offset, so it centres on the frame
+window.__meta = {dur: DUR, fps: FPS};
+const E = OM.ease;
+// ── the voice-over clock (projects/2026-11-04-figma-is-not-enough/script.md) ──
+const SCRIPT = [[0.2,2.1,"If you're only learning Figma, you're dead."],[2.3,6.0,'Even Figma now ships an AI that turns one prompt into a working app.'],
+ [6.2,8.6,'So knowing the buttons is not the job anymore.'],[8.9,12.3,'Figma is your sketchbook now, for brainstorming and for nailing one specific screen.'],
+ [12.5,14.1,'The rest comes from your head.'],[14.4,18.4,'First, taste, so you collect the right references and you know which one feels right.'],
+ [18.6,22.9,'Second, UX judgment, so you know why every element exists and what the user needs next.'],
+ [23.1,29.2,'Third, you hand it to an AI agent like Claude Code, Codex or Cursor, and it builds the real thing from your design.'],
+ [29.4,33.4,'So you skip the long handoff and go straight from idea to a working product.'],
+ [33.6,39.0,'And now the proof, this video has no Figma file behind it, only references, judgment and Claude writing the code.'],
+ [39.2,43.2,"So learn Figma, but don't stop there, and train your eye and your UX brain."],[43.4,45.8,"Comment DESIGN and I'll send you my full setup."]];
+const WORDS = SCRIPT.flatMap(([a,b,l]) => { const ws=l.split(' '), p=w=>/[.,]$/.test(w)?.18:0, wt=ws.map(w=>w.replace(/[^A-Za-z0-9']/g,'').length+2.2);
+  const tot=b-a-ws.reduce((s,w)=>s+p(w),0), sum=wt.reduce((s,x)=>s+x,0); let t=a; return ws.map((w,i)=>{const d=tot*wt[i]/sum,o={w,s:t,e:t+d}; t+=d+p(w); return o;}); });
+const wt = (line, word, n=0) => { const [a,b]=SCRIPT[line]; const m=WORDS.filter(w=>w.s>=a-1e-6&&w.s<b&&w.w.replace(/[^A-Za-z']/g,'').toLowerCase()===word.toLowerCase()); return (m[n]||m[0]).s; };
+
+// ── beats (seconds) ──
+const T = {
+  promptIn:.42, type0:.55, send:1.12, build:1.2, abandon:1.3, dead:1.45, pull:2.2,
+  mkSel:3.35, mkLine:wt(1,'working')-.35, mkOut:6.05,
+  tbIn:6.15, tbSel:6.6, burst:wt(2,'job')-.2, btLine:wt(2,'job')-.25, tbOut:8.7,
+  paper:8.75, skDraw:9.2, skSel:wt(3,'one')-.1, skLine:9.0, skOut:12.35,
+  ry:12.45, ryOut:14.25,
+  refIn:14.3, refStop:wt(5,'right')-.5, tl:14.45, refOut:18.45,
+  jIn:18.5, p1:wt(6,'why')-.1, p2:wt(6,'needs')-.15, strike:wt(6,'next')+.15, jOut:22.95,
+  aIn:23.0, tabs0:23.4, tLines:wt(7,'hand')+.2, phone:wt(7,'real')-.1, aOut:29.25,
+  docsIn:29.3, gather:wt(8,'straight')-.2, ip:wt(8,'idea')-.15, ipOut:33.45,
+  pfIn:33.5, pfFind:wt(9,'Figma')-.3, pfSel:wt(9,'file')+.1, pl:wt(9,'behind'), pfOut:39.05,
+  c1:39.15, c2:wt(10,'train')-.2, cOut:43.25, e1:43.3, eType:wt(11,'DESIGN')-.2, eSend:45.1
+};
+const PROMPT = 'build me a sign-up app';
+
+// ── the bloom: a field of light from below (ref 2), drawn on a half-res canvas ──
+const bl = $('bloom'), bx = bl.getContext('2d');
+function bloom(t, level, hue=0, light=0){
+  bx.setTransform(1,0,0,1,0,0); bx.clearRect(0,0,540,960);
+  const lift = 960*(1.02 - .55*level);
+  const g = bx.createRadialGradient(270 + 60*Math.sin(t*.35), lift, 20, 270, lift, 560);
+  const a = light ? .0 : 1;
+  g.addColorStop(0, `rgba(${120-hue*40},${110+hue*20},255,${.85*a})`); g.addColorStop(.35, `rgba(70,60,230,${.45*a})`); g.addColorStop(1,'rgba(6,6,10,0)');
+  bx.fillStyle = g; bx.fillRect(0,0,540,960);
+  const g2 = bx.createRadialGradient(100 + 40*Math.cos(t*.27), 120, 10, 100, 120, 380);
+  g2.addColorStop(0, `rgba(80,90,255,${.22*a})`); g2.addColorStop(1,'rgba(0,0,0,0)'); bx.fillStyle=g2; bx.fillRect(0,0,540,960);
+}
+// thin rings (ref 1's line arcs, recoloured): three big circles drifting
+const RING = [[540, 1650, 900],[ -80, 520, 620],[1180, 260, 520]].map(([x,y,r])=>{ const c=document.createElementNS('http://www.w3.org/2000/svg','circle'); c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r',r); $('ringg').appendChild(c); return c; });
+
+// ── geometry helpers ──
+const R = (x,y,w,h) => ({x,y,w,h});
+const RC = (x,y,w,h) => ({x, y:y+DY, w, h});   // a rect given in content coordinates
+function place(el,x,y,s=1,op=1,blur=0,extra=''){ el.style.opacity=op; el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s.toFixed(4)}) ${extra}`; el.style.filter=blur>0.25?`blur(${blur.toFixed(1)}px)`:'none'; }
+const vis = (t,a,b) => t>=a && t<b;
+const inOut = (t, a, b, {rise=36, zeta=.62, omega=18, outDur=.28, blur=12}={}) => { const i=OM.popIn(t,a,{rise,zeta,omega}), o=OM.liftOut(t,b,{dur:outDur,blur}); return {dy:i.dy+o.dy, s:i.s*o.s, op:vis(t,a-.02,b+outDur+.02)?i.op*o.op:0, blur:o.blur}; };
+let M = {};   // measured widths
+function centerX(id){ return (W - M[id])/2; }
+
+// ── the selection box: keyed targets, morphing between them (the carry) ──
+let SEL = [];
+function selAt(t){
+  let k = 0; while (k+1 < SEL.length && t >= SEL[k+1].t) k++;
+  const A = SEL[Math.max(0,k-1)], B = SEL[k];
+  if (k === 0) return {...B.r, op:B.op??1, tag:B.tag};
+  const u = OM.spring(t - B.t, .7, 17);
+  const r = {x:lerp(A.r.x,B.r.x,u), y:lerp(A.r.y,B.r.y,u), w:lerp(A.r.w,B.r.w,u), h:lerp(A.r.h,B.r.h,u)};
+  const op = lerp(A.op??1, B.op??1, clamp((t-B.t)/.25)); return {...r, op, tag: u>.5?B.tag:A.tag};
+}
+
+// ── hook: the app builds itself; the designer's cursor is no longer needed ──
+const APP = [  // final positions around the prompt (screen), and where each flies in from
+  {id:'a0', x:70, y:930, r:-6}, {id:'a1', x:740, y:930, r:5}, {id:'a2', x:790, y:400, r:7}, {id:'a3', x:60, y:440, r:-4}, {id:'a4', x:690, y:1180, r:3}];
+// ── camera over the Figma Make window (world): the prompt bar sits on the page's own prompt box ──
+const BOX = {x:40+243.5*1000/1280, y:408+343*1000/1280, w:794*1000/1280, h:96*1000/1280};   // measured in the capture
+const ZH = 780/BOX.w;          // hook zoom: the bar reads 780 px wide
+function worldCam(t){ const k = OM.tween(t, T.pull, T.pull+.85, E.expoInOut); const z = lerp(ZH, 1, k);
+  const cx = BOX.x+BOX.w/2, cy = BOX.y+BOX.h/2, sx = lerp(540, cx, k), sy = lerp(800, cy+30, k); return {z, cx, cy, sx, sy, k}; }
+
+// toolbar icons (drawn) and the handoff docs
+const TOOLS = ['<path d="M8 4l30 12-13 4-4 13z" fill="none" stroke="#E8E6F5" stroke-width="3.5" stroke-linejoin="round"/>','<rect x="9" y="9" width="30" height="30" rx="3" fill="none" stroke="#E8E6F5" stroke-width="3.5"/>',
+  '<path d="M8 40 L14 26 L34 8 L40 14 L22 34 Z" fill="none" stroke="#E8E6F5" stroke-width="3.5" stroke-linejoin="round"/>','<text x="24" y="38" text-anchor="middle" font-family="Inter" font-weight="800" font-size="34" fill="#E8E6F5">T</text>',
+  '<circle cx="24" cy="24" r="15" fill="none" stroke="#E8E6F5" stroke-width="3.5"/>','<path d="M16 8v32M32 8v32M8 16h32M8 32h32" stroke="#E8E6F5" stroke-width="3.5"/>','<path d="M12 36c8-20 16-20 24 0" fill="none" stroke="#E8E6F5" stroke-width="3.5" stroke-linecap="round"/>'];
+const toolEls = TOOLS.map((s,i)=>{ const d=document.createElement('div'); d.className='tool'; d.innerHTML=`<svg viewBox="0 0 48 48">${s}</svg>`; $('toolbar').parentNode.insertBefore(d,$('toolbar')); return d; });
+const DOCS = ['spec.doc','redlines.pdf','handoff ticket','QA notes','review #3','spec v7 final'];
+const docEls = DOCS.map(n=>{ const d=document.createElement('div'); d.className='doc'; d.innerHTML=`${n}<b></b><b style="width:70%"></b><b style="width:85%"></b><b style="width:50%"></b>`; $('docs').appendChild(d); return d; });
+const REFS = ['stripe','apple','vercel','linear','stripe','apple','vercel','linear'];
+const TERM = ['› build this screen from', '  signup-marked.png', '', '• reading the notes', '• removing "Phone number"', '• writing app/signup/page.tsx', '', '✓ done · preview ready'];
+const PROOF = ['$ ls toolkit/onetake/figma-is-not-enough', 'comp.html  fonts/  README.md', '', '$ find . -name "*.fig"', '0 results'];
+
+function seek(t){
+  const pending = [];
+  // ground: dark, with a paper flood for the sketchbook beat
+  const paper = sstep(T.paper, T.paper+.35, t) * (1 - sstep(T.skOut-.05, T.skOut+.3, t));
+  $('paper').style.opacity = paper;
+  const level = .35 + .25*sstep(0,2,t) + .35*OM.tween(t, T.build, T.build+.5, E.expoOut)*(1-sstep(T.pull, T.pull+1, t)) + .2*sstep(T.ry, T.ry+.6, t)*(1-sstep(T.ryOut-.3, T.ryOut, t)) + .3*sstep(T.e1, T.e1+.8, t);
+  bloom(t, level * (1-paper));
+  RING.forEach((c,i)=>{ const r0=[900,620,520][i]; c.setAttribute('r', (r0*(1+.04*Math.sin(t*.4+i))).toFixed(1)); c.style.opacity = (1-paper)*(.55+.45*Math.sin(t*.3+i*2)); });
+  const shake = OM.shake(t, T.dead, {amp:14}), shake2 = OM.shake(t, T.burst, {amp:10, seed:3});
+  $('stage').style.transform = `translate(${(shake[0]+shake2[0]).toFixed(1)}px,${(shake[1]+shake2[1]).toFixed(1)}px)`;
+
+  // 0 · hook words
+  { const o = OM.liftOut(t, T.dead-.05, {dur:.24, dist:80, blur:14});
+    const a = OM.wordRise(t, -.2, {dist:30}), b = OM.letterDrop(t, -.1, 0, {stagger:0});
+    place($('h1'), centerX('h1'), 330 + a.y + o.dy, a.s*o.s, t<T.dead+.3 ? a.op*o.op : 0, o.blur);
+    place($('h2'), centerX('h2'), 450 + b.y + o.dy*1.2, o.s, t<T.dead+.3 ? b.op*o.op : 0, o.blur);
+    const d = OM.wordRise(t, T.dead, {zeta:.5, omega:22, dist:60, s0:.9, ds:.1}), dOut = OM.liftOut(t, T.pull+.1, {dur:.3, blur:16});
+    const imp = OM.impact(t, T.dead+.12, {sqx:.08, sqy:.1});
+    place($('h3'), centerX('h3'), 560 + d.y + dOut.dy, d.s*dOut.s, vis(t,T.dead,T.pull+.45)?d.op*dOut.op:0, dOut.blur, `scale(${imp.sx.toFixed(3)},${imp.sy.toFixed(3)})`); }
+  // the prompt bar lives on the Figma Make page (world); the camera starts zoomed in on it
+  { const c = worldCam(t); const wv = t < T.mkOut+.4;
+    const ex = OM.liftOut(t, T.mkOut, {dur:.35, dist:120, blur:16});
+    $('world').style.opacity = wv ? 1 : 0;
+    $('world').style.transform = `translate(${(c.sx - c.cx*c.z).toFixed(1)}px,${(c.sy - c.cy*c.z + ex.dy).toFixed(1)}px) scale(${(c.z*ex.s).toFixed(4)})`;
+    $('world').style.filter = ex.blur>.3?`blur(${ex.blur.toFixed(1)}px)`:'none';
+    $('win').style.opacity = sstep(T.pull+.15, T.pull+.6, t) * ex.op;
+    const pin = OM.popIn(t, T.promptIn, {rise:24}); const fade = 1 - sstep(T.pull+.3, T.pull+.75, t);
+    const pr = $('prompt'); pr.style.left = BOX.x+'px'; pr.style.top = BOX.y+'px'; pr.style.width = BOX.w+'px'; pr.style.height = BOX.h+'px';
+    pr.style.padding = `0 ${(34/ZH).toFixed(1)}px`; pr.style.fontSize = (38/ZH).toFixed(1)+'px'; pr.style.borderRadius = (30/ZH).toFixed(1)+'px';
+    pr.style.opacity = t < T.promptIn ? 0 : pin.op*fade; pr.style.transform = `translateY(${(pin.dy/ZH).toFixed(1)}px) scale(${pin.s})`;
+    const ty = OM.typeOn(t, T.type0, PROMPT, {cps:42}); $('ptxt').textContent = ty.str; $('caret').style.opacity = ty.caret; $('caret').style.height=(44/ZH)+'px'; $('caret').style.width=(3/ZH)+'px';
+    const sendEl = $('send'), sz = 80/ZH; Object.assign(sendEl.style, {width:sz+'px', height:sz+'px', right:(20/ZH)+'px', top:((BOX.h-sz)/2)+'px'});
+    const p = OM.press(t, T.send); sendEl.style.transform = `scale(${p.s.toFixed(3)})`; sendEl.style.background = p.active ? 'var(--accent)' : '#141418'; }
+  // the app builds itself around the prompt (no cursor touches it), then files in under the window as "a working app"
+  APP.forEach((a,i)=>{ const el=$(a.id); const t0 = T.build + i*.07; const s = OM.spring(t - t0, .62, 16), sp = clamp(s, 0, 1.2);
+    const fromX = 540 + (a.x-540)*2.6, fromY = 800 + (a.y-800)*2.6;
+    const pull = OM.tween(t, T.pull, T.pull+.8, E.expoInOut), w = el.offsetWidth, hh = el.offsetHeight;
+    const tx = lerp(a.x, 80 + i*190, pull), ty = lerp(a.y, 1090 + (i%2)*40, pull), sc = lerp(1, .55, pull);
+    const out = OM.liftOut(t, T.mkOut, {dur:.3, blur:14});
+    const x = lerp(fromX, tx, sp), y = lerp(fromY, ty, sp) + out.dy, blur = (1-clamp(sp))*14 + out.blur;
+    place(el, x, y, (.7+.3*clamp(sp))*sc*out.s, vis(t,t0-.02,T.mkOut+.35) ? clamp((t-t0)/.12)*out.op : 0, blur, `rotate(${(a.r*(1-pull)).toFixed(2)}deg)`);
+    el.style.transformOrigin='0 0'; });
+  // "One prompt. A working app."
+  { const m = inOut(t, T.mkLine, T.mkOut); place($('mk'), centerX('mk'), 300 + m.dy, m.s, m.op, m.blur); }
+
+  // 2 · the toolbar: the tools pop off as the job moves on
+  { const n = toolEls.length, gap = 128, x0 = (W - (n*118 + (n-1)*10))/2, y0 = 700;
+    toolEls.forEach((el,i)=>{ const pi = OM.popIn(t, T.tbIn + i*.04, {rise:30});
+      const sp = OM.impactSplit ? OM.impactSplit(t, T.burst + i*.035, x0+i*gap+59, 540, {width:900, spread:520, bounce:340, rot:1.4}) : {dx:0,dy:0,rot:0};
+      const fall = Math.max(0, t - T.burst - i*.035), g = 1900*fall*fall;
+      const x = x0 + i*gap + (fall>0 ? (i-3)*260*fall : 0), y = y0 + pi.dy + (fall>0 ? -420*fall + g : 0);
+      const rot = fall>0 ? (i-3)*90*fall : 0;
+      place(el, x, y, pi.s, vis(t, T.tbIn-.02, T.tbOut) ? pi.op : 0, fall>0?Math.min(10, fall*30):0, `rotate(${rot.toFixed(1)}deg)`); });
+    const b = inOut(t, T.btLine, T.tbOut-.1); place($('bt'), centerX('bt'), 420 + b.dy, b.s, b.op, b.blur); }
+
+  // 3 · sketchbook (on paper)
+  { const sk = $('sk'), drawK = OM.tween(t, T.skDraw, T.skDraw+1.3, E.cubicInOut);
+    sk.style.opacity = vis(t, T.paper+.1, T.skOut+.2) ? (1 - sstep(T.skOut-.1, T.skOut+.15, t)) : 0;
+    sk.style.transform = `translate(0px, 380px)`;
+    sk.querySelectorAll('rect,path,circle,line').forEach((p,i)=>{ const L = 900; p.style.strokeDasharray = L; p.style.strokeDashoffset = (L*(1-clamp(drawK*1.6 - i*.035))).toFixed(0); });
+    const focus = OM.tween(t, T.skSel+.25, T.skSel+.75, E.expoOut);
+    ['skA','skC'].forEach(id=>{ $(id).style.opacity = 1 - .75*focus; });
+    const l = inOut(t, T.skLine, T.skOut-.1); place($('skt'), centerX('skt'), 300 + l.dy, l.s, l.op, l.blur);
+    // the one screen: the middle sketch becomes the real screen
+    const ss = $('ss'), k = OM.tween(t, T.skSel+.2, T.skSel+.75, E.expoOut);
+    const ex = OM.liftOut(t, T.skOut, {dur:.3, blur:12});
+    place(ss, 380 + (405-380)*(1-k)*0, 500 + 0*(1-k) + ex.dy, (.9+.1*k)*ex.s, vis(t,T.skSel+.2, T.skOut+.3)? k*ex.op : 0, (1-k)*10 + ex.blur); }
+
+  // 4 · the rest is you
+  { const r = OM.wordRise(t, T.ry, {dist:50, s0:.92, ds:.08}), o = OM.liftOut(t, T.ryOut, {dur:.25, blur:14});
+    place($('ry'), centerX('ry'), 700 + r.y + o.dy, r.s*o.s, vis(t,T.ry,T.ryOut+.3)? r.op*o.op:0, o.blur); }
+
+  // 5 · taste: references flick through the viewfinder, then it stops on one
+  { const inK = OM.tween(t, T.refIn, T.refIn+.35, E.expoOut), o = OM.liftOut(t, T.refOut, {dur:.3, blur:14});
+    const stops = []; let tt = T.refIn + .25, dt = .16; for (let i=0;i<REFS.length;i++){ stops.push(tt); tt += dt; dt *= 1.22; }
+    let idx = 0; stops.forEach((s,i)=>{ if (t >= s) idx = i; });
+    const name = REFS[idx]; const src = `../../hyperframes/figma-is-not-enough/assets/captures/${name}.png`;
+    if ($('refImg').getAttribute('src') !== src) { $('refImg').setAttribute('src', src); pending.push($('refImg').decode().catch(()=>{})); }
+    const cut = stops.some(s => t >= s && t < s + .05);
+    place($('refs'), 0, o.dy + (1-inK)*60, (.94 + .06*inK)*o.s*(cut?1.015:1), vis(t,T.refIn,T.refOut+.3)? inK*o.op:0, o.blur);
+    const l = inOut(t, T.tl, T.refOut); place($('tl'), centerX('tl'), 290 + l.dy, l.s, l.op, l.blur);
+    const l2 = inOut(t, T.refStop+.15, T.refOut); place($('tl2'), centerX('tl2'), 1080 + l2.dy, l2.s, l2.op, l2.blur); }
+
+  // 6 · judgment: the screen, questions pinned to it, a field struck out
+  { const sIn = OM.popIn(t, T.jIn, {rise:50}), o = OM.liftOut(t, T.jOut, {dur:.3, blur:12});
+    const ss2 = $('ss'); if (t >= T.jIn) { const strike = OM.tween(t, T.strike, T.strike+.45, E.expoOut);
+      $('ssPhone').style.textDecoration = t >= T.strike ? 'line-through' : 'none'; $('ssPhone').style.color = t >= T.strike ? 'var(--accent2)' : '';
+      $('ssPhone').style.height = (52*(1-strike))+'px'; $('ssPhone').style.marginBottom = (12*(1-strike))+'px'; $('ssPhone').style.opacity = 1-strike; $('ssPhone').style.borderWidth = (2*(1-strike))+'px';
+      place(ss2, 380, 470 + sIn.dy + o.dy, 1.25*sIn.s*o.s, vis(t,T.jIn,T.jOut+.3)? sIn.op*o.op:0, o.blur); ss2.style.transformOrigin = '50% 0'; }
+    else { $('ssPhone').style.cssText=''; ss2.style.transformOrigin='50% 50%'; }
+    const l = inOut(t, T.jIn+.1, T.jOut); place($('jl'), centerX('jl'), 290 + l.dy, l.s, l.op, l.blur);
+    const a = inOut(t, T.p1, T.jOut, {rise:20}), b = inOut(t, T.p2, T.jOut, {rise:20});
+    place($('p1'), 640, 780 + a.dy, a.s, a.op, a.blur); place($('p2'), 160, 1120 + b.dy, b.s, b.op, b.blur); }
+
+  // 7 · the agent: tabs flick (Claude Code / Codex / Cursor), it writes, the phone lights up
+  { const i = OM.popIn(t, T.aIn, {rise:40}), o = OM.liftOut(t, T.aOut, {dur:.3, blur:14});
+    place($('term'), 0, i.dy + o.dy, i.s*o.s, vis(t,T.aIn,T.aOut+.3)? i.op*o.op:0, o.blur);
+    const tabs = [...$('tabs').children]; const fl = Math.floor((t - T.tabs0)/.14); tabs.forEach((s,k)=> s.className = (t < T.tabs0 || t > T.tabs0+1.3) ? (k===0?'on':'') : (fl%3===k?'on':''));
+    const n = Math.floor(clamp((t - T.tLines)/.28, 0, TERM.length)); $('tlines').textContent = TERM.slice(0, n).join('\n');
+    const ph = OM.popIn(t, T.phone, {rise:80, zeta:.55, omega:15}); place($('phone'), 660, 430 + ph.dy + o.dy, ph.s*o.s, vis(t,T.phone,T.aOut+.3)? ph.op*o.op:0, o.blur);
+    const l = inOut(t, T.aIn+.1, T.aOut); place($('al'), centerX('al'), 290 + l.dy, l.s, l.op, l.blur); }
+
+  // 8 · the handoff chain slides past, then folds away; idea → product
+  { const pass = OM.tween(t, T.docsIn, T.gather, E.cubicInOut), g = OM.tween(t, T.gather, T.gather+.55, E.expoIn);
+    docEls.forEach((el,i)=>{ const x = 760 + i*300 - pass*1900, y = 600 + (i%2)*140;
+      const gx = lerp(x, 415, g), gy = lerp(y, 700, g) + 900*g*g;
+      place(el, gx, gy, 1 - .5*g, vis(t, T.docsIn, T.gather+.6) ? (1-g) : 0, g*16, `rotate(${(((i%3)-1)*6 + g*40*(i%2?1:-1)).toFixed(1)}deg)`); });
+    const l = inOut(t, T.ip, T.ipOut); place($('ip'), centerX('ip'), 700 + l.dy, l.s, l.op, l.blur); }
+
+  // 9 · proof: this project's own folder, no .fig
+  { const i = OM.popIn(t, T.pfIn, {rise:40}), o = OM.liftOut(t, T.pfOut, {dur:.3, blur:14});
+    place($('pf'), 0, i.dy + o.dy, i.s*o.s, vis(t,T.pfIn,T.pfOut+.3)? i.op*o.op:0, o.blur);
+    const n = t < T.pfFind ? 2 : Math.floor(clamp(2 + (t - T.pfFind)/.3, 2, PROOF.length)); $('pf').innerHTML = PROOF.slice(0, n).map((l,k)=> k===4 ? `<span id="zero">${l}</span>` : l.replace(/</g,'&lt;')).join('\n');
+    const l = inOut(t, T.pl, T.pfOut); place($('pl'), centerX('pl'), 300 + l.dy, l.s, l.op, l.blur); }
+
+  // 10 · callback, then the comment
+  { const a = inOut(t, T.c1, T.cOut), b = inOut(t, T.c2, T.cOut);
+    place($('c1'), centerX('c1'), 560 + a.dy, a.s, a.op, a.blur); place($('c2'), centerX('c2'), 760 + b.dy, b.s, b.op, b.blur);
+    const e = OM.wordRise(t, T.e1, {dist:50}); place($('e1'), centerX('e1'), 520 + e.y, e.s, t>=T.e1? e.op:0);
+    const f = OM.popIn(t, T.e1+.25, {rise:40}); const sent = OM.press(t, T.eSend); place($('field'), 160, 720 + f.dy, f.s, t>=T.e1+.2? f.op:0);
+    $('ftxt').textContent = OM.typeOn(t, T.eType, 'DESIGN', {cps:9}).str; $('fsend').style.background = sent.active ? 'var(--accent)' : '#141418'; $('fsend').style.transform = `scale(${sent.s})`; }
+
+  // ── the selection box and the hand ──
+  const s = selAt(t), sel = $('sel');
+  let sx = s.x, sy = s.y, rot = 0, sop = s.op;
+  if (t >= T.abandon && t < T.pull + .5) {   // abandoned: the box and its cursor drop out of the frame
+    const f = t - T.abandon; sy += 2200*f*f; sx += 160*f; rot = 70*f*f; sop = 1 - sstep(T.pull, T.pull+.3, t); }
+  sel.style.opacity = sop; sel.style.width = s.w+'px'; sel.style.height = s.h+'px';
+  sel.style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) rotate(${rot.toFixed(2)}deg)`;
+  $('tag').textContent = t >= T.abandon && t < T.pull+.5 ? 'you · not needed' : (s.tag || 'you');
+  $('tag').style.background = t >= T.abandon && t < T.pull+.5 ? '#5A5A6E' : '';
+  sel.style.borderColor = t >= T.abandon && t < T.pull+.5 ? '#5A5A6E' : '';
+  const cu = $('cursor'); const cv = (t < T.pull+.5) || (t >= T.c1 && t < DUR);
+  const cx = sx + s.w - 6 + (t>=T.e1 ? 0 : 0), cy = sy + s.h - 8;
+  cu.style.opacity = cv ? sop : 0; cu.style.transform = `translate(${cx.toFixed(1)}px,${cy.toFixed(1)}px) rotate(${(rot*1.4).toFixed(1)}deg)`;
+
+  // ── captions: one word, on the dark pill ──
+  const wi = WORDS.findIndex((w,k)=> t >= w.s && t < (WORDS[k+1] && WORDS[k+1].s - w.e < .3 ? WORDS[k+1].s : w.e + .1));
+  $('capw').textContent = wi >= 0 ? WORDS[wi].w.replace(/[.,?]$/,'') : ''; $('cap').style.opacity = wi >= 0 ? 1 : 0;
+  $('hud').textContent = 't=' + t.toFixed(3);
+  return Promise.all(pending);
+}
+
+function measure(){
+  ['h1','h2','h3','mk','bt','skt','ry','tl','tl2','jl','al','ip','pl','c1','c2','e1'].forEach(id=>{ const el=$(id); el.style.transform='none'; M[id] = el.getBoundingClientRect().width; });
+  const box = (id, pad=18, dy=0) => { const el=$(id); const r=el.getBoundingClientRect(); return R(r.left-pad, r.top-pad+dy, r.width+2*pad, r.height+2*pad); };
+  // rest positions: lay each element at its resting place, measure, keep the box
+  const at = (id, x, y) => { const el=$(id); el.style.transform=`translate(${x}px,${y}px)`; el.style.opacity=1; const r=el.getBoundingClientRect(); return r; };
+  const r2 = at('h2', centerX('h2'), 450), rFig = R(r2.left-16, r2.top+18, r2.width+32, r2.height-10);
+  const rRy = (()=>{ at('ry', centerX('ry'), 700); const r=$('ryYou').getBoundingClientRect(); return R(r.left-16, r.top+4, r.width+30, r.height); })();
+  const rC1 = (()=>{ const r=at('c1', centerX('c1'), 560); return R(r.left-24, r.top-10, r.width+48, r.height+20); })();
+  const rC2 = (()=>{ const a=at('c1', centerX('c1'), 560), b=at('c2', centerX('c2'), 760); const x=Math.min(a.left,b.left)-26; return R(x, a.top-12, Math.max(a.right,b.right)+26-x, b.bottom-a.top+24); })();
+  const rZero = (()=>{ const pf=$('pf'); pf.style.transform='none'; pf.style.opacity=1; pf.innerHTML = PROOF.map((l,k)=> k===4 ? `<span id="zero">${l}</span>` : l).join('\n'); const r=$('zero').getBoundingClientRect(); pf.style.opacity=0; return R(r.left-18, r.top-10, r.width+36, r.height+20); })();
+  const k = 1000/1280;
+  SEL = [
+    {t:0, r:rFig, tag:'you'},
+    {t:T.mkSel, r:RC(40+250*k, 408+218*k, 780*k, 92*k), tag:'Figma Make', op:1},
+    {t:T.tbSel, r:RC((W-(7*118+60))/2-24, 676, 7*118+60+48, 166), tag:'the tools'},
+    {t:T.burst+.1, r:RC(400, 640, 280, 280), tag:'the tools', op:0},
+    {t:T.skSel, r:RC(386, 482, 308, 600), tag:'one screen', op:1},
+    {t:T.ry+.25, r:rRy, tag:'you'},
+    {t:T.refIn+.1, r:RC(124, 484, 832, 532), tag:'references'},
+    {t:T.refStop, r:RC(124, 484, 832, 532), tag:'this one ✓'},
+    {t:T.jIn+.2, r:RC(380-12, 470-12+ (600*1.25)*0 , 400+24, 750+24), tag:'the user'},
+    {t:T.strike, r:RC(380+20, 470+ (36+34+26+64*2)*1.25 - 10, 360, 80), tag:'not needed'},
+    {t:T.aIn+.3, r:RC(56, 466, 628, 588), tag:'the agent'},
+    {t:T.phone+.2, r:RC(646, 416, 388, 728), tag:'the real thing'},
+    {t:T.docsIn+.1, r:RC(400, 620, 280, 400), tag:'handoff', op:0},
+    {t:T.ip+.3, r:(()=>{ const r=at('ip', centerX('ip'), 700); return R(r.left-24, r.top-12, r.width+48, r.height+24); })(), tag:'2 steps', op:1},
+    {t:T.pfIn+.3, r:RC(56, 506, 968, 548), tag:'this video'},
+    {t:T.pfSel, r:rZero, tag:'no .fig'},
+    {t:T.c1+.2, r:rC1, tag:'you'},
+    {t:T.c2+.2, r:rC2, tag:"don't stop there"},
+    {t:T.e1+.4, r:RC(160-14, 720-14, 760+28, 130+28), tag:'you'},
+  ];
+  ['h1','h2','h3','mk','bt','skt','ry','tl','tl2','jl','al','ip','pl','c1','c2','e1'].forEach(id=>{ $(id).style.transform=''; $(id).style.opacity=0; });
+}
+window.__seek = async t => { await seek(t); return true; };
+// every sound the film makes, at the moment of its visible cause: [moment s, sfx-kit id, volume] (sound/mix.py places it by its sync point)
+window.__events = () => {
+  const ev = [[T.promptIn,'pop-medium-in',.5],[T.type0,'keyboard-typing-quick-short',.35],[T.send,'click-mouse-firm',.6],[T.build+.12,'whoosh-fast-medium',.5],
+    [T.build+.33,'impact-light-soft',.35],[T.build+.45,'impact-light-soft',.3],[T.build+.58,'impact-light-soft',.3],[T.abandon+.05,'notification-failure-deflate',.4],
+    [T.dead+.12,'impact-heavy-hard',.55],[T.dead+.12,'boom-hit-soft',.4],[T.pull+.4,'move-zoom-out',.5],[T.mkSel,'click-hover-firm',.45],[T.mkLine,'pop-medium-in',.35],
+    [T.mkOut+.1,'whoosh-medium-soft',.4],[T.tbIn,'pop-small-in',.3],[T.tbIn+.12,'pop-small-in',.25],[T.tbIn+.24,'pop-small-in',.25],[T.burst,'appear-burst',.5],
+    [T.paper+.15,'whoosh-medium-soft',.4],[T.skDraw,'writing-pencil-draw',.45],[T.skSel,'click-snap-medium',.45],[T.skOut+.1,'whoosh-medium-medium',.4],
+    [T.ry,'boom-hit-soft',.35],[T.ry+.3,'shimmer-short-soft',.3],[T.refStop,'writing-pen-tick',.5],[T.jIn,'foley-paper-slide',.4],[T.p1,'notification-message-in-soft',.35],
+    [T.p2,'notification-message-in-soft',.3],[T.strike,'writing-scribble',.35],[T.aIn,'whoosh-medium-soft',.35],[T.tLines,'keyboard-typing-quick-medium',.3],
+    [T.phone,'notification-success-soft',.45],[T.docsIn+.3,'whoosh-slow-soft',.4],[T.gather+.25,'transform-shrink',.4],[T.gather+.55,'impact-medium-soft',.35],
+    [T.ip,'pop-medium-in',.35],[T.pfIn+.2,'keyboard-typing-quick-short',.3],[T.pfFind,'keyboard-return-soft',.4],[T.pfSel,'click-hover-firm',.45],[T.c1,'pop-medium-in',.35],
+    [T.c2+.2,'transform-stretch',.3],[T.e1,'whoosh-medium-soft',.35],[T.eSend,'notification-message-out-clear',.5],[T.eSend+.35,'sting-minimal-short',.35]];
+  let st = T.refIn + .25, dt = .16; for (let i=0;i<REFS.length;i++){ ev.push([st,'mechanical-shutter-light',.38]); st += dt; dt *= 1.22; }
+  for (let i=0;i<9;i++) ev.push([T.tabs0 + i*.14, 'click-tap-soft', .25]);
+  for (let i=0;i<6;i++) ev.push([T.eType + i/9, 'keyboard-letter-soft', .4]);
+  return ev.sort((a,b)=>a[0]-b[0]); };
+window.__ready = document.fonts.ready.then(()=>Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))).then(()=>{ measure(); return seek(0); });
+// the farthest anything travels between two times (for render.py's shutter): sample the selection box and the camera
+window.__motion = (t0, t1) => { const a = selAt(t0), b = selAt(t1); const c0 = worldCam(t0), c1 = worldCam(t1);
+  let m = Math.hypot(b.x-a.x, b.y-a.y) + Math.abs(b.w-a.w); m = Math.max(m, Math.abs(c1.z-c0.z)*800);
+  const fast = [[T.abandon,T.pull+.4],[T.build,T.build+.6],[T.burst,T.burst+.9],[T.refIn,T.refStop],[T.gather,T.gather+.6],[T.docsIn,T.gather]].some(([a,b])=> t1>=a && t0<=b);
+  return fast ? Math.max(m, 120) : m; };
+const q = new URLSearchParams(location.search);
+if (q.has('t')) __ready.then(()=>seek(parseFloat(q.get('t'))));
+if (q.has('hud')) $('hud').style.display = 'block';
+if (q.has('play')) __ready.then(()=>{ const t0=performance.now(); (function loop(){ seek(((performance.now()-t0)/1000)%DUR); requestAnimationFrame(loop); })(); });
+</script>
+</body></html>

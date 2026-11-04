@@ -26,3 +26,9 @@ toolkit/hyperframes/*/boards/stills/
 toolkit/hyperframes/*/renders/
 toolkit/hyperframes/*/.hyperframes/
 projects/*/storyboard-sheet.jpg
+
+# OneTake films: sound beds and renders stay local
+toolkit/onetake/*/sound/*.wav
+toolkit/onetake/*/*.mp4
+toolkit/onetake/*/*.render.json
+toolkit/onetake/*/_frames/

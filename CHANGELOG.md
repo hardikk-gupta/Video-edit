@@ -95,3 +95,7 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   recommended), SPEC.md (cutting-mat desk, label tape, white paint marker + red pen), STORYBOARD.md and
   `boards/storyboard.html` (12 shots posed in the real composition, `check` errors fixed). Project record in
   `projects/2026-11-04-figma-is-not-enough/`. docs/06 (HyperFrames notes), docs/10, .gitignore.
+- 2026-11-04 · Figma video, round 2: a OneTake one-take film (`toolkit/onetake/figma-is-not-enough/`: comp.html,
+  sound/mix.py, README, Instrument Serif fonts) built from Hardik's two Pinterest references (logged in docs/07, measured
+  with OneTake's analyser). The OneTake renderer runs in a Python venv with playwright 1.63, which matches the
+  installed Chromium. Renders, sound beds and captures are gitignored. docs/10 updated.

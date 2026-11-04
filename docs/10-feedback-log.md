@@ -292,3 +292,12 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
 - **To apply (agent):** balance every frame around the optical centre (the safe band 168–1330 px, centred both ways,
   not stacked from the top); the hook frame must state the reason visually in under 1 s; more varied, bolder objects
   per shot; then match his references.
+
+## 2026-11-04 · Figma video: references → OneTake one take
+
+- **Hardik's words (close paraphrase):** shared two Pinterest motion films ("can we pull this type of motion graphics,
+  exact same… JS HyperFrames"), then: "these were more of a one take type of thing… achieved by using the one take
+  skill. Go ahead, don't use the green colour from reference one, use the ideas and learnings from both, and create a
+  premium thing."
+- **Done:** built `toolkit/onetake/figma-is-not-enough/` (one selection box carries the film; black + blue-violet light;
+  Inter + Instrument Serif italic; real Figma Make capture; sfx-kit sound on `__events`), content centred on the frame.
