@@ -1,0 +1,12 @@
+If you're only learning Figma, you're dead.
+Even Figma now ships an AI that turns one prompt into a working app.
+So knowing the buttons is not the job anymore.
+Figma is your sketchbook now, for brainstorming and for nailing one specific screen.
+The rest comes from your head.
+First, taste, so you collect the right references and you know which one feels right.
+Second, UX judgment, so you know why every element exists and what the user needs next.
+Third, you hand it to an AI agent like Claude Code, Codex or Cursor, and it builds the real thing from your design.
+So you skip the long handoff and go straight from idea to a working product.
+And now the proof, this video has no Figma file behind it, only references, judgment and Claude writing the code.
+So learn Figma, but don't stop there, and train your eye and your UX brain.
+Comment DESIGN and I'll send you my full setup.

@@ -1,0 +1,8 @@
+Stop learning Figma first, and learn this instead.
+Designers who only know the tool are getting replaced by the tool, because Figma now builds apps from a prompt.
+What still needs you is taste, knowing which reference is right.
+And UX judgment, knowing why every button is there.
+Figma stays for brainstorming and for the one specific screen you want to get exactly right.
+Then Claude Code, Codex or Cursor turns that design into a working product.
+This whole video was made that way, no Figma file, only references and Claude writing the code.
+Comment DESIGN and I'll send you my setup.

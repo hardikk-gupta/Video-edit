@@ -19,3 +19,10 @@ vendor/
 # Mascot renders and per-project sheets stay local too.
 mascot/out/
 toolkit/public/sfx/kit
+
+# HyperFrames projects: captured third-party pages, board stills and renders stay local
+toolkit/hyperframes/*/assets/captures/
+toolkit/hyperframes/*/boards/stills/
+toolkit/hyperframes/*/renders/
+toolkit/hyperframes/*/.hyperframes/
+projects/*/storyboard-sheet.jpg

@@ -89,3 +89,9 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   re-transcribe the cut, find the right occurrence), `cut-audit` (clipped words the transcript auto-completes, final
   checks) and `render-ops` (verify step). New scripts of our own: `toolkit/scripts/silence_keep.py`, `verify_cut.py`.
   famous-reel-editor's trigger is narrowed locally so "edit this reel" stays with `reel-edit`. docs/13, docs/10, AGENTS.md.
+- 2026-11-04 · New video, "Only learning Figma? You're dead.", script + storyboard (stop for approval). Script written
+  with `viral-video-writing` (5 hooks, 3 drafts, 100/100 on `score.py`), facts sheet (Figma Make checked on the live
+  page). First HyperFrames project: `toolkit/hyperframes/figma-is-not-enough/` with STORYLINES.md (3 films, A
+  recommended), SPEC.md (cutting-mat desk, label tape, white paint marker + red pen), STORYBOARD.md and
+  `boards/storyboard.html` (12 shots posed in the real composition, `check` errors fixed). Project record in
+  `projects/2026-11-04-figma-is-not-enough/`. docs/06 (HyperFrames notes), docs/10, .gitignore.

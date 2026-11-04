@@ -1,0 +1,9 @@
+Even Figma's own AI builds the app now, so why are you still only learning Figma?
+Figma Make turns one prompt into a working app, and Claude Code, Codex and Cursor turn a design into real code.
+So the part a tool can't do is the part that pays.
+Use Figma to brainstorm and to sketch the one screen that matters.
+Then it's on you, first your taste in references, and second your UX judgment about why each thing exists.
+Your agent does the build, and you check every decision it makes.
+That's how this video got made, with zero Figma files and Claude writing the code.
+Learn the tool in a week, and train your eye for the rest of your career.
+Comment DESIGN and I'll send you the setup.

@@ -64,6 +64,14 @@ stage, pick the renderer for **this** video and write the choice and the reason 
 Tie-breakers: if the editor chosen for hand review (`editor-handoff`) is HyperFrames, build in HyperFrames; if the
 edit depends on measured face data or toolkit components, build in Remotion. Say which, and why, in one line to the creator.
 
+**HyperFrames in this repo (first used 2026-11-04, "Only learning Figma? You're dead."):** Hardik asked for it by name.
+Projects live in `toolkit/hyperframes/<name>/` (`npx hyperframes@0.9.11 init <name> --example blank --resolution portrait
+--non-interactive --skip-skills`; `HYPERFRAMES_SKIP_SKILLS=1` keeps our pinned skills). Its CLI runs here with `npx`.
+`check --json` is strict and useful: it caught red ink on the green mat at 1.6:1 contrast and occluded text. `snapshot
+--at … -o boards/stills` writes the board stills plus contact sheets in about a minute for 12 frames. Captures of
+third-party pages, board stills and renders are gitignored. Follow its own process: story.md (three storylines),
+spec.md (SPEC with numbers and a BANNED list), storyboard.md (pose in `index.html`, snapshot, `boards/storyboard.html`).
+
 ## Libraries and assets brought in
 
 | What | Where from | Licence | Notes |

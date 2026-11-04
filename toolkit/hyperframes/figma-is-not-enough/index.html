@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <!-- "Only learning Figma? You're dead." Storyline A, "The desk" (STORYLINES.md, SPEC.md).
+         STORYBOARD POSE: each shot is posed at its key moment for the board (STORYBOARD.md); animation comes after the go. -->
+    <style>
+      @font-face { font-family: 'Caveat'; src: url('assets/fonts/caveat-latin-600-normal.woff2') format('woff2'); font-weight: 600; }
+      :root {
+        --mat: #2F6B55; --paper: #FAF8F2; --note: #FFE36E; --tape: #151515; --pen: #E0362C; --alu: #D7D9DC;
+        --font-display: 'Archivo Black', sans-serif; --font-ui: 'Inter', sans-serif; --font-hand: 'Caveat', cursive;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--mat); }
+      #root { position: relative; width: 100%; height: 100%; font-family: var(--font-ui); }
+      .shot { position: absolute; inset: 0; overflow: hidden; }
+      /* the cutting mat */
+      .mat { position: absolute; inset: -40px; background-color: var(--mat);
+        background-image:
+          linear-gradient(rgba(255,255,255,.30) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(255,255,255,.30) 1.5px, transparent 1.5px),
+          linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px),
+          linear-gradient(45deg, transparent 49.85%, rgba(255,255,255,.08) 49.85%, rgba(255,255,255,.08) 50.15%, transparent 50.15%);
+        background-size: 180px 180px, 180px 180px, 36px 36px, 36px 36px, 1160px 1160px; }
+      .lift { box-shadow: 0 14px 28px rgba(0,0,0,.32); }
+      .lift2 { box-shadow: 0 26px 44px rgba(0,0,0,.38); }
+      /* label-maker tape */
+      .tape { position: absolute; background: var(--tape); color: #fff; font-family: var(--font-display); text-transform: uppercase;
+        letter-spacing: .02em; padding: 16px 30px 14px; line-height: 1; white-space: nowrap; box-shadow: 0 8px 14px rgba(0,0,0,.35);
+        text-shadow: 0 1px 0 rgba(255,255,255,.25), 0 -1px 0 rgba(0,0,0,.6); }
+      .tape.red { background: var(--pen); }
+      .paper { position: absolute; background: var(--paper); padding: 16px; }
+      .note { position: absolute; width: 230px; height: 230px; background: var(--note); padding: 22px; font-family: var(--font-hand); font-weight: 600;
+        font-size: 44px; line-height: 1.05; color: #2A2A2A; box-shadow: 0 12px 22px rgba(0,0,0,.28); }
+      .pen { position: absolute; z-index: 5; font-family: var(--font-hand); font-weight: 600; color: var(--pen); line-height: 1; white-space: nowrap; }
+      .pen.chalk { color: #F4F1E8; text-shadow: 0 2px 6px rgba(0,0,0,.35); } /* white paint marker: the only ink that reads on the mat */
+      .laptop { position: absolute; background: var(--alu); border-radius: 30px; padding: 20px; }
+      .laptop .screen { width: 100%; height: 100%; background: #111; border-radius: 14px; overflow: hidden; position: relative; border: 6px solid #0c0c0c; }
+      .laptop .screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+      .phone { position: absolute; background: #0c0c0c; border-radius: 46px; padding: 14px; }
+      .phone .in { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #fff; position: relative; }
+      svg.draw { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+      .cap { position: absolute; left: 50%; top: 1218px; transform: translateX(-50%) rotate(-1deg); font-size: 64px; }
+      /* a generic design-tool canvas (drawn, not a Figma screenshot) */
+      .canvas { position: absolute; inset: 0; background: #E6E6E6; }
+      .canvas .bar { position: absolute; left: 0; right: 0; top: 0; height: 56px; background: #2C2C2C; display: flex; gap: 22px; align-items: center; padding: 0 22px; }
+      .canvas .bar i { width: 22px; height: 22px; border: 3px solid #ddd; border-radius: 4px; display: block; }
+      .canvas .layers { position: absolute; left: 0; top: 56px; bottom: 0; width: 170px; background: #fff; border-right: 1px solid #ddd; padding: 18px 14px; }
+      .canvas .layers b { display: block; height: 12px; background: #e3e3e3; border-radius: 3px; margin-bottom: 14px; }
+      /* the sign-up screen being designed (our own example screen) */
+      .signup { background: #fff; position: absolute; padding: 26px 22px; font-family: var(--font-ui); color: #111; }
+      .signup h3 { font-size: 30px; font-weight: 700; letter-spacing: -.5px; margin-bottom: 18px; }
+      .signup .f { height: 46px; border: 2px solid #D9D9D9; border-radius: 10px; margin-bottom: 12px; padding: 0 14px; display: flex; align-items: center; font-size: 17px; color: #6B6B6B; }
+      .signup .btn { height: 50px; border-radius: 12px; background: #111; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin-top: 8px; }
+      .term { position: absolute; background: #0E0E10; border-radius: 16px; padding: 22px 24px; font-family: 'JetBrains Mono', monospace; color: #E8E6E1; font-size: 22px; line-height: 1.55; }
+      .term .tabs { display: flex; gap: 10px; margin-bottom: 14px; }
+      .term .tabs span { font-family: var(--font-ui); font-size: 18px; padding: 6px 14px; border-radius: 8px; background: #222; color: #bbb; }
+      .term .tabs span.on { background: #E8E6E1; color: #111; font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="46" data-width="1080" data-height="1920">
+
+      <!-- 01 · Hook: the canvas flatlines (0.0–2.2) -->
+      <div id="s01" class="shot clip" data-start="0" data-duration="2.2" data-track-index="0">
+        <div class="mat"></div>
+        <div class="laptop lift2" style="left: 40px; top: 300px; width: 1000px; height: 760px;">
+          <div class="screen"><div class="canvas"><div class="bar"><i></i><i></i><i></i><i></i><i></i></div><div class="layers"><b></b><b style="width:70%"></b><b style="width:85%"></b><b style="width:60%"></b></div>
+            <div class="signup lift" style="left: 380px; top: 110px; width: 330px; height: 560px; border-radius: 22px;"><h3>Create account</h3><div class="f">Name</div><div class="f">Email</div><div class="f">Phone number</div><div class="f">Password</div><div class="btn">Sign up</div></div></div></div>
+        </div>
+        <svg class="draw" width="1080" height="1920"><path d="M60 700 H300 l26 -90 l30 190 l26 -170 l22 70 H470 l20 -60 l24 120 l18 -60 H1020" fill="none" stroke="#E0362C" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 66px; transform: rotate(-2deg);">Only learning Figma?</div>
+        <div class="tape red" style="left: 360px; top: 1060px; font-size: 80px; transform: rotate(2.5deg);">You're dead</div>
+        <div class="tape cap">dead</div>
+      </div>
+
+      <!-- 02 · Even Figma ships it: the real Figma Make page, circled (2.2–6.1) -->
+      <div id="s02" class="shot clip" data-start="2.2" data-duration="3.9" data-track-index="0">
+        <div class="mat"></div>
+        <div class="laptop lift2" style="left: 40px; top: 330px; width: 1000px; height: 660px;"><div class="screen"><img src="assets/captures/figma-make.png" alt="figma.com/make" /></div></div>
+        <svg class="draw" width="1080" height="1920"><ellipse cx="540" cy="565" rx="430" ry="120" fill="none" stroke="#E0362C" stroke-width="8" transform="rotate(-3 540 565)"/></svg>
+        <div class="pen chalk" style="left: 600px; top: 1040px; font-size: 56px; transform: rotate(-3deg);">figma.com/make</div>
+        <div class="note" style="left: 90px; top: 1000px; transform: rotate(-4deg);">one prompt →<br/>a working app</div>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 62px; transform: rotate(-1.5deg);">Even Figma ships this</div>
+        <div class="tape cap">app</div>
+      </div>
+
+      <!-- 03 · The buttons aren't the job: toolbar keycaps fall onto the mat (6.1–8.75) -->
+      <div id="s03" class="shot clip" data-start="6.1" data-duration="2.65" data-track-index="0">
+        <div class="mat"></div>
+        <div class="laptop lift2" style="left: 140px; top: 330px; width: 800px; height: 520px;"><div class="screen"><div class="canvas"><div class="bar"></div><div class="layers"></div></div></div></div>
+        <div class="paper lift" style="left: 120px; top: 900px; width: 150px; height: 150px; border-radius: 26px; background:#2C2C2C; transform: rotate(-14deg); display:flex; align-items:center; justify-content:center;"><svg width="80" height="80" viewBox="0 0 24 24"><path d="M4 20l4-1 10-10-3-3L5 16z" fill="none" stroke="#ddd" stroke-width="2"/></svg></div>
+        <div class="paper lift" style="left: 330px; top: 980px; width: 150px; height: 150px; border-radius: 26px; background:#2C2C2C; transform: rotate(9deg); display:flex; align-items:center; justify-content:center;"><svg width="80" height="80" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" fill="none" stroke="#ddd" stroke-width="2"/></svg></div>
+        <div class="paper lift" style="left: 550px; top: 910px; width: 150px; height: 150px; border-radius: 26px; background:#2C2C2C; transform: rotate(-6deg); display:flex; align-items:center; justify-content:center; font: 900 84px var(--font-ui); color:#ddd;">T</div>
+        <div class="paper lift" style="left: 770px; top: 1000px; width: 150px; height: 150px; border-radius: 26px; background:#2C2C2C; transform: rotate(18deg); display:flex; align-items:center; justify-content:center;"><svg width="80" height="80" viewBox="0 0 24 24"><path d="M8 3v18M16 3v18M3 8h18M3 16h18" stroke="#ddd" stroke-width="2"/></svg></div>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 62px; transform: rotate(-2deg);">Buttons aren't the job</div>
+        <div class="tape cap">anymore</div>
+      </div>
+
+      <!-- 04 · Figma is the sketchbook (8.75–12.4) -->
+      <div id="s04" class="shot clip" data-start="8.75" data-duration="3.65" data-track-index="0">
+        <div class="mat"></div>
+        <div class="paper lift2" style="left: 60px; top: 340px; width: 600px; height: 760px; transform: rotate(-3deg); background-image: repeating-linear-gradient(transparent 0 46px, rgba(70,110,180,.18) 46px 48px);">
+          <svg width="560" height="720" style="position:absolute; left:20px; top:20px;"><g fill="none" stroke="#555" stroke-width="3" stroke-linecap="round"><rect x="40" y="40" width="200" height="330" rx="20"/><line x1="70" y1="100" x2="200" y2="100"/><rect x="70" y="140" width="140" height="30" rx="6"/><rect x="70" y="190" width="140" height="30" rx="6"/><rect x="70" y="300" width="140" height="40" rx="10"/>
+            <rect x="300" y="40" width="200" height="330" rx="20"/><circle cx="400" cy="140" r="50"/><line x1="330" y1="230" x2="470" y2="230"/><line x1="330" y1="260" x2="440" y2="260"/>
+            <path d="M60 470 q 90 -60 180 0 t 180 0" /><line x1="60" y1="560" x2="480" y2="560"/></g></svg>
+          <div class="pen" style="left: 40px; top: 640px; font-size: 54px; color:#555;">brainstorm…</div>
+        </div>
+        <div class="laptop lift" style="left: 610px; top: 520px; width: 420px; height: 290px; padding: 12px;"><div class="screen"><div class="canvas"><div class="bar" style="height:26px"></div><div class="signup" style="left: 140px; top: 46px; width: 120px; height: 190px; border-radius: 10px; padding: 10px;"><h3 style="font-size:12px">Create account</h3></div></div></div></div>
+        <div class="paper lift" style="left: 700px; top: 850px; width: 290px; height: 340px; transform: rotate(4deg); padding: 0;"><div class="signup" style="inset: 12px; padding: 18px 16px;"><h3 style="font-size:22px">Create account</h3><div class="f" style="height:34px">Email</div><div class="f" style="height:34px">Password</div><div class="btn" style="height:38px; font-size:14px">Sign up</div></div></div>
+        <div class="pen chalk" style="left: 330px; top: 1140px; font-size: 54px; transform: rotate(-2deg);">this one screen →</div>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 64px; transform: rotate(-1.5deg);">Figma = sketchbook</div>
+        <div class="tape cap">sketchbook</div>
+      </div>
+
+      <!-- 05 · The rest comes from your head (12.4–14.25) -->
+      <div id="s05" class="shot clip" data-start="12.4" data-duration="1.85" data-track-index="0">
+        <div class="mat"></div>
+        <div class="laptop lift" style="left: 70px; top: 1000px; width: 210px; height: 150px; padding: 8px;"><div class="screen"><div class="canvas"></div></div></div>
+        <svg class="draw" width="1080" height="1920"><path d="M300 1180 C 270 1000 250 760 420 610 C 560 490 820 520 880 700 C 905 780 890 840 900 880 L 960 980 C 965 995 940 1000 920 1004 C 930 1040 925 1070 905 1084 C 915 1100 912 1125 890 1140 C 880 1190 840 1210 760 1200 L 740 1300" fill="none" stroke="#F4F1E8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="tape" style="left: 380px; top: 820px; font-size: 64px; transform: rotate(-3deg);">The rest is you</div>
+        <div class="tape cap">head</div>
+      </div>
+
+      <!-- 06 · First, taste: real reference prints, one chosen (14.25–18.5) -->
+      <div id="s06" class="shot clip" data-start="14.25" data-duration="4.25" data-track-index="0">
+        <div class="mat"></div>
+        <div class="paper lift" style="left: 50px; top: 330px; width: 520px; height: 345px; transform: rotate(-5deg); padding: 12px;"><img src="assets/captures/stripe.png" style="width:100%; height:100%; object-fit:cover; object-position:top;" /></div>
+        <div class="paper lift" style="left: 520px; top: 390px; width: 520px; height: 345px; transform: rotate(4deg); padding: 12px;"><img src="assets/captures/apple.png" style="width:100%; height:100%; object-fit:cover; object-position:top;" /></div>
+        <div class="paper lift2" style="left: 90px; top: 720px; width: 560px; height: 372px; transform: rotate(2deg); padding: 12px;"><img src="assets/captures/linear.png" style="width:100%; height:100%; object-fit:cover; object-position:top;" /></div>
+        <div class="paper lift" style="left: 610px; top: 800px; width: 430px; height: 286px; transform: rotate(-3deg); padding: 12px;"><img src="assets/captures/vercel.png" style="width:100%; height:100%; object-fit:cover; object-position:top;" /></div>
+        <svg class="draw" width="1080" height="1920"><ellipse cx="370" cy="906" rx="320" ry="225" fill="none" stroke="#E0362C" stroke-width="9" transform="rotate(2 370 906)"/></svg>
+        <div class="pen chalk" style="left: 110px; top: 1112px; font-size: 60px; transform: rotate(-4deg);">this one feels right ✓</div>
+        <div class="tape" style="left: 70px; top: 196px; font-size: 84px; transform: rotate(-2deg);">1 · Taste</div>
+        <div class="tape cap">references</div>
+      </div>
+
+      <!-- 07 · Second, UX judgment: the printed screen, marked up (18.5–23.0) -->
+      <div id="s07" class="shot clip" data-start="18.5" data-duration="4.5" data-track-index="0">
+        <div class="mat"></div>
+        <div class="paper lift2" style="left: 250px; top: 330px; width: 520px; height: 880px; transform: rotate(-1.5deg); padding: 0;">
+          <div class="signup" style="inset: 18px; padding: 40px 34px;"><h3 style="font-size:44px; margin-bottom: 30px">Create account</h3><div class="f" style="height:70px; font-size:24px">Name</div><div class="f" style="height:70px; font-size:24px">Email</div><div class="f" style="height:70px; font-size:24px">Phone number</div><div class="f" style="height:70px; font-size:24px">Password</div><div class="btn" style="height:76px; font-size:26px; margin-top: 26px">Sign up</div></div>
+        </div>
+        <svg class="draw" width="1080" height="1920"><g fill="none" stroke="#E0362C" stroke-width="8" stroke-linecap="round"><line x1="300" y1="720" x2="720" y2="706"/><path d="M780 900 C 860 880 930 820 960 760"/><path d="M780 900 l 26 -24 M780 900 l 32 10"/><path d="M120 950 C 140 880 190 860 250 870"/><path d="M250 870 l -30 -16 M250 870 l -26 20"/></g></svg>
+        <div class="pen chalk" style="left: 790px; top: 620px; font-size: 52px; transform: rotate(4deg);">why is<br/>this here?</div>
+        <div class="pen chalk" style="left: 18px; top: 960px; font-size: 42px; transform: rotate(-6deg);">what does<br/>the user<br/>need next?</div>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 76px; transform: rotate(-1.5deg);">2 · UX judgment</div>
+        <div class="tape cap">exists</div>
+      </div>
+
+      <!-- 08 · Third, the agent builds it (23.0–29.3) -->
+      <div id="s08" class="shot clip" data-start="23.0" data-duration="6.3" data-track-index="0">
+        <div class="mat"></div>
+        <div class="term lift2" style="left: 50px; top: 330px; width: 640px; height: 600px;">
+          <div class="tabs"><span class="on">Claude Code</span><span>Codex</span><span>Cursor</span></div>
+          <div><span style="color:#EE9A72">›</span> build this sign-up screen<br/>&nbsp;&nbsp;from signup-marked.png</div>
+          <div style="color:#9a968e; margin-top: 10px">• reading the red-pen notes<br/>• removing "Phone number"<br/>• writing app/signup/page.tsx</div>
+          <div style="color:#7FD18B; margin-top: 10px">✓ done · preview ready</div>
+        </div>
+        <div class="paper lift" style="left: 70px; top: 960px; width: 300px; height: 330px; transform: rotate(-7deg); padding: 0; opacity: .95;"><div class="signup" style="inset: 10px; padding: 18px 14px;"><h3 style="font-size:20px">Create account</h3><div class="f" style="height:30px">Email</div><div class="f" style="height:30px; text-decoration: line-through; color:#E0362C">Phone</div><div class="btn" style="height:34px; font-size:13px">Sign up</div></div></div>
+        <div class="phone lift2" style="left: 650px; top: 470px; width: 370px; height: 700px;"><div class="in"><div class="signup" style="inset: 0; padding: 70px 30px;"><h3 style="font-size:36px; margin-bottom: 26px">Create account</h3><div class="f" style="height:58px; font-size:20px">Name</div><div class="f" style="height:58px; font-size:20px">Email</div><div class="f" style="height:58px; font-size:20px">Password</div><div class="btn" style="height:62px; font-size:22px; margin-top: 18px">Sign up</div></div></div></div>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 70px; transform: rotate(-1.5deg);">3 · The agent builds</div>
+        <div class="tape cap">Claude</div>
+      </div>
+
+      <!-- 09 · Skip the long handoff (29.3–33.5) -->
+      <div id="s09" class="shot clip" data-start="29.3" data-duration="4.2" data-track-index="0">
+        <div class="mat"></div>
+        <div class="paper lift" style="left: 40px; top: 330px; width: 230px; height: 290px; transform: rotate(-8deg); font: 700 26px var(--font-ui); color:#555;">spec.doc<br/><span style="font-weight:400; font-size:18px">v7 final final</span></div>
+        <div class="paper lift" style="left: 230px; top: 420px; width: 230px; height: 290px; transform: rotate(6deg); font: 700 26px var(--font-ui); color:#555;">redlines.pdf</div>
+        <div class="paper lift" style="left: 60px; top: 650px; width: 230px; height: 290px; transform: rotate(3deg); font: 700 26px var(--font-ui); color:#555;">handoff ticket</div>
+        <div class="paper lift" style="left: 260px; top: 740px; width: 230px; height: 290px; transform: rotate(-5deg); font: 700 26px var(--font-ui); color:#555;">QA notes</div>
+        <svg class="draw" width="1080" height="1920"><g stroke="#E0362C" stroke-width="12" stroke-linecap="round"><line x1="40" y1="340" x2="500" y2="1040"/><line x1="500" y1="340" x2="40" y2="1040"/></g>
+          <g fill="none" stroke="#F4F1E8" stroke-width="9" stroke-linecap="round"><path d="M650 560 C 760 620 830 720 830 830"/><path d="M830 830 l -26 -36 M830 830 l 30 -30"/></g></svg>
+        <div class="note" style="left: 640px; top: 330px; transform: rotate(-3deg);">idea</div>
+        <div class="phone lift2" style="left: 720px; top: 860px; width: 220px; height: 320px; padding: 10px;"><div class="in"><div class="signup" style="inset: 0; padding: 40px 18px;"><h3 style="font-size:20px">Create account</h3><div class="f" style="height:30px">Email</div><div class="btn" style="height:32px; font-size:12px">Sign up</div></div></div></div>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 76px; transform: rotate(-2deg);">Idea → product</div>
+        <div class="tape cap">handoff</div>
+      </div>
+
+      <!-- 10 · The proof: this video's own folder, no .fig (33.5–39.1) -->
+      <div id="s10" class="shot clip" data-start="33.5" data-duration="5.6" data-track-index="0">
+        <div class="mat"></div>
+        <div class="term lift2" style="left: 50px; top: 330px; width: 980px; height: 560px; font-size: 30px;">
+          <div class="tabs"><span class="on">figma-is-not-enough</span></div>
+          <div><span style="color:#EE9A72">$</span> ls</div>
+          <div style="color:#9a968e">index.html &nbsp; SPEC.md &nbsp; STORYBOARD.md<br/>STORYLINES.md &nbsp; assets/ &nbsp; boards/</div>
+          <div style="margin-top: 18px"><span style="color:#EE9A72">$</span> find . -name "*.fig"</div>
+          <div style="color:#9a968e">(nothing)</div>
+          <div style="margin-top: 18px"><span style="color:#EE9A72">$</span> head -1 SPEC.md</div>
+          <div style="color:#9a968e"># SPEC: "Only learning Figma? You're dead."</div>
+        </div>
+        <svg class="draw" width="1080" height="1920"><ellipse cx="165" cy="628" rx="112" ry="34" fill="none" stroke="#E0362C" stroke-width="7" transform="rotate(-2 165 628)"/></svg>
+        <div class="pen chalk" style="left: 120px; top: 930px; font-size: 72px; transform: rotate(-3deg);">0 Figma files</div>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 76px; transform: rotate(-1.5deg);">No Figma file</div>
+        <div class="tape cap">proof</div>
+      </div>
+
+      <!-- 11 · Callback: the heart line beats again, among everything (39.1–43.3) -->
+      <div id="s11" class="shot clip" data-start="39.1" data-duration="4.2" data-track-index="0">
+        <div class="mat"></div>
+        <div class="laptop lift2" style="left: 300px; top: 560px; width: 480px; height: 340px; padding: 12px;"><div class="screen"><div class="canvas"><div class="bar" style="height:28px"></div></div></div></div>
+        <svg class="draw" width="1080" height="1920"><path d="M330 740 H420 l14 -60 l18 110 l16 -90 l12 40 H560 l14 -60 l18 110 l16 -90 l12 40 H750" fill="none" stroke="#E0362C" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <div class="paper lift" style="left: 40px; top: 360px; width: 250px; height: 166px; transform: rotate(-8deg); padding: 8px;"><img src="assets/captures/linear.png" style="width:100%; height:100%; object-fit:cover;" /></div>
+        <div class="paper lift" style="left: 800px; top: 400px; width: 240px; height: 160px; transform: rotate(7deg); padding: 8px;"><img src="assets/captures/stripe.png" style="width:100%; height:100%; object-fit:cover;" /></div>
+        <div class="note" style="left: 60px; top: 960px; transform: rotate(-5deg); font-size: 40px;">why is this here?</div>
+        <div class="term lift" style="left: 610px; top: 960px; width: 420px; height: 210px; font-size: 18px;"><div class="tabs"><span class="on">Claude Code</span></div>✓ done · preview ready</div>
+        <div class="tape" style="left: 60px; top: 196px; font-size: 76px; transform: rotate(-2deg);">Train your eye</div>
+        <div class="tape cap">eye</div>
+      </div>
+
+      <!-- 12 · CTA (43.3–46.0) -->
+      <div id="s12" class="shot clip" data-start="43.3" data-duration="2.7" data-track-index="0">
+        <div class="mat"></div>
+        <div class="tape" style="left: 150px; top: 600px; font-size: 120px; transform: rotate(-3deg);">Comment</div>
+        <div class="tape red" style="left: 300px; top: 780px; font-size: 140px; transform: rotate(2deg);">Design</div>
+        <div class="note" style="left: 650px; top: 990px; transform: rotate(5deg); font-size: 40px;">I'll send you my full setup</div>
+        <div class="tape cap">design</div>
+      </div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Storyboard pose: every shot is static at its key moment. Animation is built from the approved board.
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

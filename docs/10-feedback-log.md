@@ -271,3 +271,13 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
   `render-ops`, with our own `silence_keep.py` and `verify_cut.py`. Its look and paid defaults were not adopted.
 - **Lesson (agent):** the v3 "Editing with Claude" script scored 100/100 on its checker but still lacks a proof beat and a
   surprising number in the hook. The scorer is a floor, not taste.
+
+## 2026-11-04 · "Only learning Figma? You're dead." (brief)
+
+- **Hardik's words (close paraphrase):** write a script first, then a storyboard with imagery, using all the repo's
+  skills, and work with HyperFrames this time. Topic: newcomers who think learning Figma is enough. Figma is now a
+  small part (brainstorming, ideation, one specific screen); the rest is the creative brain, the UX brain and judgment,
+  because AI agents (Claude Code, Codex, Cursor) take design to code. Hook: "if you're learning only Figma, you're dead".
+- **Up-front answers:** faceless VO; English ~45 s; that hook; script + storyboard then stop; CTA "Comment DESIGN".
+- **Lesson (agent):** HyperFrames' spec bans our two recent looks by name (dark void with floating cards; cream paper +
+  serif + mono labels). Build a look from one physical medium (here a cutting-mat desk) instead of a palette.
