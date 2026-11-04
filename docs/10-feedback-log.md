@@ -281,3 +281,14 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
 - **Up-front answers:** faceless VO; English ~45 s; that hook; script + storyboard then stop; CTA "Comment DESIGN".
 - **Lesson (agent):** HyperFrames' spec bans our two recent looks by name (dark void with floating cards; cream paper +
   serif + mono labels). Build a look from one physical medium (here a cutting-mat desk) instead of a palette.
+
+## 2026-11-04 · "Only learning Figma? You're dead." storyboard v0 → notes
+
+- **Hardik's words (close paraphrase):** content is weighted to the top; it isn't centred vertically or horizontally.
+  The first frame feels dull: show *why* you're dead on screen (e.g. a dead emoji and the reason), not an ECG / heart
+  line, which doesn't help. Bring in different elements, and don't copy his examples literally. Keep the concept, the
+  graph-sheet idea and the green gridded mat; the content on top isn't hooking. He's sending 2–3 design references to
+  push towards.
+- **To apply (agent):** balance every frame around the optical centre (the safe band 168–1330 px, centred both ways,
+  not stacked from the top); the hook frame must state the reason visually in under 1 s; more varied, bolder objects
+  per shot; then match his references.

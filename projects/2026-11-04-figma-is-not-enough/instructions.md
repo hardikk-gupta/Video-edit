@@ -26,3 +26,5 @@ Render-ops, sfx-design (sfx-kit) and caption-align come after approval.
 
 ## Feedback rounds
 - v0 (2026-11-04): script + storyboard delivered for approval.
+- v0 notes (Hardik): top-heavy, not centred either way; frame 1 dull. Show *why* you're dead, not an ECG line. Use
+  varied, bolder elements (not his examples verbatim). Keep the green gridded mat. References to follow (2–3).
