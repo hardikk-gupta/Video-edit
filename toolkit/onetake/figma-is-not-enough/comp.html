@@ -9,7 +9,7 @@
 <style>
 @font-face{font-family:'ISerif';src:url('fonts/instrument-serif-latin-400-italic.woff2') format('woff2');font-style:italic;font-weight:400}
 @font-face{font-family:'ISerifR';src:url('fonts/instrument-serif-latin-400-normal.woff2') format('woff2');font-weight:400}
-:root{--ground:#06060A;--deep:#0C0C16;--card:#12121C;--line:rgba(236,234,255,.12);--mute:#8C8CA6;--ink:#F3F2EE;
+:root{--ground:#06060A;--deep:#0C0C16;--card:#12121C;--line:rgba(236,234,255,.12);--mute:#B4B4CC;--ink:#F3F2EE;
   --accent:#7B83FF;--accent2:#FF5A3C;--paper:#F4F2EC;--paperInk:#141418}
 html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--ground)}
 body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
@@ -62,7 +62,7 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smooth
   <canvas id="bloom" width="540" height="960" style="width:1080px;height:1920px"></canvas>
   <div id="paper"></div>
   <svg id="rings" viewBox="0 0 1080 1920"><g id="ringg" fill="none" stroke="rgba(150,156,255,.35)" stroke-width="2"></g></svg>
-  <div id="content" style="position:absolute;left:0;top:0;width:1080px;height:1920px;transform:translateY(190px)">
+  <div id="content" style="position:absolute;left:0;top:0;width:1080px;height:1920px;transform:translateY(260px)">
 
   <!-- 0 · hook -->
   <div id="h1" class="abs line" style="font-size:96px">Only learning</div>
@@ -73,7 +73,7 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smooth
     <div id="prompt" class="abs"><span id="ptxt"></span><i id="caret"></i><div class="send" id="send"></div></div>
   </div>
   <div id="apps">
-    <div class="app" id="a0" style="width:300px;height:380px"><h5>Create account</h5><div class="fld">Email</div><div class="fld">Password</div><div class="btn">Sign up</div></div>
+    <div class="app" id="a0" style="width:290px;height:300px"><h5>Create account</h5><div class="fld">Email</div><div class="btn">Sign up</div></div>
     <div class="app" id="a1" style="width:260px;height:180px"><h5>Welcome 👋</h5><div style="height:18px;width:70%;background:#7B83FF;border-radius:9px;margin-top:20px"></div><div style="height:14px;width:45%;background:#E1E1E6;border-radius:7px;margin-top:14px"></div></div>
     <div class="app" id="a2" style="width:240px;height:240px"><svg viewBox="0 0 100 100" width="188" height="188"><circle cx="50" cy="50" r="38" fill="none" stroke="#E1E1E6" stroke-width="16"/><circle cx="50" cy="50" r="38" fill="none" stroke="#7B83FF" stroke-width="16" stroke-dasharray="160 240" transform="rotate(-90 50 50)"/></svg></div>
     <div class="app" id="a3" style="width:330px;height:150px;display:flex;gap:14px;align-items:center">
@@ -92,8 +92,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smooth
     <g id="skB"><rect x="405" y="120" width="270" height="560" rx="36"/><circle cx="540" cy="260" r="62"/><line x1="450" y1="380" x2="630" y2="380"/><line x1="450" y1="420" x2="600" y2="420"/><rect x="450" y="600" width="180" height="52" rx="14"/></g>
     <g id="skC"><rect x="740" y="160" width="270" height="520" rx="36"/><path d="M780 260 q 60 -50 120 0 t 80 0"/><line x1="780" y1="360" x2="960" y2="360"/><line x1="780" y1="400" x2="920" y2="400"/><line x1="780" y1="440" x2="940" y2="440"/></g>
   </svg>
-  <div id="skt" class="abs line" style="font-size:88px;color:var(--paperInk)">Figma is your <span class="it" style="font-size:118px;color:#4E57E0">sketchbook.</span></div>
-  <div id="ss" class="app" style="width:320px;height:600px;padding:36px 30px;opacity:0"><h5 style="font-size:34px;margin-bottom:26px">Create account</h5><div class="fld">Name</div><div class="fld">Email</div><div class="fld" id="ssPhone">Phone number</div><div class="fld">Password</div><div class="btn" style="margin-top:22px">Sign up</div></div>
+  <div id="skt" class="abs line" style="font-size:74px;color:var(--paperInk)">Figma is your <span class="it" style="font-size:100px;color:#4E57E0">sketchbook.</span></div>
+  <div id="ss" class="app" style="width:320px;height:520px;padding:36px 30px;opacity:0"><h5 style="font-size:34px;margin-bottom:26px">Create account</h5><div class="fld">Name</div><div class="fld">Email</div><div class="fld" id="ssPhone">Phone number</div><div class="fld">Password</div><div class="btn" style="margin-top:22px">Sign up</div></div>
 
   <!-- 4 · the rest is you -->
   <div id="ry" class="abs line" style="font-size:104px">The rest is <span class="it" id="ryYou" style="font-size:150px;color:var(--accent)">you.</span></div>
@@ -109,11 +109,11 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smooth
   <div id="p2" class="pin">what does the user need next?</div>
 
   <!-- 7 · agent -->
-  <div id="term" class="term" style="left:70px;top:480px;width:600px;height:560px;padding:28px 30px;font-size:25px;line-height:1.6;box-sizing:border-box;opacity:0">
+  <div id="term" class="term" style="left:70px;top:480px;width:600px;height:500px;padding:28px 30px;font-size:25px;line-height:1.6;box-sizing:border-box;opacity:0">
     <div class="tabs" id="tabs"><span>Claude Code</span><span>Codex</span><span>Cursor</span></div>
     <div id="tlines" style="margin-top:26px;white-space:pre"></div></div>
-  <div id="phone" class="abs" style="width:360px;height:700px;border-radius:56px;background:#0a0a0f;padding:14px;box-sizing:border-box;box-shadow:0 50px 100px -30px rgba(0,0,0,.9),0 0 0 2px rgba(255,255,255,.1);opacity:0">
-    <div style="width:100%;height:100%;border-radius:44px;background:#fff;padding:90px 28px;box-sizing:border-box;color:#141418"><h5 style="font-size:32px;margin:0 0 26px;font-weight:700;letter-spacing:-.5px">Create account</h5><div class="fld">Name</div><div class="fld">Email</div><div class="fld">Password</div><div class="btn" style="margin-top:20px">Sign up</div></div></div>
+  <div id="phone" class="abs" style="width:300px;height:600px;border-radius:56px;background:#0a0a0f;padding:14px;box-sizing:border-box;box-shadow:0 50px 100px -30px rgba(0,0,0,.9),0 0 0 2px rgba(255,255,255,.1);opacity:0">
+    <div style="width:100%;height:100%;border-radius:44px;background:#fff;padding:70px 22px;box-sizing:border-box;color:#141418"><h5 style="font-size:32px;margin:0 0 26px;font-weight:700;letter-spacing:-.5px">Create account</h5><div class="fld">Name</div><div class="fld">Email</div><div class="fld">Password</div><div class="btn" style="margin-top:20px">Sign up</div></div></div>
   <div id="al" class="abs line" style="font-size:96px"><span style="color:var(--mute);font-size:64px;vertical-align:14px;margin-right:18px">3</span><span class="it" style="font-size:130px">The agent.</span></div>
 
   <!-- 8 · handoff -->
@@ -121,14 +121,14 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smooth
   <div id="ip" class="abs line" style="font-size:100px">idea <span style="color:var(--mute)">→</span> <span class="it" style="font-size:136px;color:var(--accent)">product.</span></div>
 
   <!-- 9 · proof -->
-  <div id="pf" class="term" style="left:70px;top:520px;width:940px;height:520px;padding:34px 38px;font-size:30px;line-height:1.7;box-sizing:border-box;opacity:0;white-space:pre"></div>
+  <div id="pf" class="term" style="left:70px;top:520px;width:940px;height:400px;padding:34px 38px;font-size:32px;line-height:2.05;box-sizing:border-box;opacity:0;white-space:pre"></div>
   <div id="pl" class="abs line" style="font-size:96px">No <span class="it" style="font-size:130px;color:var(--accent)">Figma file.</span></div>
 
   <!-- 10 · callback + CTA -->
   <div id="c1" class="abs line" style="font-size:110px">Learn <span class="it" style="font-size:150px">Figma.</span></div>
   <div id="c2" class="abs line" style="font-size:88px;color:var(--mute)">Then train your <span class="it" style="font-size:118px;color:var(--ink)">eye.</span></div>
   <div id="e1" class="abs line" style="font-size:120px">Comment</div>
-  <div id="field" class="abs" style="width:760px;height:130px;border-radius:65px;background:#fff;color:#141418;display:flex;align-items:center;padding:0 44px;box-sizing:border-box;font:700 64px Inter;letter-spacing:2px"><span id="ftxt"></span><div id="fsend" style="position:absolute;right:18px;top:18px;width:94px;height:94px;border-radius:50%;background:#141418"></div></div>
+  <div id="field" class="abs" style="width:760px;height:130px;border-radius:65px;background:#fff;color:#141418;display:flex;align-items:center;padding:0 44px;box-sizing:border-box;font:700 64px Inter;letter-spacing:2px"><span id="ftxt"></span><div id="fsend" style="position:absolute;right:18px;top:18px;width:94px;height:94px;border-radius:50%;background:#141418;display:flex;align-items:center;justify-content:center"><svg width="44" height="44" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
 
   </div>
   <div id="sel"><i></i><i></i><i></i><i></i><div id="tag">you</div></div>
@@ -140,7 +140,7 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smooth
 <script>
 const {clamp, lerp, seg, sstep, ssstep} = OM;
 const $ = id => document.getElementById(id);
-const W = 1080, H = 1920, DUR = 46, FPS = 30, DY = 190;   // DY: the content layer's offset, so it centres on the frame
+const W = 1080, H = 1920, DUR = 46, FPS = 30, DY = 260;   // DY: the content layer's offset, so it centres on the frame
 window.__meta = {dur: DUR, fps: FPS};
 const E = OM.ease;
 // ── the voice-over clock (projects/2026-11-04-figma-is-not-enough/script.md) ──
@@ -158,16 +158,16 @@ const wt = (line, word, n=0) => { const [a,b]=SCRIPT[line]; const m=WORDS.filter
 
 // ── beats (seconds) ──
 const T = {
-  promptIn:.42, type0:.55, send:1.12, build:1.2, abandon:1.3, dead:1.45, pull:2.2,
+  promptIn:.2, type0:.3, send:.8, build:.86, abandon:1.0, fall:1.45, dead:1.45, pull:2.2,
   mkSel:3.35, mkLine:wt(1,'working')-.35, mkOut:6.05,
   tbIn:6.15, tbSel:6.6, burst:wt(2,'job')-.2, btLine:wt(2,'job')-.25, tbOut:8.7,
   paper:8.75, skDraw:9.2, skSel:wt(3,'one')-.1, skLine:9.0, skOut:12.35,
   ry:12.45, ryOut:14.25,
-  refIn:14.3, refStop:wt(5,'right')-.5, tl:14.45, refOut:18.45,
+  refIn:14.3, refStop:14.3+.25+[...Array(8)].reduce((a,_,i)=>a+.16*Math.pow(1.22,i),0)+.25, tl:14.45, refOut:18.45,
   jIn:18.5, p1:wt(6,'why')-.1, p2:wt(6,'needs')-.15, strike:wt(6,'next')+.15, jOut:22.95,
-  aIn:23.0, tabs0:23.4, tLines:wt(7,'hand')+.2, phone:wt(7,'real')-.1, aOut:29.25,
-  docsIn:29.3, gather:wt(8,'straight')-.2, ip:wt(8,'idea')-.15, ipOut:33.45,
-  pfIn:33.5, pfFind:wt(9,'Figma')-.3, pfSel:wt(9,'file')+.1, pl:wt(9,'behind'), pfOut:39.05,
+  aIn:23.0, tabs0:23.4, tLines:23.55, phone:wt(7,'real')-.1, aOut:29.25,
+  docsIn:29.3, gather:wt(8,'straight')-.2, ip:wt(8,'straight')+.2, ipOut:33.45,
+  pfIn:33.5, pfFind:wt(9,'Figma')-.3, pfSel:wt(9,'file')+.1, pl:wt(9,'proof')+.2, pfOut:39.05,
   c1:39.15, c2:wt(10,'train')-.2, cOut:43.25, e1:43.3, eType:wt(11,'DESIGN')-.2, eSend:45.1
 };
 const PROMPT = 'build me a sign-up app';
@@ -204,16 +204,16 @@ function selAt(t){
   if (k === 0) return {...B.r, op:B.op??1, tag:B.tag};
   const u = OM.spring(t - B.t, .7, 17);
   const r = {x:lerp(A.r.x,B.r.x,u), y:lerp(A.r.y,B.r.y,u), w:lerp(A.r.w,B.r.w,u), h:lerp(A.r.h,B.r.h,u)};
-  const op = lerp(A.op??1, B.op??1, clamp((t-B.t)/.25)); return {...r, op, tag: u>.5?B.tag:A.tag};
+  const op = lerp(A.op??1, B.op??1, clamp((t-B.t)/.25)); return {...r, op, tag: u>.2?B.tag:A.tag};
 }
 
 // ── hook: the app builds itself; the designer's cursor is no longer needed ──
-const APP = [  // final positions around the prompt (screen), and where each flies in from
-  {id:'a0', x:70, y:930, r:-6}, {id:'a1', x:740, y:930, r:5}, {id:'a2', x:790, y:400, r:7}, {id:'a3', x:60, y:440, r:-4}, {id:'a4', x:690, y:1180, r:3}];
+const APP = [  // final positions around the prompt (content coords), and where each flies in from
+  {id:'a0', x:50, y:850, r:-6}, {id:'a1', x:770, y:900, r:5}, {id:'a2', x:820, y:470, r:7}, {id:'a3', x:40, y:230, r:-4}, {id:'a4', x:720, y:210, r:3}];
 // ── camera over the Figma Make window (world): the prompt bar sits on the page's own prompt box ──
 const BOX = {x:40+243.5*1000/1280, y:408+343*1000/1280, w:794*1000/1280, h:96*1000/1280};   // measured in the capture
 const ZH = 780/BOX.w;          // hook zoom: the bar reads 780 px wide
-function worldCam(t){ const k = OM.tween(t, T.pull, T.pull+.85, E.expoInOut); const z = lerp(ZH, 1, k);
+function worldCam(t){ const k = OM.tween(t, T.pull, T.pull+.85, E.expoInOut); const z = lerp(ZH, 1, k) * (1 + .1*OM.tween(t, T.pull+.9, T.mkOut, E.sineInOut));
   const cx = BOX.x+BOX.w/2, cy = BOX.y+BOX.h/2, sx = lerp(540, cx, k), sy = lerp(800, cy+30, k); return {z, cx, cy, sx, sy, k}; }
 
 // toolbar icons (drawn) and the handoff docs
@@ -257,14 +257,14 @@ function seek(t){
     const pr = $('prompt'); pr.style.left = BOX.x+'px'; pr.style.top = BOX.y+'px'; pr.style.width = BOX.w+'px'; pr.style.height = BOX.h+'px';
     pr.style.padding = `0 ${(34/ZH).toFixed(1)}px`; pr.style.fontSize = (38/ZH).toFixed(1)+'px'; pr.style.borderRadius = (30/ZH).toFixed(1)+'px';
     pr.style.opacity = t < T.promptIn ? 0 : pin.op*fade; pr.style.transform = `translateY(${(pin.dy/ZH).toFixed(1)}px) scale(${pin.s})`;
-    const ty = OM.typeOn(t, T.type0, PROMPT, {cps:42}); $('ptxt').textContent = ty.str; $('caret').style.opacity = ty.caret; $('caret').style.height=(44/ZH)+'px'; $('caret').style.width=(3/ZH)+'px';
+    const ty = OM.typeOn(t, T.type0, PROMPT, {cps:48}); $('ptxt').textContent = ty.str; $('caret').style.opacity = ty.caret; $('caret').style.height=(44/ZH)+'px'; $('caret').style.width=(3/ZH)+'px';
     const sendEl = $('send'), sz = 80/ZH; Object.assign(sendEl.style, {width:sz+'px', height:sz+'px', right:(20/ZH)+'px', top:((BOX.h-sz)/2)+'px'});
     const p = OM.press(t, T.send); sendEl.style.transform = `scale(${p.s.toFixed(3)})`; sendEl.style.background = p.active ? 'var(--accent)' : '#141418'; }
   // the app builds itself around the prompt (no cursor touches it), then files in under the window as "a working app"
   APP.forEach((a,i)=>{ const el=$(a.id); const t0 = T.build + i*.07; const s = OM.spring(t - t0, .62, 16), sp = clamp(s, 0, 1.2);
     const fromX = 540 + (a.x-540)*2.6, fromY = 800 + (a.y-800)*2.6;
     const pull = OM.tween(t, T.pull, T.pull+.8, E.expoInOut), w = el.offsetWidth, hh = el.offsetHeight;
-    const tx = lerp(a.x, 80 + i*190, pull), ty = lerp(a.y, 1090 + (i%2)*40, pull), sc = lerp(1, .55, pull);
+    const tx = lerp(a.x, 80 + i*190, pull), ty = lerp(a.y, 1046 + (i%2)*24, pull), sc = lerp(1, .5, pull);
     const out = OM.liftOut(t, T.mkOut, {dur:.3, blur:14});
     const x = lerp(fromX, tx, sp), y = lerp(fromY, ty, sp) + out.dy, blur = (1-clamp(sp))*14 + out.blur;
     place(el, x, y, (.7+.3*clamp(sp))*sc*out.s, vis(t,t0-.02,T.mkOut+.35) ? clamp((t-t0)/.12)*out.op : 0, blur, `rotate(${(a.r*(1-pull)).toFixed(2)}deg)`);
@@ -288,7 +288,7 @@ function seek(t){
     sk.style.transform = `translate(0px, 380px)`;
     sk.querySelectorAll('rect,path,circle,line').forEach((p,i)=>{ const L = 900; p.style.strokeDasharray = L; p.style.strokeDashoffset = (L*(1-clamp(drawK*1.6 - i*.035))).toFixed(0); });
     const focus = OM.tween(t, T.skSel+.25, T.skSel+.75, E.expoOut);
-    ['skA','skC'].forEach(id=>{ $(id).style.opacity = 1 - .75*focus; });
+    ['skA','skC'].forEach(id=>{ $(id).style.opacity = 1 - .75*focus; }); $('skB').style.opacity = 1 - focus;
     const l = inOut(t, T.skLine, T.skOut-.1); place($('skt'), centerX('skt'), 300 + l.dy, l.s, l.op, l.blur);
     // the one screen: the middle sketch becomes the real screen
     const ss = $('ss'), k = OM.tween(t, T.skSel+.2, T.skSel+.75, E.expoOut);
@@ -315,23 +315,23 @@ function seek(t){
     const ss2 = $('ss'); if (t >= T.jIn) { const strike = OM.tween(t, T.strike, T.strike+.45, E.expoOut);
       $('ssPhone').style.textDecoration = t >= T.strike ? 'line-through' : 'none'; $('ssPhone').style.color = t >= T.strike ? 'var(--accent2)' : '';
       $('ssPhone').style.height = (52*(1-strike))+'px'; $('ssPhone').style.marginBottom = (12*(1-strike))+'px'; $('ssPhone').style.opacity = 1-strike; $('ssPhone').style.borderWidth = (2*(1-strike))+'px';
-      place(ss2, 380, 470 + sIn.dy + o.dy, 1.25*sIn.s*o.s, vis(t,T.jIn,T.jOut+.3)? sIn.op*o.op:0, o.blur); ss2.style.transformOrigin = '50% 0'; }
+      place(ss2, 380, 470 + sIn.dy + o.dy, 1.15*sIn.s*o.s, vis(t,T.jIn,T.jOut+.3)? sIn.op*o.op:0, o.blur); ss2.style.transformOrigin = '50% 0'; }
     else { $('ssPhone').style.cssText=''; ss2.style.transformOrigin='50% 50%'; }
     const l = inOut(t, T.jIn+.1, T.jOut); place($('jl'), centerX('jl'), 290 + l.dy, l.s, l.op, l.blur);
     const a = inOut(t, T.p1, T.jOut, {rise:20}), b = inOut(t, T.p2, T.jOut, {rise:20});
-    place($('p1'), 640, 780 + a.dy, a.s, a.op, a.blur); place($('p2'), 160, 1120 + b.dy, b.s, b.op, b.blur); }
+    place($('p1'), 736, 640 + a.dy, a.s, a.op, a.blur); place($('p2'), 150, 1095 + b.dy, b.s, b.op, b.blur); }
 
   // 7 · the agent: tabs flick (Claude Code / Codex / Cursor), it writes, the phone lights up
   { const i = OM.popIn(t, T.aIn, {rise:40}), o = OM.liftOut(t, T.aOut, {dur:.3, blur:14});
-    place($('term'), 0, i.dy + o.dy, i.s*o.s, vis(t,T.aIn,T.aOut+.3)? i.op*o.op:0, o.blur);
+    const kph = OM.tween(t, T.phone-.35, T.phone+.2, E.expoInOut); place($('term'), lerp(170, 0, kph), i.dy + o.dy, i.s*o.s, vis(t,T.aIn,T.aOut+.3)? i.op*o.op:0, o.blur);
     const tabs = [...$('tabs').children]; const fl = Math.floor((t - T.tabs0)/.14); tabs.forEach((s,k)=> s.className = (t < T.tabs0 || t > T.tabs0+1.3) ? (k===0?'on':'') : (fl%3===k?'on':''));
     const n = Math.floor(clamp((t - T.tLines)/.28, 0, TERM.length)); $('tlines').textContent = TERM.slice(0, n).join('\n');
-    const ph = OM.popIn(t, T.phone, {rise:80, zeta:.55, omega:15}); place($('phone'), 660, 430 + ph.dy + o.dy, ph.s*o.s, vis(t,T.phone,T.aOut+.3)? ph.op*o.op:0, o.blur);
+    const ph = OM.popIn(t, T.phone, {rise:80, zeta:.55, omega:15}); place($('phone'), 700, 500 + ph.dy + o.dy, ph.s*o.s, vis(t,T.phone,T.aOut+.3)? ph.op*o.op:0, o.blur);
     const l = inOut(t, T.aIn+.1, T.aOut); place($('al'), centerX('al'), 290 + l.dy, l.s, l.op, l.blur); }
 
   // 8 · the handoff chain slides past, then folds away; idea → product
   { const pass = OM.tween(t, T.docsIn, T.gather, E.cubicInOut), g = OM.tween(t, T.gather, T.gather+.55, E.expoIn);
-    docEls.forEach((el,i)=>{ const x = 760 + i*300 - pass*1900, y = 600 + (i%2)*140;
+    docEls.forEach((el,i)=>{ const x = 600 + i*280 - pass*1500, y = 560 + (i%2)*140;
       const gx = lerp(x, 415, g), gy = lerp(y, 700, g) + 900*g*g;
       place(el, gx, gy, 1 - .5*g, vis(t, T.docsIn, T.gather+.6) ? (1-g) : 0, g*16, `rotate(${(((i%3)-1)*6 + g*40*(i%2?1:-1)).toFixed(1)}deg)`); });
     const l = inOut(t, T.ip, T.ipOut); place($('ip'), centerX('ip'), 700 + l.dy, l.s, l.op, l.blur); }
@@ -344,19 +344,21 @@ function seek(t){
 
   // 10 · callback, then the comment
   { const a = inOut(t, T.c1, T.cOut), b = inOut(t, T.c2, T.cOut);
-    place($('c1'), centerX('c1'), 560 + a.dy, a.s, a.op, a.blur); place($('c2'), centerX('c2'), 760 + b.dy, b.s, b.op, b.blur);
+    const pushC = OM.drift(t, T.c1, T.cOut, .05); place($('c1'), centerX('c1'), 560 + a.dy, a.s*pushC, a.op, a.blur); place($('c2'), centerX('c2'), 760 + b.dy, b.s*pushC, b.op, b.blur);
     const e = OM.wordRise(t, T.e1, {dist:50}); place($('e1'), centerX('e1'), 520 + e.y, e.s, t>=T.e1? e.op:0);
-    const f = OM.popIn(t, T.e1+.25, {rise:40}); const sent = OM.press(t, T.eSend); place($('field'), 160, 720 + f.dy, f.s, t>=T.e1+.2? f.op:0);
+    const f = OM.popIn(t, T.e1+.25, {rise:40}); const sent = OM.press(t, T.eSend); place($('field'), 160, 780 + f.dy, f.s, t>=T.e1+.2? f.op:0);
     $('ftxt').textContent = OM.typeOn(t, T.eType, 'DESIGN', {cps:9}).str; $('fsend').style.background = sent.active ? 'var(--accent)' : '#141418'; $('fsend').style.transform = `scale(${sent.s})`; }
 
   // ── the selection box and the hand ──
   const s = selAt(t), sel = $('sel');
   let sx = s.x, sy = s.y, rot = 0, sop = s.op;
-  if (t >= T.abandon && t < T.pull + .5) {   // abandoned: the box and its cursor drop out of the frame
-    const f = t - T.abandon; sy += 2200*f*f; sx += 160*f; rot = 70*f*f; sop = 1 - sstep(T.pull, T.pull+.3, t); }
+  if (t >= T.fall && t < T.pull + .5) {   // abandoned: greyed ("not needed"), then the box and its cursor drop out of the frame
+    const f = t - T.fall; sy += 1300*f*f; sx += 120*f; rot = 40*f*f; sop = 1 - sstep(T.pull-.1, T.pull+.2, t); }
+  if (t >= T.pull+.5 && t < T.mkSel) sop = 0;
   sel.style.opacity = sop; sel.style.width = s.w+'px'; sel.style.height = s.h+'px';
   sel.style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) rotate(${rot.toFixed(2)}deg)`;
   $('tag').textContent = t >= T.abandon && t < T.pull+.5 ? 'you · not needed' : (s.tag || 'you');
+  $('tag').style.top = (s.tag === 'no .fig') ? (s.h + 12)+'px' : '-54px';   // under the box when the line above must stay readable
   $('tag').style.background = t >= T.abandon && t < T.pull+.5 ? '#5A5A6E' : '';
   sel.style.borderColor = t >= T.abandon && t < T.pull+.5 ? '#5A5A6E' : '';
   const cu = $('cursor'); const cv = (t < T.pull+.5) || (t >= T.c1 && t < DUR);
@@ -364,7 +366,7 @@ function seek(t){
   cu.style.opacity = cv ? sop : 0; cu.style.transform = `translate(${cx.toFixed(1)}px,${cy.toFixed(1)}px) rotate(${(rot*1.4).toFixed(1)}deg)`;
 
   // ── captions: one word, on the dark pill ──
-  const wi = WORDS.findIndex((w,k)=> t >= w.s && t < (WORDS[k+1] && WORDS[k+1].s - w.e < .3 ? WORDS[k+1].s : w.e + .1));
+  const tq = Math.round(t*FPS)/FPS; const wi = WORDS.findIndex((w,k)=> tq >= w.s && tq < (WORDS[k+1] && WORDS[k+1].s - w.e < .3 ? WORDS[k+1].s : w.e + .1));
   $('capw').textContent = wi >= 0 ? WORDS[wi].w.replace(/[.,?]$/,'') : ''; $('cap').style.opacity = wi >= 0 ? 1 : 0;
   $('hud').textContent = 't=' + t.toFixed(3);
   return Promise.all(pending);
@@ -383,24 +385,27 @@ function measure(){
   const k = 1000/1280;
   SEL = [
     {t:0, r:rFig, tag:'you'},
-    {t:T.mkSel, r:RC(40+250*k, 408+218*k, 780*k, 92*k), tag:'Figma Make', op:1},
+    {t:T.pull+.5, r:RC(225, 525, 630, 125), tag:'Figma Make', op:0},
+    {t:T.mkSel, r:RC(225, 525, 630, 125), tag:'Figma Make', op:1},
     {t:T.tbSel, r:RC((W-(7*118+60))/2-24, 676, 7*118+60+48, 166), tag:'the tools'},
     {t:T.burst+.1, r:RC(400, 640, 280, 280), tag:'the tools', op:0},
-    {t:T.skSel, r:RC(386, 482, 308, 600), tag:'one screen', op:1},
+    {t:T.skDraw, r:RC(50, 480, 980, 600), tag:'brainstorm', op:1},
+    {t:T.skSel, r:RC(368, 488, 344, 544), tag:'one screen', op:1},
     {t:T.ry+.25, r:rRy, tag:'you'},
     {t:T.refIn+.1, r:RC(124, 484, 832, 532), tag:'references'},
     {t:T.refStop, r:RC(124, 484, 832, 532), tag:'this one ✓'},
-    {t:T.jIn+.2, r:RC(380-12, 470-12+ (600*1.25)*0 , 400+24, 750+24), tag:'the user'},
-    {t:T.strike, r:RC(380+20, 470+ (36+34+26+64*2)*1.25 - 10, 360, 80), tag:'not needed'},
-    {t:T.aIn+.3, r:RC(56, 466, 628, 588), tag:'the agent'},
-    {t:T.phone+.2, r:RC(646, 416, 388, 728), tag:'the real thing'},
+    {t:T.jIn+.2, r:RC(344, 458, 392, 622), tag:'the user'},
+    {t:T.strike, r:RC(372, 720, 336, 76), tag:'not needed'},
+    {t:T.aIn+.3, r:RC(226, 466, 628, 528), tag:'the agent'},
+    {t:T.phone-.3, r:RC(56, 466, 628, 528), tag:'the agent'},
+    {t:T.phone+.2, r:RC(686, 486, 328, 628), tag:'the real thing'},
     {t:T.docsIn+.1, r:RC(400, 620, 280, 400), tag:'handoff', op:0},
     {t:T.ip+.3, r:(()=>{ const r=at('ip', centerX('ip'), 700); return R(r.left-24, r.top-12, r.width+48, r.height+24); })(), tag:'2 steps', op:1},
-    {t:T.pfIn+.3, r:RC(56, 506, 968, 548), tag:'this video'},
+    {t:T.pfIn+.3, r:RC(56, 506, 968, 428), tag:'this video'},
     {t:T.pfSel, r:rZero, tag:'no .fig'},
     {t:T.c1+.2, r:rC1, tag:'you'},
     {t:T.c2+.2, r:rC2, tag:"don't stop there"},
-    {t:T.e1+.4, r:RC(160-14, 720-14, 760+28, 130+28), tag:'you'},
+    {t:T.e1+.4, r:RC(146, 766, 788, 158), tag:'you'},
   ];
   ['h1','h2','h3','mk','bt','skt','ry','tl','tl2','jl','al','ip','pl','c1','c2','e1'].forEach(id=>{ $(id).style.transform=''; $(id).style.opacity=0; });
 }
