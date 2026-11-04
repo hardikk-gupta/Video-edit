@@ -213,7 +213,7 @@ const APP = [  // final positions around the prompt (content coords), and where 
 // ── camera over the Figma Make window (world): the prompt bar sits on the page's own prompt box ──
 const BOX = {x:40+243.5*1000/1280, y:408+343*1000/1280, w:794*1000/1280, h:96*1000/1280};   // measured in the capture
 const ZH = 780/BOX.w;          // hook zoom: the bar reads 780 px wide
-function worldCam(t){ const k = OM.tween(t, T.pull, T.pull+.85, E.expoInOut); const z = lerp(ZH, 1, k) * (1 + .1*OM.tween(t, T.pull+.9, T.mkOut, E.sineInOut));
+function worldCam(t){ const k = OM.tween(t, T.pull, T.pull+.85, E.expoInOut); const z = lerp(ZH, 1, k);   // no push while the box frames the page: it would drift off its text
   const cx = BOX.x+BOX.w/2, cy = BOX.y+BOX.h/2, sx = lerp(540, cx, k), sy = lerp(800, cy+30, k); return {z, cx, cy, sx, sy, k}; }
 
 // toolbar icons (drawn) and the handoff docs
@@ -270,7 +270,7 @@ function seek(t){
     place(el, x, y, (.7+.3*clamp(sp))*sc*out.s, vis(t,t0-.02,T.mkOut+.35) ? clamp((t-t0)/.12)*out.op : 0, blur, `rotate(${(a.r*(1-pull)).toFixed(2)}deg)`);
     el.style.transformOrigin='0 0'; });
   // "One prompt. A working app."
-  { const m = inOut(t, T.mkLine, T.mkOut); place($('mk'), centerX('mk'), 300 + m.dy, m.s, m.op, m.blur); }
+  { const m = inOut(t, T.mkLine, T.mkOut); place($('mk'), centerX('mk'), 245 + m.dy, m.s, m.op, m.blur); }
 
   // 2 · the toolbar: the tools pop off as the job moves on
   { const n = toolEls.length, gap = 128, x0 = (W - (n*118 + (n-1)*10))/2, y0 = 700;
@@ -359,7 +359,8 @@ function seek(t){
   sel.style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) rotate(${rot.toFixed(2)}deg)`;
   $('tag').textContent = t >= T.abandon && t < T.pull+.5 ? 'you · not needed' : (s.tag || 'you');
   $('tag').style.top = (s.tag === 'no .fig') ? (s.h + 12)+'px' : '-54px';   // under the box when the line above must stay readable
-  $('tag').style.background = t >= T.abandon && t < T.pull+.5 ? '#5A5A6E' : '';
+  const gone = t >= T.abandon && t < T.pull+.5;
+  $('tag').style.background = gone ? '#8A8AA3' : ''; $('tag').style.fontSize = gone ? '34px' : ''; $('tag').style.height = gone ? '52px' : ''; $('tag').style.lineHeight = gone ? '52px' : '';
   sel.style.borderColor = t >= T.abandon && t < T.pull+.5 ? '#5A5A6E' : '';
   const cu = $('cursor'); const cv = (t < T.pull+.5) || (t >= T.c1 && t < DUR);
   const cx = sx + s.w - 6 + (t>=T.e1 ? 0 : 0), cy = sy + s.h - 8;
@@ -367,7 +368,8 @@ function seek(t){
 
   // ── captions: one word, on the dark pill ──
   const tq = Math.round(t*FPS)/FPS; const wi = WORDS.findIndex((w,k)=> tq >= w.s && tq < (WORDS[k+1] && WORDS[k+1].s - w.e < .3 ? WORDS[k+1].s : w.e + .1));
-  $('capw').textContent = wi >= 0 ? WORDS[wi].w.replace(/[.,?]$/,'') : ''; $('cap').style.opacity = wi >= 0 ? 1 : 0;
+  const last = WORDS[WORDS.length-1], wj = wi >= 0 ? wi : (tq >= last.s ? WORDS.length-1 : -1);   // the last word holds to the end
+  $('capw').textContent = wj >= 0 ? WORDS[wj].w.replace(/[.,?]$/,'') : ''; $('cap').style.opacity = wj >= 0 ? 1 : 0;
   $('hud').textContent = 't=' + t.toFixed(3);
   return Promise.all(pending);
 }
@@ -385,8 +387,8 @@ function measure(){
   const k = 1000/1280;
   SEL = [
     {t:0, r:rFig, tag:'you'},
-    {t:T.pull+.5, r:RC(225, 525, 630, 125), tag:'Figma Make', op:0},
-    {t:T.mkSel, r:RC(225, 525, 630, 125), tag:'Figma Make', op:1},
+    {t:T.pull+.5, r:RC(214, 526, 652, 170), tag:'Figma Make', op:0},
+    {t:T.mkSel, r:RC(214, 526, 652, 170), tag:'Figma Make', op:1},
     {t:T.tbSel, r:RC((W-(7*118+60))/2-24, 676, 7*118+60+48, 166), tag:'the tools'},
     {t:T.burst+.1, r:RC(400, 640, 280, 280), tag:'the tools', op:0},
     {t:T.skDraw, r:RC(50, 480, 980, 600), tag:'brainstorm', op:1},
@@ -401,6 +403,7 @@ function measure(){
     {t:T.phone+.2, r:RC(686, 486, 328, 628), tag:'the real thing'},
     {t:T.docsIn+.1, r:RC(400, 620, 280, 400), tag:'handoff', op:0},
     {t:T.ip+.3, r:(()=>{ const r=at('ip', centerX('ip'), 700); return R(r.left-24, r.top-12, r.width+48, r.height+24); })(), tag:'2 steps', op:1},
+    {t:T.ipOut, r:(()=>{ const r=$('ip').getBoundingClientRect(); return R(r.left-24, r.top-12, r.width+48, r.height+24); })(), tag:'2 steps', op:0},
     {t:T.pfIn+.3, r:RC(56, 506, 968, 428), tag:'this video'},
     {t:T.pfSel, r:rZero, tag:'no .fig'},
     {t:T.c1+.2, r:rC1, tag:'you'},

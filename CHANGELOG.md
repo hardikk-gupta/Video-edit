@@ -99,3 +99,7 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   sound/mix.py, README, Instrument Serif fonts) built from Hardik's two Pinterest references (logged in docs/07, measured
   with OneTake's analyser). The OneTake renderer runs in a Python venv with playwright 1.63, which matches the
   installed Chromium. Renders, sound beds and captures are gitignored. docs/10 updated.
+- 2026-11-04 · Figma OneTake film: two reel-review rounds (a second model). Round 1 FAIL: hook unclear, the box misaligned
+  on the page and the judgment card, top-heavy, captions smeared by the shutter, the empty handoff frame. Round 2: two small
+  sure items (the box edge on "in Figma Make.", a stray "2 steps" frame), now fixed. Captions are frame-locked so the shutter
+  can't blend words. OneTake's oracle passes (cadence, rest 45 %, bursts, audio); verify_cut passes.
