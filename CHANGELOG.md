@@ -82,3 +82,8 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   video, "Claude did" teaser v2–v4, `mix_sfx.py`) into this one so both reach `main`. Its `docs/15-skills-guide.md` is
   now `docs/16-skills-guide.md` (15 was already the mascot doc) and its links are updated. In the docs/05 sound rules,
   the 2026-11-03 sfx-kit rule sits on top of the 2026-10-26 `sfx-design` rule, which still sets levels and spacing.
+- 2026-11-15 · Studied Hardik's reference `Video-29078.mp4` frame by frame and named its style **Blueprint Cut**.
+  Added `docs/styles/blueprint-cut.md` (measurements, beat map) and the format skill `.claude/skills/blueprint-cut-edit`;
+  registered it in `reel-edit`, docs/13 and AGENTS.md; logged the reference (docs/07) and the brief (docs/10);
+  scoped exception for condensed capitals in instruction.md. Instagram (his account, @metromedia.house) could not be
+  opened from the cloud session, so no account data was used. No video made, no media committed.

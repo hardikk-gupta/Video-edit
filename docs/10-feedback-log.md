@@ -261,3 +261,16 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
   now in `script.md` and `SCRIPT` (v3).
 - **Lesson (agent):** a mascot that moves with the UI still reads as a presenter if the frame is "a card above, the
   character below" every time. Put the character *in* the scene's world, and change the world each beat.
+
+## 2026-11-15 · "Blueprint Cut" reference and account brief (no video requested)
+
+- **Hardik's words:** the attached video "is something that I have been… really badly wanting to create… that is the
+  kind of edits I want to pull, the premiumness, the preciseness… learn… inch by inch, second by second… give a name
+  to the style… so I can directly ask you to pull that kind of style." He loves the reel editing style of
+  @metromedia.house. His views are going down and he wants the one reel to post now, with the topic and why.
+- **Done:** style named **Blueprint Cut**; study in docs/styles/blueprint-cut.md; format skill `blueprint-cut-edit`.
+- **Agent interpretation:** this is a positive reference for precision (visible guides, exact crops, type landing on
+  the spoken frame) and for restraint (three colours, three type voices). It allows condensed capitals in this one
+  format only. No render was asked for, so none was made.
+- **Not done:** his Instagram and Metro Media House's reels could not be opened from this environment, so the reel
+  recommendation given in chat rests on this repo's project history, not on his account numbers.

@@ -38,6 +38,8 @@ Do these in order before cutting or designing anything:
 
 - Do not default to Anton, condensed all-caps headlines, an oversized cross/VS badge, the same palette,
   or the previous video's layout. A font being installed does not make it the right choice.
+  Exception (Hardik, 2026-11-15): when he asks for "Blueprint Cut", heavy condensed capitals for the one payoff
+  word per sentence are the brief; see `blueprint-cut-edit`. The rule still holds for every other format.
 - Do not make ordinary product names look like display logos by squeezing or over-styling them.
 - Do not put a tiny eyebrow above a headline to make the frame look designed. In particular, do not
   repeat lines such as "TWO TAKES ON ALWAYS-ON AI" or "THE NEXT AI SHIFT / 01" as generic decoration.

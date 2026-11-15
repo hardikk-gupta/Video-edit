@@ -48,6 +48,7 @@ Pick one per video, or a stated mix, and record the choice in the project's `ins
 | `paper-drawer-edit` | Paper-textured cards slide in like a drawer over or beside the face | Explainers with several points, steps or comparisons |
 | `whiteout-edit` | Clean white full canvas, big type, simple drawings, face absent or small | Concept explainers, number-heavy lines |
 | `caption-edit` | Full-screen talking head, large word-by-word captions, light zooms | Opinions, stories, quick tips with nothing to show |
+| `blueprint-cut-edit` | "Blueprint Cut": voice-over story on paper, ink and one accent, dashed guides, image in a grid cell, tiny mono set-up and one huge payoff word per sentence. Ours, learned from Hardik's reference (docs/styles/blueprint-cut.md) | Stories and case studies that end on a lesson; when Hardik says "Blueprint Cut" |
 | `layered-head-edit` | The creator cut out and layered over graphics, screens or b-roll | Staying on screen while the background changes |
 | `broll-style-edit` | Voice-over carried entirely by b-roll, screen captures and generated clips; no face | Faceless explainers, product walk-throughs |
 | `card-list-edit` | A numbered list, one card per item (logo, name, one line) | "N tools / tips / mistakes" |

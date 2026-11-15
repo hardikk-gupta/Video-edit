@@ -39,6 +39,7 @@ Copy attached clips into `raw/` (main) and `raw/extra/` (extras). Save the answe
 | day-in-life, many locations | vlog-edit |
 | YouTube, over 3 minutes, 16:9 | longform-edit |
 | one take listing features / options / numbers, no screen to show | board-build-edit |
+| voice-over story or case study, ruled guides, one huge word per sentence ("Blueprint Cut") | blueprint-cut-edit |
 Use this table to choose which formats to OFFER in question 3. Never start an edit on a format the creator has not picked.
 
 ## The order (never reorder, never skip 0, 2, 9, 10)

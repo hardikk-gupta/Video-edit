@@ -76,3 +76,16 @@ furniture from Jitter + dashed-underlined sentences and functional UI cards from
 - Hairline: github.com/lucasmarkes/hairline (explainer figures; suggested by Hardik)
 - Fontsource: fontsource.org (Anton, Space Mono, Montserrat via npm)
 - HyperFrames: mentioned by Hardik as an option; not used
+
+## Hardik's uploaded `Video-29078.mp4`: the "Blueprint Cut" reference (2026-11-15)
+
+1276×718, 24 fps, 40.3 s voice-over essay on John Ottman and the Bohemian Rhapsody ending, marked "AutoAE Studio",
+"WHAT IS A GOOD VIDEO? EP. 05". Read at 6 fps (242 frames), with scene cuts, word timings, colour samples and audio
+levels. Hardik: this is the edit he has "been really badly wanting to create… the premiumness, the preciseness".
+- **Took:** visible dashed guides with the image locked in the cell; three colours; three type voices; tiny set-up
+  plus one huge payoff word on the spoken frame; ground flip per sentence; a different image treatment per beat;
+  one silence before the payoff; a call to action built on an object in the shot.
+- **Not taken:** its film footage, music, cobalt hue and exact graphics.
+- Full study and beat map: [docs/styles/blueprint-cut.md](styles/blueprint-cut.md). Skill: `blueprint-cut-edit`.
+- **@metromedia.house** (named by Hardik as the editing taste he loves): not watched. Instagram and YouTube refused
+  this environment on 2026-11-15; only their website and Shorts titles were read. No style claims until watched.
