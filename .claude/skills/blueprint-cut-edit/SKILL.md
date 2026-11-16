@@ -34,7 +34,18 @@ The first build cut between scenes and was rejected. These three rules come befo
   the layout arithmetic: the Hinton reel's smallest measured gap is 44 px.
 - **Whole faces only.** A cell never crops a face and nothing covers one: no sliver crops, no half-colour columns,
   no band over the eyes, no tear through a head. If a photo does not fit the cell with the whole head, change the cell.
-- Implementation to copy: `toolkit/src/BlueprintOneTake.tsx` (`BEATS[]` holds each beat's line positions, ground,
+- **Scale, never crop, inside a moving cell.** Lay each picture or chart out at the size of its final cell and scale
+  that whole layout to fit the live cell (`Fit` in `BlueprintOneTakeLandscape.tsx`). A cell that is mid-move, or
+  that collapses to a band, then shows the whole face smaller instead of a cropped one. No tears, peels or box wipes:
+  two second-model reviews read the white paper-tear as a wipe; use a slow push-in on a held photo instead.
+- **16:9 mapping (built and measured on the Hinton reel).** 1920×1080. A tall centre cell (800×880 at x 560–1360) holds
+  the picture, like the reference's 29%–71% column. The set-up line is in the left region, right-aligned so it hugs the
+  cell (38 px mono, 56 px line height); the payoff word is in the right region, left-aligned, stacked on two lines when
+  it is long (150–176 px Anton), with a 44 px mono sub-line under it. Both are vertically centred on the cell. Widen a
+  region by narrowing the cell (the name beat uses 700–1220). Wide texts (the Toronto line, the question, POST.) sit
+  inside a wide, short band cell. Outer guides run edge to edge; guides that subdivide a cell stop at the layout's outer
+  guides. Keep 100 px from the frame edge. Smallest measured type-to-guide gap: 44 px on all 17 held layouts.
+- Implementations to copy: `toolkit/src/BlueprintOneTake.tsx` (9:16) and `toolkit/src/BlueprintOneTakeLandscape.tsx` (16:9) (`BEATS[]` holds each beat's line positions, ground,
   cell content and type; one renderer interpolates the lines and runs the wipe).
 
 ## Script shape
@@ -89,5 +100,5 @@ mosaic assembling; blur into focus; two-tone poster; the same shot graded three 
 - Lessons from the first build (Hinton reel, 2026-11-16): a flicker strip of words needs about half a second per
   word (footage can flick every 4 frames, words cannot); an aside on black holds 1.8 s at most; a negative flash is
   1 to 3 frames; stage photos with coloured light go black and white or duotone, never natural colour; a word over
-  a photo needs a dark gradient under it; a tear or peel starts after the payoff word has landed.
+  a photo needs a dark gradient under it; do not tear or peel a photo (see One take).
 - Built once (Hinton reel) but not yet reviewed by Hardik. Until he reviews it, treat the 9:16 mapping as a first proposal.

@@ -27,3 +27,19 @@ caption: [script.md](script.md).
   Open polish notes from the review: ground changes are whole-frame fades, the paper tear at 11 s is a graphic
   effect rather than a grid move, and about 0.4 s of near-empty frame at the cross is deliberate.
 - Hardik's review of v7: pending.
+
+## 16:9 landscape version (Hardik, 2026-11-16: "make the version 7 in landscape")
+
+- **Code:** `toolkit/src/BlueprintOneTakeLandscape.tsx`, composition `BlueprintHintonLandscape` (registered in
+  `toolkit/src/entry-blueprint.tsx` next to the portrait one). 1920×1080, 30 fps, 42.4 s, same beats, same word frames
+  and sound effects as the portrait v7, so one voice-over re-time serves both.
+- **Not a stretch:** a re-layout. Tall centre cell with the set-up line to its left and the payoff word to its right
+  (the reference's arrangement); layout numbers are in the skill's "16:9 mapping".
+- **Differences from the portrait v7:** the paper tear on "give up" is replaced by a slow push-in; images and charts
+  are scaled whole inside a moving cell (the portrait still crops during a move); set-up type 38 px, sub-lines 44 px.
+  These are not back-ported to the portrait build.
+- **Checks:** pixel scan of 17 held layouts, smallest type-to-guide gap 44 px, nearest frame edge 115 px; a scene
+  detector finds only the deliberate flash at 37.4 s. Sound effects only, no voice. First landscape build failed
+  the second-model review (36.9 s face cropped by a collapsing cell, 10.9 s tear read as a wipe, 6.0 s badge over the
+  head); the second build fixes those. Re-review result: see the chat for this round.
+- Hardik's review: pending.

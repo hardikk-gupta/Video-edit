@@ -105,3 +105,6 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   grid), docs/09 (grid-reel checks), docs/08 (Remotion entry and browser path, yt-dlp, Instagram, Wikimedia, rembg, Anton
   metrics), `learn-style` (find what carries each boundary), docs/styles (building from a script), and the paste-ready
   ElevenLabs script in the Hinton project.
+- 2026-11-16 · Hinton reel in 16:9 at Hardik's request (`toolkit/src/BlueprintOneTakeLandscape.tsx`): tall centre cell, set-up line
+  left, payoff word right. Review-driven fixes (scale-whole images in moving cells, no tear, larger small type) written
+  into the `blueprint-cut-edit` skill together with the 16:9 mapping.
