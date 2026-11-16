@@ -19,12 +19,18 @@ The first build cut between scenes and was rejected. These three rules come befo
   (9 for fast command beats). Lines that a beat does not need rest on top of another line, so a new cell appears
   by a line splitting off and sliding out, and disappears by merging back. Change the number of cells often: one
   cell, two side by side, three columns, a stack, a 3×3, a single band, all lines folded into one cross for a pause.
-- **Content changes inside the moving cells.** The new image wipes across the cell while the cell is still
-  travelling; the new ground colour grows outwards from the cell until it fills the frame, covering the old beat's
-  type as it goes. Nothing pops in on a static frame, and nothing is replaced on a cut. This is OneTake's carry rule
+- **Content changes inside the moving cells.** While the lines travel, the old image and the new one dissolve in
+  place inside the moving cell (about 8 frames), the ground colour cross-fades over the same frames, and the last
+  beat's words leave on the first frame of the move. When the next beat has no image, the old one rides the
+  closing cell and fades as it closes. Do not wipe a rectangle over the old scene and do not wipe an image sideways
+  across a face: a second-model review read both as a cut and as a half face (v5, 2026-11-16). Nothing pops in on
+  a static frame. This is OneTake's carry rule
   (docs/15): name what survives each boundary. Here it is always the grid.
 - **Type keeps clear of the guides.** At least 40 px between any letter and any guide line, on every side. Give type
   its own cell: set-up line above the image cell, payoff word in a cell below it, a sub-line beside the word.
+  Lines that subdivide an image cell (columns, a 3×3) stop at that cell's edges; only the outer lines run the full
+  frame, otherwise they cut through the type above and below. Measure the gaps on full-size stills, do not trust
+  the layout arithmetic: the Hinton reel's smallest measured gap is 44 px.
 - **Whole faces only.** A cell never crops a face and nothing covers one: no sliver crops, no half-colour columns,
   no band over the eyes, no tear through a head. If a photo does not fit the cell with the whole head, change the cell.
 - Implementation to copy: `toolkit/src/BlueprintOneTake.tsx` (`BEATS[]` holds each beat's line positions, ground,

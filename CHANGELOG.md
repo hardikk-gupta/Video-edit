@@ -95,3 +95,6 @@ One dated entry per change, oldest first. Append in the same commit as the chang
 - 2026-11-16 · Hinton reel v5 after Hardik's feedback: rebuilt as one take (`toolkit/src/BlueprintOneTake.tsx`): one grid
   whose lines travel, split and merge; grounds grow out of the cell; type 44 px clear of guides; whole faces only.
   Rules promoted to the `blueprint-cut-edit` skill; style study corrected (docs/styles); feedback logged (docs/10).
+- 2026-11-16 · Hinton reel v6: after a failed review of v5, images now dissolve inside the moving cell, grounds cross-fade,
+  inner guides stop at the cell edge and payoff words are centred in their cells (smallest measured type-to-guide gap
+  44 px). Skill updated with these rules.

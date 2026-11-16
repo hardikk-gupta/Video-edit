@@ -21,6 +21,8 @@ const SOFT_BLUE = '#7f93d6';
 const CREAM = '#efe8df';
 const WHITE = '#f6f4f5';
 const PAD = 44; // minimum space between any type and any guide
+const CAP = 0.74; // Anton cap height as a share of font size (measured on a render)
+const SHIFT = 0.0; // vertical correction so the caps sit centred in that box (measured on a render)
 
 const fonts: [string, string, FontFaceDescriptors][] = [
   ['Anton', 'fonts/Anton.woff2', {}],
@@ -50,21 +52,24 @@ const rectOf = (L: Lines, s: Slots) => {
 const MAIN: Slots = [0, 1, 0, 1];
 
 // ---------- type
-const Setup: React.FC<{f: number; L: Lines; words: string[]; at: number[]; color: string}> = ({f, L, words, at, color}) => (
-  <div style={{position: 'absolute', left: L.v[0] + PAD, top: L.h[0] - PAD - 46, width: 820, fontFamily: 'Space Mono', fontSize: 32, letterSpacing: '0.16em', color, lineHeight: '46px', textTransform: 'uppercase', whiteSpace: 'nowrap'}}>
+const Setup: React.FC<{f: number; L: Lines; words: string[]; at: number[]; color: string; size?: number}> = ({f, L, words, at, color, size = 32}) => (
+  <div style={{position: 'absolute', left: L.v[0] + PAD, top: L.h[0] - PAD - 46, width: 820, fontFamily: 'Space Mono', fontSize: size, letterSpacing: '0.16em', color, lineHeight: '46px', textTransform: 'uppercase', whiteSpace: 'nowrap'}}>
     {words.map((w, i) => (
       <span key={i} style={{opacity: f >= at[i] ? 1 : 0}}>{w} </span>
     ))}
   </div>
 );
-// payoff word inside the text cell that starts at guide y=top; optional sub-line to its right, on the baseline
-const Payoff: React.FC<{f: number; at: number; text: string; top: number; size: number; color: string; x?: number; sub?: string; subAt?: number; subColor?: string}> = ({f, at, text, top, size, color, x = 90 + PAD, sub, subAt = 0, subColor}) =>
+// payoff word centred between the two guides of its text cell; optional sub-line beside it, or a caption under it
+const Payoff: React.FC<{f: number; at: number; text: string; top: number; bottom: number; size: number; color: string; sub?: string; subAt?: number; subColor?: string; caption?: string; capAt?: number}> = ({f, at, text, top, bottom, size, color, sub, subAt = 0, subColor, caption, capAt = 0}) =>
   f < at ? null : (
-    <div style={{position: 'absolute', left: x, top: top + PAD - size * 0.08, display: 'flex', alignItems: 'flex-end', gap: 30, whiteSpace: 'nowrap'}}>
-      <div style={{fontFamily: 'Anton', fontSize: size, lineHeight: 1, color}}>{text}</div>
-      {sub && (
-        <div style={{fontFamily: 'Space Mono', fontSize: 40, letterSpacing: '0.14em', lineHeight: 1.15, color: subColor ?? color, textTransform: 'uppercase', whiteSpace: 'pre', paddingBottom: size * 0.11, opacity: f >= subAt ? 1 : 0}}>{sub}</div>
-      )}
+    <div style={{position: 'absolute', left: 90 + PAD, top, height: bottom - top, width: 900 - PAD * 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22}}>
+      <div style={{display: 'flex', alignItems: 'center', gap: 30, whiteSpace: 'nowrap'}}>
+        <div style={{fontFamily: 'Anton', fontSize: size, lineHeight: `${size * CAP}px`, height: size * CAP, color, display: 'flex', alignItems: 'center'}}>
+          <span style={{display: 'block', lineHeight: 1, transform: `translateY(${size * SHIFT}px)`}}>{text}</span>
+        </div>
+        {sub && <div style={{fontFamily: 'Space Mono', fontSize: 40, letterSpacing: '0.14em', lineHeight: 1.15, color: subColor ?? color, textTransform: 'uppercase', whiteSpace: 'pre', opacity: f >= subAt ? 1 : 0}}>{sub}</div>}
+      </div>
+      {caption && <div style={{fontFamily: 'Space Mono', fontSize: 34, letterSpacing: '0.1em', lineHeight: 1, color: subColor ?? color, whiteSpace: 'nowrap', opacity: f >= capAt ? 1 : 0}}>{caption}</div>}
     </div>
   );
 
@@ -129,10 +134,12 @@ const BEATS: Beat[] = [
     },
     text: (f, L) => (
       <>
-        <Setup f={f} L={L} words={['For', '40', 'years', 'they', 'called', 'his', 'bet', 'a']} at={[14, 20, 26, 38, 44, 54, 60, 68]} color={COBALT_TYPE} />
+        <Setup f={f} L={L} words={['For', '40', 'years', 'they', 'called', 'his', 'bet', 'a']} at={[14, 20, 26, 38, 44, 54, 60, 68]} color={COBALT_TYPE} size={31} />
         {f >= 72 && (
-          <div style={{position: 'absolute', left: 90 + PAD, top: L.h[1] + PAD - 18, fontFamily: 'Anton', fontSize: 220, lineHeight: 1, color: COBALT_TYPE, whiteSpace: 'nowrap'}}>
-            DEAD <span style={{opacity: f >= 82 ? 1 : 0}}>END.</span>
+          <div style={{position: 'absolute', left: 90 + PAD, top: L.h[1], height: L.h[2] - L.h[1], display: 'flex', alignItems: 'center', fontFamily: 'Anton', fontSize: 214, lineHeight: 1, color: COBALT_TYPE, whiteSpace: 'nowrap'}}>
+            <span style={{transform: `translateY(${214 * SHIFT}px)`}}>
+              DEAD <span style={{opacity: f >= 82 ? 1 : 0}}>END.</span>
+            </span>
           </div>
         )}
       </>
@@ -158,19 +165,19 @@ const BEATS: Beat[] = [
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['In', '2024', 'it', 'won', 'the']} at={[10, 16, 28, 33, 40]} color={CREAM} />
-        <Payoff f={f} at={45} text="NOBEL" top={L.h[1]} size={230} color={CREAM} sub={'PRIZE IN\nPHYSICS'} subAt={53} />
+        <Payoff f={f} at={45} text="NOBEL" top={L.h[1]} bottom={L.h[2]} size={230} color={CREAM} sub={'PRIZE IN\nPHYSICS'} subAt={53} />
       </>
     ),
   },
   {
     // name — one wide cell with his whole face, then two type cells stack under it
     at: 183, ground: INK, ink: CREAM, v: V2, h: [330, 870, 1150, 1430, 1430],
-    media: () => <Cover src="c23_bw.jpg" pos="50% 7%" />,
+    media: () => <Cover src="c23_bw.jpg" pos="50% 0%" />,
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['His', 'name', 'is']} at={[16, 20, 25]} color={CREAM} />
-        <Payoff f={f} at={33} text="GEOFFREY" top={L.h[1]} size={206} color={CREAM} />
-        <Payoff f={f} at={45} text="HINTON" top={L.h[2]} size={206} color={SOFT_BLUE} />
+        <Payoff f={f} at={33} text="GEOFFREY" top={L.h[1]} bottom={L.h[2]} size={206} color={CREAM} />
+        <Payoff f={f} at={45} text="HINTON" top={L.h[2]} bottom={L.h[3]} size={206} color={SOFT_BLUE} />
       </>
     ),
   },
@@ -190,7 +197,7 @@ const BEATS: Beat[] = [
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['His', 'own', 'supervisor', 'told', 'him', 'to']} at={[16, 21, 26, 40, 46, 52]} color={COBALT_TYPE} />
-        <Payoff f={f} at={63} text="GIVE UP." top={L.h[1]} size={236} color={COBALT_TYPE} />
+        <Payoff f={f} at={63} text="GIVE UP." top={L.h[1]} bottom={L.h[2]} size={236} color={COBALT_TYPE} />
       </>
     ),
   },
@@ -215,7 +222,7 @@ const BEATS: Beat[] = [
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['They', 'said', 'neural', 'networks', 'were', 'a']} at={[10, 15, 21, 29, 42, 50]} color={CREAM} />
-        <Payoff f={f} at={57} text="WASTE" top={L.h[1]} size={236} color={CREAM} sub={'OF\nTIME.'} subAt={69} />
+        <Payoff f={f} at={57} text="WASTE" top={L.h[1]} bottom={L.h[2]} size={236} color={CREAM} sub={'OF\nTIME.'} subAt={69} />
       </>
     ),
   },
@@ -261,7 +268,7 @@ const BEATS: Beat[] = [
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['And', 'kept', 'going.', 'For']} at={[10, 15, 21, 56]} color={COBALT_TYPE} />
-        <Payoff f={f} at={66} text="25 MORE" top={L.h[2]} size={200} color={COBALT_TYPE} sub="YEARS." subAt={78} />
+        <Payoff f={f} at={66} text="25 MORE" top={L.h[2]} bottom={L.h[3]} size={178} color={COBALT_TYPE} sub="YEARS." subAt={78} />
       </>
     ),
   },
@@ -301,8 +308,7 @@ const BEATS: Beat[] = [
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['Then,', 'in', '2012,', 'two', 'students', 'built']} at={[10, 15, 20, 32, 40, 54]} color={CREAM} />
-        <Payoff f={f} at={66} text="ONE NETWORK." top={L.h[1]} size={150} color={CREAM} />
-        <div style={{position: 'absolute', left: 90 + PAD, top: L.h[1] + PAD + 158, fontFamily: 'Space Mono', fontSize: 36, letterSpacing: '0.12em', color: SOFT_BLUE, opacity: f >= 96 ? 1 : 0}}>FEWER ERRORS. IT BEAT EVERY RIVAL.</div>
+        <Payoff f={f} at={66} text="ONE NETWORK." top={L.h[1]} bottom={L.h[2]} size={150} color={CREAM} caption="FEWER ERRORS. IT BEAT EVERY RIVAL." capAt={96} subColor={SOFT_BLUE} />
       </>
     ),
   },
@@ -313,7 +319,7 @@ const BEATS: Beat[] = [
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['Today', 'that', 'idea', 'runs', 'nearly']} at={[10, 15, 20, 26, 32]} color={CREAM} />
-        <Payoff f={f} at={42} text="EVERY AI" top={L.h[1]} size={204} color={CREAM} sub={'YOU\nUSE.'} subAt={56} />
+        <Payoff f={f} at={42} text="EVERY AI" top={L.h[1]} bottom={L.h[2]} size={204} color={CREAM} sub={'YOU\nUSE.'} subAt={56} />
       </>
     ),
   },
@@ -328,7 +334,7 @@ const BEATS: Beat[] = [
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['40', 'years', 'later,', 'he', 'was']} at={[10, 15, 21, 32, 37]} color={CREAM} />
-        <Payoff f={f} at={42} text="RIGHT." top={L.h[1]} size={236} color={CREAM} />
+        <Payoff f={f} at={42} text="RIGHT." top={L.h[1]} bottom={L.h[2]} size={236} color={CREAM} />
       </>
     ),
   },
@@ -338,15 +344,15 @@ const BEATS: Beat[] = [
     text: (f, L) => {
       const k = Math.floor((f - 36) / 4);
       const styles: React.CSSProperties[] = [
-        {fontFamily: 'Anton', fontSize: 150},
-        {fontFamily: 'Space Mono', fontSize: 96},
-        {fontFamily: 'Inter', fontWeight: 600, fontSize: 118},
-        {fontFamily: 'EB Garamond', fontStyle: 'italic', fontWeight: 500, fontSize: 164},
+        {fontFamily: 'Anton', fontSize: 140},
+        {fontFamily: 'Space Mono', fontSize: 88},
+        {fontFamily: 'Inter', fontWeight: 600, fontSize: 108},
+        {fontFamily: 'EB Garamond', fontStyle: 'italic', fontWeight: 500, fontSize: 152},
       ];
       const u = easeOut(p01(f, 50, 64));
       return (
         <>
-          <div style={{position: 'absolute', left: 90, top: L.h[0] + PAD + 20, width: 900, textAlign: 'center', fontFamily: 'EB Garamond', fontStyle: 'italic', fontWeight: 500, fontSize: 104, color: CREAM, opacity: f >= 14 ? 1 : 0}}>How long would you</div>
+          <div style={{position: 'absolute', left: 90, top: L.h[0] + PAD + 20, width: 900, textAlign: 'center', fontFamily: 'EB Garamond', fontStyle: 'italic', fontWeight: 500, fontSize: 96, color: CREAM, opacity: f >= 14 ? 1 : 0}}>How long would you</div>
           {f >= 36 && <div style={{position: 'absolute', left: 90 + PAD, top: L.h[0] + 200, width: 900 - PAD * 2, height: 190, display: 'flex', alignItems: 'center', justifyContent: 'center', color: WHITE, whiteSpace: 'nowrap', ...styles[Math.max(0, Math.min(3, k))]}}>have lasted?</div>}
           <div style={{position: 'absolute', left: 170, top: L.h[0] + 404, width: 740 * u, height: 5, borderRadius: 3, background: WHITE}} />
         </>
@@ -375,14 +381,14 @@ const BEATS: Beat[] = [
     text: (f, L) => (
       <>
         <Setup f={f} L={L} words={['Your', 'idea', "isn't", 'dead.', "It's"]} at={[10, 15, 20, 26, 46]} color={COBALT_TYPE} />
-        <Payoff f={f} at={54} text="EARLY." top={L.h[1]} size={236} color={COBALT_TYPE} />
+        <Payoff f={f} at={54} text="EARLY." top={L.h[1]} bottom={L.h[2]} size={236} color={COBALT_TYPE} />
       </>
     ),
   },
   {
     at: 1056, ground: WHITE, ink: COBALT_TYPE, v: V2, h: [420, 1100, 1410, 420, 1100], tr: 10,
     media: () => <Cover src="c24_poster.jpg" pos="50% 8%" />,
-    text: (f, L) => <Payoff f={f} at={4} text="KEEP GOING." top={L.h[1]} size={176} color={COBALT_TYPE} />,
+    text: (f, L) => <Payoff f={f} at={4} text="KEEP GOING." top={L.h[1]} bottom={L.h[2]} size={176} color={COBALT_TYPE} />,
   },
   {
     at: 1086, ground: PAPER, ink: COBALT_TYPE, v: V2, h: [690, 1110, 1110, 690, 1110], tr: 9,
@@ -390,13 +396,13 @@ const BEATS: Beat[] = [
   },
   {
     at: 1110, ground: INK, ink: CREAM, v: V2, h: [330, 1090, 1400, 330, 1090], tr: 9,
-    media: (f) => <Cover src={f >= 8 && f < 11 ? 'c23_neg.jpg' : 'c23_bw.jpg'} pos="50% 5%" />,
-    text: (f, L) => <Payoff f={f} at={3} text="LEARN." top={L.h[1]} size={236} color={CREAM} />,
+    media: (f) => <Cover src={f >= 9 && f < 12 ? 'c23_neg.jpg' : 'c23_bw.jpg'} pos="50% 0%" />,
+    text: (f, L) => <Payoff f={f} at={3} text="LEARN." top={L.h[1]} bottom={L.h[2]} size={236} color={CREAM} />,
   },
   {
     at: 1134, ground: INK, ink: CREAM, v: V2, h: [330, 1090, 1400, 330, 1090], tr: 9,
-    media: () => <Cover src="c23_cob.jpg" pos="50% 5%" />,
-    text: (f, L) => <Payoff f={f} at={3} text="AGAIN." top={L.h[1]} size={236} color={SOFT_BLUE} />,
+    media: () => <Cover src="c23_cob.jpg" pos="50% 0%" />,
+    text: (f, L) => <Payoff f={f} at={3} text="AGAIN." top={L.h[1]} bottom={L.h[2]} size={236} color={SOFT_BLUE} />,
   },
   {
     // follow — the medal from the Nobel beat comes back as the card
@@ -435,14 +441,18 @@ const BEATS: Beat[] = [
 ];
 
 // ---------- the one grid
-const Guides: React.FC<{L: Lines; color: string}> = ({L, color}) => {
+const Guides: React.FC<{L: Lines; color: string; o?: number}> = ({L, color, o = 1}) => {
   const dash = (dir: string) => `repeating-linear-gradient(${dir}, ${color} 0 9px, transparent 9px 18px)`;
   const vs = Array.from(new Set(L.v.map((x) => Math.round(x)))), hs = Array.from(new Set(L.h.map((y) => Math.round(y))));
+  const vMin = Math.min(...vs), vMax = Math.max(...vs);
+  const m0 = Math.round(Math.min(L.h[0], L.h[1])), m1 = Math.round(Math.max(L.h[0], L.h[1]));
+  const innerV = (x: number) => x > vMin + 2 && x < vMax - 2;
+  const innerH = (y: number) => y > m0 + 2 && y < m1 - 2;
   return (
-    <AbsoluteFill style={{opacity: 0.62, pointerEvents: 'none'}}>
-      {vs.map((x) => <div key={`v${x}`} style={{position: 'absolute', left: x - 1, top: 0, width: 2, height: BP_H, background: dash('to bottom')}} />)}
-      {hs.map((y) => <div key={`h${y}`} style={{position: 'absolute', top: y - 1, left: 0, height: 2, width: BP_W, background: dash('to right')}} />)}
-      {vs.map((x) => hs.map((y) => <div key={`${x}-${y}`} style={{position: 'absolute', left: x - 6, top: y - 6, width: 12, height: 12, borderRadius: 6, background: color}} />))}
+    <AbsoluteFill style={{opacity: 0.62 * o, pointerEvents: 'none'}}>
+      {vs.map((x) => <div key={`v${x}`} style={{position: 'absolute', left: x - 1, top: innerV(x) ? m0 : 0, width: 2, height: innerV(x) ? m1 - m0 : BP_H, background: dash('to bottom')}} />)}
+      {hs.map((y) => <div key={`h${y}`} style={{position: 'absolute', top: y - 1, left: innerH(y) ? vMin : 0, height: 2, width: innerH(y) ? vMax - vMin : BP_W, background: dash('to right')}} />)}
+      {vs.map((x) => hs.map((y) => ((innerV(x) && (y < m0 || y > m1)) || (innerH(y) && (x < vMin || x > vMax)) ? null : <div key={`${x}-${y}`} style={{position: 'absolute', left: x - 6, top: y - 6, width: 12, height: 12, borderRadius: 6, background: color}} />)))}
     </AbsoluteFill>
   );
 };
@@ -484,33 +494,26 @@ export const BlueprintHinton: React.FC<{sound?: boolean}> = ({sound = true}) => 
   const live: Lines = {v: Lc.v.map((x, k) => Lp.v[k] + (x - Lp.v[k]) * g), h: Lc.h.map((y, k) => Lp.h[k] + (y - Lp.h[k]) * g)};
   const inTr = prev !== null && f < tr;
   const prevF = prev ? cur.at - prev.at - 1 : 0;
-  // the new ground grows out of the previous main cell
-  const o = prev ? rectOf(Lp, MAIN) : {x: 0, y: 0, w: BP_W, h: BP_H};
-  const w = prev ? easeIO(p01(f, 0, tr - 2)) : 1;
-  const clip = `inset(${o.y * (1 - w)}px ${(BP_W - o.x - o.w) * (1 - w)}px ${(BP_H - o.y - o.h) * (1 - w)}px ${o.x * (1 - w)}px)`;
   const main = rectOf(live, MAIN);
-  const swap = easeOut(p01(f, 0, Math.min(8, tr)));
+  const q = prev ? p01(f, 0, 8) : 1; // ground and image dissolve while the lines are still travelling
+  const out = cur.media ? 1 - q : 1 - p01(f, tr * 0.45, tr); // with no new image, the old one rides the closing cell
   const fade = interpolate(F, [BP_FRAMES - 10, BP_FRAMES - 1], [1, 0], clamp);
   return (
     <AbsoluteFill style={{background: BLACK}}>
       <AbsoluteFill style={{opacity: fade}}>
-        {inTr && prev && (
-          <AbsoluteFill style={{background: prev.ground}}>
-            {prev.extras?.map((e, k) => {
-              const r = rectOf(Lp, e.r);
-              return <Box key={k} r={r}>{e.render(prevF, r.w, r.h)}</Box>;
-            })}
-            {prev.text?.(prevF, Lp)}
-            <Guides L={live} color={prev.ink} />
-          </AbsoluteFill>
-        )}
-        <AbsoluteFill style={{background: cur.ground, clipPath: inTr ? clip : undefined}}>
-          {cur.text?.(f, Lc)}
-          <Guides L={live} color={cur.ink} />
-        </AbsoluteFill>
-        {/* media rides the moving cells; the old image stays in the cell until the new one has wiped across it */}
-        {inTr && prev?.media && swap < 1 && <Box r={main} clip={cur.media ? undefined : `inset(0 0 0 ${swap * 100}%)`}>{prev.media(prevF, main.w, main.h)}</Box>}
-        {cur.media && <Box r={main} bg={cur.ground} clip={prev && swap < 1 ? `inset(0 ${(1 - swap) * 100}% 0 0)` : undefined}>{cur.media(f, main.w, main.h)}</Box>}
+        {prev && q < 1 && <AbsoluteFill style={{background: prev.ground}} />}
+        <AbsoluteFill style={{background: cur.ground, opacity: q}} />
+        {prev && q < 1 && <Guides L={live} color={prev.ink} o={1 - q} />}
+        <Guides L={live} color={cur.ink} o={q} />
+        {cur.text?.(f, Lc)}
+        {/* the image lives in the moving cell: old and new dissolve in place, so a face is never half covered */}
+        {inTr && prev?.media && out > 0 && <div style={{opacity: out}}><Box r={main}>{prev.media(prevF, main.w, main.h)}</Box></div>}
+        {inTr && prev?.extras?.map((e, k) => {
+          const r = rectOf(live, e.r);
+          const eo = 1 - p01(f, 0, 6);
+          return eo > 0 ? <div key={`p${k}`} style={{opacity: eo}}><Box r={r}>{e.render(prevF, r.w, r.h)}</Box></div> : null;
+        })}
+        {cur.media && <div style={{opacity: q}}><Box r={main}>{cur.media(f, main.w, main.h)}</Box></div>}
         {cur.extras?.map((e, k) => {
           const r = rectOf(live, e.r);
           return <Box key={k} r={r}>{e.render(f, r.w, r.h)}</Box>;

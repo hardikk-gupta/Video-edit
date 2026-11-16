@@ -10,10 +10,14 @@ caption: [script.md](script.md).
 - **Re-render:** fetch the three Commons photos named in instructions.md into `toolkit/public/imagery/hinton/`,
   rebuild the variants (halftone, sticker, duotone, negative, poster), link `public/sfx/kit` to sfx-kit's `sounds`,
   then `npx remotion render src/entry-blueprint.tsx BlueprintHinton out.mp4 --crf=18`.
-- **Status:** v5, the one-take rebuild. Built silent to a reading pace; to be re-timed to Hardik's recording.
-- **v4 → v5 (Hardik's feedback, docs/10):** v4 cut between scenes, let type touch guides and cropped faces. v5 is one
-  continuous grid of 4 vertical and 5 horizontal guides that travel, split and merge between 18 layouts; each new
-  ground grows out of the main cell; type sits 44 px clear of every guide in its own cells; every photo shows the
-  whole face (the sliver, the split-colour column, the band over the eyes and the full-bleed photos are gone).
-- **Review:** second model failed v1–v3 (v3 narrowly). v5 review result: see the chat for this round.
-- Hardik's review of v5: pending.
+- **Status:** v6, the one-take build. Built silent to a reading pace; to be re-timed to Hardik's recording.
+- **v4 → v5 → v6 (Hardik's feedback, docs/10):** v4 cut between scenes, let type touch guides and cropped faces.
+  v5 moved to one continuous grid but still wiped a rectangle over each old scene, wiped images sideways across
+  faces, and ran inner guides through the type; a second-model review failed it. v6: 4 vertical and 5 horizontal
+  guides travel, split and merge between 18 layouts; images dissolve inside the moving cell and grounds cross-fade;
+  inner guides stop at the cell; payoff words are centred in their own cells.
+- **Measured on v6:** smallest gap between any type and any guide on the 17 held layouts is 44 px (full-size
+  stills, pixel scan). A scene detector at threshold 0.25 finds one large change in 42 s (the deliberate 3-frame
+  negative flash at 37.4 s); v4 had 20 or more. Sound effects only: −24.1 LUFS, −2.9 dBTP.
+- **Review:** second model failed v1–v3 and v5. v6 review result: see the chat for this round.
+- Hardik's review of v6: pending.
