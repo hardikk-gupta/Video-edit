@@ -100,3 +100,8 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   44 px). Skill updated with these rules.
 - 2026-11-16 · Hinton reel v7: fixes the two face moments the v6 review failed (closing cell cropping a face, follow disc
   over a fading face); rule added to the skill.
+- 2026-11-16 · Promoted the session's learnings out of project files: AGENTS.md rules 12–13 (a reference grid is a carry;
+  read transitions, not pixels), instruction.md (Blueprint Cut section, two new "do not"s), docs/04 (one continuous
+  grid), docs/09 (grid-reel checks), docs/08 (Remotion entry and browser path, yt-dlp, Instagram, Wikimedia, rembg, Anton
+  metrics), `learn-style` (find what carries each boundary), docs/styles (building from a script), and the paste-ready
+  ElevenLabs script in the Hinton project.

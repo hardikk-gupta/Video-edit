@@ -57,6 +57,14 @@ Details per mode: [docs/01-inputs-and-modes.md](docs/01-inputs-and-modes.md).
     guidance, update the project record and changelog, and log Hardik's feedback. Do not leave old
     instructions contradicting the new lesson. Feedback alone does not authorize an unrequested render.
 
+12. **A reference's grid is a carry, not a decoration (Hardik, 2026-11-16).** When a reference has a visible grid, it is
+    one object that lives through the whole film: its lines travel, split and merge between beats and the content
+    changes inside the moving cells. Do not rebuild a grid per scene. Type keeps at least 40 px clear of every guide
+    (measure it on full-size stills). A face is never cropped by a cell or covered by a shape, including mid-transition:
+    fade a face out whole. Skill: `blueprint-cut-edit`.
+13. **Watch for the device, not the pixels.** A scene detector counts large pixel changes, not cuts. Before writing a
+    style study, read the transitions frame by frame (at 15 fps or more) and name what survives each boundary.
+
 The full list of do's and don'ts: [docs/04-motion-rules.md](docs/04-motion-rules.md).
 
 ## 3. The loop

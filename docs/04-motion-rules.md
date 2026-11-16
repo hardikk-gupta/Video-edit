@@ -107,3 +107,15 @@
 - A graphics panel is never plain empty white: use a quiet texture (dot grid, paper) behind it.
 - Hold a punchline long enough to read; extend it over the pause that follows it.
 - A zoom-through must be centred on the hole you fly through: draw that shape yourself (an exact ellipse) instead of guessing where a font glyph's counter is.
+
+## One continuous grid (Hardik, 2026-11-16)
+
+- A grid that appears in a reference is the carry across every beat: build one set of guide lines for the whole film,
+  and move, split and merge them between beats (about 16 frames, ease in and out; 9 for fast beats). Never redraw a
+  grid per scene.
+- Content changes inside the moving cell: old and new images dissolve in place over about 8 frames, the ground colour
+  cross-fades over the same frames, the last beat's words leave on the first frame of the move. No rectangle wiping over
+  the old scene, no image wiping sideways across a face.
+- Subdividing lines (columns, a 3×3) stop at their cell; only the outer lines run the full frame.
+- A cell that closes scales its image down whole and fades it within 6 frames, before the next words appear.
+- Hard cuts are kept for deliberate 1 to 3 frame flashes only.

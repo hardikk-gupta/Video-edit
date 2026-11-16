@@ -60,3 +60,11 @@
   of the previous picture showing for several frames, which reads as a glitch. Snap the last few percent
   (`snap()` in `toolkit/src/PaperDrawerWA.tsx`). A numbered list with empty lines reads as unfinished:
   give each row real content.
+
+## Extra checks for a grid-based reel (added 2026-11-16)
+
+- [ ] One grid for the whole film. A scene detector at 0.25 finds almost nothing except deliberate flashes.
+- [ ] Pixel scan of every held layout: smallest gap between any letter and any guide is at least 40 px.
+- [ ] No face is cropped by a cell or covered by a shape in any frame; check strips at 15 fps through every transition.
+- [ ] Sub-lines at least 40 px and set-up lines at least 32 px on a 1080-wide frame; the photo credit at 27 px or more.
+- [ ] Second-model review passed, and every item it failed was re-checked on the new render, not on the code.

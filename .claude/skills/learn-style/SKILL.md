@@ -15,6 +15,7 @@ description: Use when the creator shares a video they like and says "learn this 
 6. Create `.claude/skills/<name>-edit/SKILL.md` in the same shape as the other format skills, and add a row for it in reel-edit's table.
 
 ## Rules
+- **Find what carries each boundary (2026-11-16).** Scene detection is not a cut count. Take 15 fps strips of at least four transitions and write what survives each one (a grid, a subject, a container) before writing any number. The first Blueprint Cut study missed that the whole grid was one moving object and the reel built from it cut between scenes.
 - Learn the STRUCTURE (timing, layout, proportions). Never copy another creator's footage, logo, music or exact graphics.
 - Every number in the new skill must come from a measurement, with the frame it came from.
 - Fonts and colours are mapped to the nearest colours and fonts in `brand.md`, not copied.

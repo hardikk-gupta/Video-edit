@@ -36,6 +36,12 @@ Do these in order before cutting or designing anything:
 
 ## What not to do
 
+- Do not read a reference from its stills alone. Scan its transitions frame by frame, ask "what stays on screen
+  and moves across this boundary?", and write the answer into the study (Hardik, 2026-11-16: the Blueprint Cut study
+  called the grid moves "cuts" and the first reel cut between scenes).
+- Do not ship a video the second-model review has failed, and do not call a fix done on layout arithmetic: measure
+  gaps and crops on rendered frames. Send Hardik the newest version only, and say which earlier files to ignore.
+
 - Do not default to Anton, condensed all-caps headlines, an oversized cross/VS badge, the same palette,
   or the previous video's layout. A font being installed does not make it the right choice.
   Exception (Hardik, 2026-11-15): when he asks for "Blueprint Cut", heavy condensed capitals for the one payoff
@@ -54,6 +60,15 @@ Do these in order before cutting or designing anything:
 - Do not make a video about Claude look like Claude's own branding: no cream/terracotta/orange palette and no
   serif headings that echo it (user, 2026-10-26: v2 "was looking like it was something given by Claude itself").
   Pick a palette that is the creator's, not the subject's.
+
+## Reels in the Blueprint Cut format
+
+Hardik names a style and expects to ask for it by name later. "Blueprint Cut" is `blueprint-cut-edit`: one grid that
+moves, split-second payoff words on the spoken frame, three colours and three type voices. Its measured study is in
+[docs/styles/blueprint-cut.md](docs/styles/blueprint-cut.md); the running example is
+`projects/2026-11-16-hinton-blueprint/` (`toolkit/src/BlueprintOneTake.tsx`). A story reel without footage is built
+silent at 2.7 words a second, gets a voice-over script for ElevenLabs (numbers spelled out, pauses marked), and is
+re-timed from the recording.
 
 ## What to do
 

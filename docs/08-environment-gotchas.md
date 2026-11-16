@@ -16,3 +16,11 @@
 | GitHub MCP `create_repository` → 403 | The Claude GitHub App lacks repo-creation rights: the person creates the repo and grants the app access, then attach it. |
 | Remotion `delayRender` for fonts | Load with `new FontFace(...).load()` at module level and `continueRender` when all resolve. |
 | Two `OffthreadVideo`s of the same file double the voice | `muted` on every visual copy; play the voice once via `<Audio>`. |
+| Remotion bundling fails on another project's missing generated file | Bundle from a small entry that registers only the composition (`toolkit/src/entry-blueprint.tsx`), then `node scripts/stills.mjs <entry> <id> <outDir> <seconds>`. |
+| Remotion headless shell path | `REMOTION_BROWSER=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell` (the old `chrome-linux/headless_shell` path no longer exists). |
+| `yt-dlp` not installed; YouTube asks for a sign-in | `uvx yt-dlp --flat-playlist` lists titles and views; downloads need cookies, which a cloud session lacks. Ask Hardik for the files. |
+| Instagram profiles return 429 or block | Do not scrape. Ask for screenshots of Insights and the reel files. |
+| Wikimedia Commons returns 429 on original files | Request `iiurlwidth=1280` thumbnails, one at a time, two seconds apart, with a generic User-Agent. Record title, author and licence from `extmetadata`. |
+| `rembg` / model downloads are blocked | Key a dark-background photo with PIL (threshold, open/close, flood-fill the interior), or ask for a cut-out. |
+| Anton text sits low in its box | Cap height is about 0.74 of the font size. Centre a payoff word in its text cell and measure the gap to the guides on a render. |
+| Loudness of an effects-only build | About −24 LUFS after +5.5 dB and a limiter is expected; master to −14 once the voice is in. |

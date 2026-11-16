@@ -24,3 +24,42 @@ KEEP GOING. POST. LEARN. AGAIN.
 
 They called it a dead end for 40 years. Then it won the Nobel Prize. Your idea isn't dead. It's early.
 Photos: Ramsey Cardy and Vaughn Ridley / Collision via Sportsfile, and Steve Jurvetson, CC BY 2.0, edited.
+
+## Paste-ready for ElevenLabs (numbers as words; `<break>` tags for the pauses, delete them if the model ignores them)
+
+```
+For forty years, they called his bet a dead end.
+
+In twenty twenty-four, it won the Nobel Prize in Physics.
+
+His name is Geoffrey Hinton.
+
+His own supervisor told him to give up.
+
+They said neural networks were a waste of time.
+
+So he moved to Toronto.
+
+And kept going. For twenty-five more years.
+
+Then, in twenty twelve, two students built one network. It beat every rival.
+
+Today, that idea runs nearly every AI you use.
+
+<break time="0.6s" />
+
+Forty years later, he was right.
+
+How long would you have lasted?
+
+Your idea isn't dead. It's early.
+
+Keep going. <break time="0.5s" /> Post. <break time="0.4s" /> Learn. <break time="0.4s" /> Again.
+
+<break time="0.6s" />
+
+Follow for more.
+```
+
+Delivery: calm documentary narration, steady pace, about 36 seconds. Send the audio file back to re-time the edit.
+On screen only, not spoken: the four words flashing in the opening band, the year counter, the chart labels, "Everyone mocked it. EP. 01", the handle and the photo credit.

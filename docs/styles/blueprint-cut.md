@@ -96,3 +96,13 @@ says "We own editing trends in the industry" and "Custom editing style for your 
 creator case studies with a paradox or question as the title ("Netflix vs Warner Bros", "The Brand Who Broke
 Marketing", "Why Going Viral Can Destroy Your Brand?"). No claim about their visual style is made here until their
 reels are actually watched; add that study to this file when Hardik sends the files or links that open.
+
+## Building one from a script (learned on the Hinton reel, 2026-11-16)
+
+- No footage: build silent at 2.7 words a second with every spoken-word frame in one table, write a voice-over script
+  for ElevenLabs (numbers as words, `<break>` tags for the pauses, commands as separate beats), and re-time from the
+  recording. Script and caption template: `projects/2026-11-16-hinton-blueprint/script.md`.
+- Facts and credits first: every line gets a source, photos come from Wikimedia Commons under CC BY with the credit on
+  the end card and in the caption, and wording stays loose where the claim is shared ("his bet", "nearly every AI").
+- Run the second-model review after every render and re-render until it only lists polish. The Hinton reel went
+  through five failed reviews (v1, v2, v3, v5, v6); each failure was a real defect the editor had not seen.
