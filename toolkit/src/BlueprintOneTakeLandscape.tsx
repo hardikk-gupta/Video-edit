@@ -112,6 +112,7 @@ type Beat = {
   h: number[]; // 4 horizontal guide slots
   main?: Slots;
   tr?: number; // frames the grid takes to reach this layout
+  plain?: boolean; // content is a drawing or numbers: when leaving it, fade it out before the next image appears
   media?: (f: number, w: number, h: number) => React.ReactNode;
   extras?: {r: Slots; render: (f: number, w: number, h: number) => React.ReactNode}[];
   text?: (f: number, G: Geo, L: Lines) => React.ReactNode;
@@ -191,7 +192,7 @@ const BEATS: Beat[] = [
   },
   {
     // waste — two new guides split the cell into three columns; on the word the columns slip out of register
-    at: 351, ground: INK, ink: CREAM, v: [560, 1360, 827, 1093], h: [160, 920, 920, 920],
+    at: 351, ground: INK, ink: CREAM, v: [560, 1360, 827, 1093], h: [160, 920, 920, 920], plain: true,
     media: (f, w, h) => {
       const brk = easeOut(p01(f, 57, 66));
       const off = [46, -58, 34];
@@ -226,7 +227,7 @@ const BEATS: Beat[] = [
   },
   {
     // years — the band opens into a counter cell over a ruler cell
-    at: 492, ground: PAPER, ink: COBALT_TYPE, v: CELL_V, h: [180, 900, 420, 420], main: [0, 1, 0, 2],
+    at: 492, ground: PAPER, ink: COBALT_TYPE, v: CELL_V, h: [180, 900, 420, 420], main: [0, 1, 0, 2], plain: true,
     media: (f, w, h) => {
       const cur = Math.min(25, Math.floor(p01(f, 12, 62) * 26));
       return <div style={{position: 'absolute', left: PAD, top: 0, height: h, display: 'flex', alignItems: 'center', fontFamily: 'Anton', fontSize: 150, lineHeight: 1, color: INK}}>{1987 + cur}</div>;
@@ -237,11 +238,11 @@ const BEATS: Beat[] = [
         render: (f, w, h) => {
           const cur = Math.min(25, Math.floor(p01(f, 12, 62) * 26));
           return h < 200 ? null : (
-            <div style={{position: 'absolute', left: PAD, top: 0, width: w - PAD * 2, height: h, display: 'grid', gridTemplateColumns: 'repeat(13, 1fr)', alignContent: 'center', rowGap: 30}}>
+            <div style={{position: 'absolute', left: PAD, top: 0, width: w - PAD * 2, height: h, display: 'grid', gridTemplateColumns: 'repeat(13, 1fr)', alignContent: 'center', rowGap: 24}}>
               {Array.from({length: 26}).map((_, i) => (
-                <div key={i} style={{height: 126}}>
+                <div key={i} style={{height: 140}}>
                   <div style={{width: 7, height: 88, background: i <= cur ? COBALT_TYPE : 'rgba(16,13,19,0.16)'}} />
-                  <div style={{fontFamily: 'Space Mono', fontSize: 26, marginTop: 6, color: i <= cur ? COBALT_TYPE : 'rgba(16,13,19,0.32)'}}>{String((87 + i) % 100).padStart(2, '0')}</div>
+                  <div style={{fontFamily: 'Space Mono', fontSize: 32, marginTop: 4, color: i <= cur ? COBALT_TYPE : 'rgba(16,13,19,0.32)'}}>{String((87 + i) % 100).padStart(2, '0')}</div>
                 </div>
               ))}
             </div>
@@ -258,7 +259,7 @@ const BEATS: Beat[] = [
   },
   {
     // 2012 — the cell splits down the middle: everyone else on the left, his students on the right
-    at: 594, ground: INK, ink: CREAM, v: [620, 1300, 960, 960], h: [140, 940, 940, 940], main: [0, 2, 0, 1],
+    at: 594, ground: INK, ink: CREAM, v: [620, 1300, 960, 960], h: [140, 940, 940, 940], main: [0, 2, 0, 1], plain: true,
     media: (f, w, h) => {
       const b = easeOut(p01(f, 82, 96));
       return (
@@ -345,7 +346,7 @@ const BEATS: Beat[] = [
   },
   {
     // early — the band subdivides into a 3×3 grid; cells switch on one by one, the first one alone for a while
-    at: 972, ground: PAPER, ink: COBALT_TYPE, v: [560, 1360, 827, 1093], h: [100, 980, 393, 687],
+    at: 972, ground: PAPER, ink: COBALT_TYPE, v: [560, 1360, 827, 1093], h: [100, 980, 393, 687], plain: true,
     media: (f, w, h) => {
       const order = [4, 1, 3, 5, 7, 0, 2, 6, 8];
       const on = f < 14 ? 0 : f < 46 ? 1 : Math.min(9, 1 + Math.floor((f - 46) / 2.2));
@@ -382,7 +383,7 @@ const BEATS: Beat[] = [
       ),
   },
   {
-    at: 1110, ground: INK, ink: CREAM, v: CELL_V, h: FULL_H, tr: 9,
+    at: 1110, ground: INK, ink: CREAM, v: CELL_V, h: FULL_H, tr: 12,
     media: (f) => <Cover src={f >= 9 && f < 12 ? 'c23_neg.jpg' : 'c23_bw.jpg'} pos="50% 0%" />,
     text: (f, G) => <PayoffR f={f} G={G} lines={[['LEARN.', 10]]} size={150} color={CREAM} />,
   },
@@ -502,7 +503,9 @@ export const BlueprintHintonLandscape: React.FC<{sound?: boolean}> = ({sound = t
   const main = rectOf(live, mainS);
   const q = prev ? p01(f, 0, 8) : 1; // ground and image dissolve while the lines are still travelling
   // with no new image the old one leaves before any new words arrive; at the pause it rides the closing cell
-  const out = cur.media ? 1 - q : cur.text ? 1 - p01(f, 0, 6) : 1 - p01(f, tr * 0.45, tr);
+  const plain = !!prev?.plain;
+  const qM = plain ? p01(f, 5, 12) : q; // after a drawing or numbers, the new image waits until they are gone
+  const out = cur.media ? (plain ? 1 - p01(f, 0, 5) : 1 - q) : cur.text ? 1 - p01(f, 0, 6) : 1 - p01(f, tr * 0.45, tr);
   const pm = rectOf(Lp, prev?.main ?? MAIN);
   const fin = rectOf(Lc, mainS);
   const fade = interpolate(F, [LS_FRAMES - 10, LS_FRAMES - 1], [1, 0], clamp);
@@ -515,13 +518,13 @@ export const BlueprintHintonLandscape: React.FC<{sound?: boolean}> = ({sound = t
         <Guides L={live} color={cur.ink} o={q} />
         {cur.text?.(f, geoOf(Lc), Lc)}
         {/* the image lives in the moving cell: old and new dissolve in place, each scaled whole to the live cell */}
-        {inTr && prev?.media && out > 0 && <div style={{opacity: out}}><Fit r={main} fin={pm}>{prev.media(prevF, pm.w, pm.h)}</Fit></div>}
+        {inTr && prev?.media && out > 0 && <div style={{opacity: out}}><Fit r={rectOf(live, prev.main ?? MAIN)} fin={pm}>{prev.media(prevF, pm.w, pm.h)}</Fit></div>}
         {inTr && prev?.extras?.map((e, k) => {
           const r = rectOf(live, e.r), pr = rectOf(Lp, e.r);
           const eo = 1 - p01(f, 0, 6);
           return eo > 0 ? <div key={`p${k}`} style={{opacity: eo}}><Fit r={r} fin={pr}>{e.render(prevF, pr.w, pr.h)}</Fit></div> : null;
         })}
-        {cur.media && <div style={{opacity: q}}><Fit r={main} fin={fin}>{cur.media(f, fin.w, fin.h)}</Fit></div>}
+        {cur.media && <div style={{opacity: qM}}><Fit r={main} fin={fin}>{cur.media(f, fin.w, fin.h)}</Fit></div>}
         {cur.extras?.map((e, k) => {
           const r = rectOf(live, e.r), fr = rectOf(Lc, e.r);
           return <Fit key={k} r={r} fin={fr}>{e.render(f, fr.w, fr.h)}</Fit>;

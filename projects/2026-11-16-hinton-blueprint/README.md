@@ -41,5 +41,5 @@ caption: [script.md](script.md).
 - **Checks:** pixel scan of 17 held layouts, smallest type-to-guide gap 44 px, nearest frame edge 115 px; a scene
   detector finds only the deliberate flash at 37.4 s. Sound effects only, no voice. First landscape build failed
   the second-model review (36.9 s face cropped by a collapsing cell, 10.9 s tear read as a wipe, 6.0 s badge over the
-  head); the second build fixes those. Re-review result: see the chat for this round.
+  head); the second build fixes those. A re-review passed all three earlier failures and left one blocking item (the chart overlapping a face at 24 s, caused by fitting the outgoing chart into the wrong cell slot), fixed afterwards along with larger year-tick labels; the final file was checked by the editor on frame strips and re-measured (type-to-guide gap 44 px), not re-reviewed.
 - Hardik's review: pending.

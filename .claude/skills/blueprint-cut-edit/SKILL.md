@@ -45,6 +45,9 @@ The first build cut between scenes and was rejected. These three rules come befo
   region by narrowing the cell (the name beat uses 700–1220). Wide texts (the Toronto line, the question, POST.) sit
   inside a wide, short band cell. Outer guides run edge to edge; guides that subdivide a cell stop at the layout's outer
   guides. Keep 100 px from the frame edge. Smallest measured type-to-guide gap: 44 px on all 17 held layouts.
+- **Fade drawings before the next face appears.** Charts, networks and number rulers are `plain`: they fade out in 5 frames,
+  and only then does the next image fade in. Fit an outgoing image into the live rect of its own cell slots, not the
+  next beat's (that bug made a chart overlap itself and a face).
 - Implementations to copy: `toolkit/src/BlueprintOneTake.tsx` (9:16) and `toolkit/src/BlueprintOneTakeLandscape.tsx` (16:9) (`BEATS[]` holds each beat's line positions, ground,
   cell content and type; one renderer interpolates the lines and runs the wipe).
 
