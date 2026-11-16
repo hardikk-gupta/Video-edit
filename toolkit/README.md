@@ -5,6 +5,18 @@ point and replace the scene content.
 
 ## Setup
 
+For the new free stack, without any previous project's private media:
+
+```bash
+npm ci --ignore-scripts
+npm run setup:sfx
+npm run studio:free
+# Real frame-order / WebGL / WAV / export checks (also needs ffmpeg + ffprobe):
+REMOTION_BROWSER=/usr/bin/chromium npm run check:free
+```
+
+See [free libraries, licence records and usage examples](../docs/free-motion-stack.md). The isolated entry is `src/entry-free-motion.tsx`; helpers and the full sound catalogue live in `src/free-stack/`.
+
 ```bash
 npm i
 python3 -m venv venv && ./venv/bin/pip install faster-whisper   # transcripts

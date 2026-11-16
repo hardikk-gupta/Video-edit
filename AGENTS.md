@@ -82,6 +82,8 @@ Working habits that made the difference:
 
 ## 4. Where things are
 
+- `docs/free-motion-stack.md`: installed free motion libraries, deterministic GSAP/Paper/Three examples, and the pinned 320-sound Wyzowl CC0 library. Use the focused `npm run setup:sfx` bootstrap for sound imports.
+
 - `toolkit/`: the Remotion project. `src/Reel.tsx` is the last full video (AI automations, v3) and serves as
   an implementation reference: grid engine, `InCell`, `RedCell`, `Display`, `Glass`, `Pill`, `HairFig`,
   `FaceTile`, captions, chrome and SFX. Reuse mechanics; choose fresh typography and compositions from

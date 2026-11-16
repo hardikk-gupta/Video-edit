@@ -82,3 +82,5 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   video, "Claude did" teaser v2–v4, `mix_sfx.py`) into this one so both reach `main`. Its `docs/15-skills-guide.md` is
   now `docs/16-skills-guide.md` (15 was already the mascot doc) and its links are updated. In the docs/05 sound rules,
   the 2026-11-03 sfx-kit rule sits on top of the 2026-10-26 `sfx-design` rule, which still sets levels and spacing.
+
+- 2026-11-16 · Installed the requested free motion stack: GSAP, Paper Shaders and Three.js / React Three Fiber, with version-matched Remotion adapters at 4.0.544. Added a standalone demo, deterministic frame checks and the complete searchable Wyzowl CC0 sound shelf. Focused sound setup fetches only the pinned kit and verifies all 320 WAV hashes. Recorded free-only defaults and licences; no premium resources imported.

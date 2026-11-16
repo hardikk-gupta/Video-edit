@@ -55,6 +55,10 @@ Do these in order before cutting or designing anything:
 
 ## What to do
 
+### Free motion and SFX imports (Hardik, 2026-11-16)
+
+Hardik asked to import only free resources. Use the installed [free motion and sound stack](docs/free-motion-stack.md): GSAP, Paper Shaders and Three.js in Remotion, and Wyzowl's CC0 SFX Kit as the default sound shelf. Do not import premium motion/SFX packs, buy subscriptions or invoke paid SFX generation without a later explicit request. Use `toolkit/src/entry-free-motion.tsx` for integration checks so older projects' missing private inputs do not block them. This is a tooling preference, not a request to apply every effect or render another video.
+
 ### 1. Read the accumulated taste before choosing a style
 
 Read [the feedback log](docs/10-feedback-log.md), [motion rules](docs/04-motion-rules.md), and

@@ -261,3 +261,9 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
   now in `script.md` and `SCRIPT` (v3).
 - **Lesson (agent):** a mascot that moves with the UI still reads as a presenter if the frame is "a card above, the
   character below" every time. Put the character *in* the scene's world, and change the world each beat.
+
+## 2026-11-16 · Free-only motion and SFX imports
+
+- Hardik requested importing the researched free libraries directly into the repo and choosing a free SFX library: "nothing premium we are going to import".
+- Installed the GSAP/Paper/Three stack and made Wyzowl's 320-sound CC0 kit the default. Added pinned setup, a searchable full catalogue, real render checks and usage/licence records.
+- Promoted the free-only import preference to instruction.md and the sound guide. Premium purchases/imports or paid SFX generation require a later explicit request; this is not a request for another video.

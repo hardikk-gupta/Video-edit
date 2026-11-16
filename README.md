@@ -9,6 +9,8 @@ work happens. This repo holds only methods, rules, references and code.
 
 ## Start here
 
+**Free motion and sound are installed:** GSAP, Paper Shaders, Three.js / React Three Fiber and all 320 Wyzowl CC0 sound effects. Follow the [free-stack setup and examples](docs/free-motion-stack.md) to restore dependencies/assets and open the standalone demo. Motion/SFX imports default to free resources.
+
 | Read | What it gives you |
 |---|---|
 | [AGENTS.md](AGENTS.md) | The operating manual: the brief contract, the hard rules, the step-by-step loop. Read first. |
