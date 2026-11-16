@@ -23,13 +23,16 @@ Measured from one reference; every number and its frame is in [docs/styles/bluep
 - Guides: 1 px dashed lines with a small dot at each crossing, running edge to edge. Blue on paper; white on ink or blue.
   They are drawn in at the start of a beat and the image is cropped exactly to the cell they make.
 - 16:9: centre cell between 29% and 71% of the width. A narrow 13% sliver cell is the alternative for a face.
-- 9:16 (our mapping, not measured from the reference): cell 8% to 92% wide, 22% to 58% from the top; set-up line
-  above the cell, payoff word below it between 60% and 72%; keep the bottom 20% and the top 12% clear for the app.
+- 9:16 (our mapping, not measured from the reference; used in the Hinton reel, `toolkit/src/BlueprintHinton.tsx`):
+  cell 8% to 92% wide, 25% to 61% from the top; set-up line just above the cell, payoff word below it between 63%
+  and 77%; keep the bottom 20% and the top 12% clear for the app. A set-up line must fit between the two vertical
+  guides on one line; if it does not, shorten the words, never let it wrap or cross a guide.
 - Payoff words sit beside or under the cell, never over the subject's face. A full-frame word (one per video) may
   overlap the photo if half of it is outline only.
 
 ## Type: three voices only
 - Set-up: mono capitals, wide spacing, about 1.3% of frame height. It carries the sentence up to the payoff.
+  On a 1080×1920 reel that is too small: use 34 px for set-ups and 40 px for sub-lines (second-model review, 2026-11-16).
 - Payoff: heavy condensed capitals, 1 to 3 words, cap height about 9% of frame height (24% for the one full-frame word).
   It appears as a hard cut-in 0 to 2 frames after the word starts in the voice. No slide, no bounce.
 - Aside: italic serif for quiet lines and for the question.
@@ -60,5 +63,8 @@ mosaic assembling; blur into focus; two-tone poster; the same shot graded three 
 - The creator's face, when it appears, is one cell in the grid and keeps natural colour (AGENTS.md rule 2).
   Duotone and halftone are for the story's images, not for the creator.
 - Nothing typed crosses a guide. Motion values come from mg-kit.
-- Not yet tested on one of Hardik's own clips. Until one edit in this format is reviewed by him, treat the 9:16
-  mapping as a first proposal.
+- Lessons from the first build (Hinton reel, 2026-11-16): a flicker strip of words needs about half a second per
+  word (footage can flick every 4 frames, words cannot); an aside on black holds 1.8 s at most; a negative flash is
+  1 to 3 frames; stage photos with coloured light go black and white or duotone, never natural colour; a word over
+  a photo needs a dark gradient under it; a tear or peel starts after the payoff word has landed.
+- Built once (Hinton reel) but not yet reviewed by Hardik. Until he reviews it, treat the 9:16 mapping as a first proposal.

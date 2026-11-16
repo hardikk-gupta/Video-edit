@@ -87,3 +87,8 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   registered it in `reel-edit`, docs/13 and AGENTS.md; logged the reference (docs/07) and the brief (docs/10);
   scoped exception for condensed capitals in instruction.md. Instagram (his account, @metromedia.house) could not be
   opened from the cloud session, so no account data was used. No video made, no media committed.
+- 2026-11-16 · First Blueprint Cut reel: "Everyone mocked it" EP. 01 on Geoffrey Hinton (`toolkit/src/BlueprintHinton.tsx`,
+  9:16, 42 s, built silent for a later voice re-time). Project record, fact sources, image credits and VO script in
+  `projects/2026-11-16-hinton-blueprint/`. Lessons from two failed second-model reviews added to the
+  `blueprint-cut-edit` skill (type sizes for 9:16, word-strip pace, hold lengths). EB Garamond italic (OFL) added.
+  Render and photos not committed.
