@@ -64,5 +64,5 @@ The network drawing, bar chart, year ruler and medal disc are our own.
 - Second-model review failed v1 (set-up type too small, hook words flicking every 0.13 s, split-colour face with a
   set-up in the top safe zone, "EVERY AI" over the face, a 1 s negative face, a magenta frame).
 - It failed v2 on smaller points (sub-lines, Toronto hold of 2.4 s, "LEARN." on a light shirt, question undersized,
-  tear flap over "GIVE UP.", set-ups crossing guides). v3 applies those fixes. Review of v3: see README.
+  tear flap over "GIVE UP.", set-ups crossing guides). v3 applies those fixes; v3 failed narrowly on the photo credit; v4 fixes it. See README.
 - Hardik's review: pending.

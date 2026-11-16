@@ -87,13 +87,13 @@ const Payoff: React.FC<{text: string; at: number; x?: number; y: number; size: n
   const f = useCurrentFrame();
   if (f < at || (until !== undefined && f >= until)) return null;
   return (
-    <div style={{position: 'absolute', left: x, top: y, width: w, textAlign: align, fontFamily: 'Anton', fontSize: size, lineHeight: 1, color: outline ? 'transparent' : color, WebkitTextStroke: outline ? `3px ${color}` : undefined, whiteSpace: 'nowrap', letterSpacing: '0.005em'}}>
+    <div style={{position: 'absolute', left: x, top: y, width: w, textAlign: align, fontFamily: 'Anton', fontSize: size, lineHeight: 1, color: outline ? 'transparent' : color, WebkitTextStroke: outline ? `6px ${color}` : undefined, whiteSpace: 'nowrap', letterSpacing: '0.005em'}}>
       {text}
     </div>
   );
 };
 
-const Small: React.FC<{text: string; at: number; x: number; y: number; color: string; align?: 'left' | 'center' | 'right'; w?: number; size?: number}> = ({text, at, x, y, color, align = 'left', w = 900, size = 40}) => {
+const Small: React.FC<{text: string; at: number; x: number; y: number; color: string; align?: 'left' | 'center' | 'right'; w?: number; size?: number}> = ({text, at, x, y, color, align = 'left', w = 900, size = 46}) => {
   const f = useCurrentFrame();
   if (f < at) return null;
   return <div style={{position: 'absolute', left: x, top: y, width: w, textAlign: align, fontFamily: 'Space Mono', fontSize: size, letterSpacing: '0.16em', color, textTransform: 'uppercase'}}>{text}</div>;
@@ -280,7 +280,7 @@ const Waste: React.FC = () => {
 
 const Toronto: React.FC = () => {
   const f = useCurrentFrame() - B.toronto;
-  const o = interpolate(f, [2, 10], [0, 1], clamp);
+  const o = interpolate(f, [0, 4], [0.6, 1], clamp);
   return (
     <AbsoluteFill style={{background: '#050306', alignItems: 'center', justifyContent: 'center'}}>
       <div style={{opacity: o, textAlign: 'center', marginTop: -160, transform: `scale(${1 + 0.05 * interpolate(f, [0, 54], [0, 1], clamp)})`}}>
@@ -498,11 +498,13 @@ const CTA: React.FC = () => {
           ))}
         </div>
       </div>
-      <Small text="Everyone mocked it." at={B.cta + 16} x={CX[0]} y={SETUP_Y + 14} color={CREAM} />
-      <Small text="Ep. 01" at={B.cta + 16} x={CX[0]} y={SETUP_Y + 14} color={CREAM} align="right" />
+      <Small text="Everyone mocked it." at={B.cta + 16} x={CX[0]} y={SETUP_Y + 14} color={CREAM} size={34} />
+      <Small text="Ep. 01" at={B.cta + 16} x={CX[0]} y={SETUP_Y + 14} color={CREAM} size={34} align="right" />
       <Small text="@haha.hardikk" at={T.more + 6} x={CX[0]} y={1212} color={CREAM} align="center" />
-      <div style={{position: 'absolute', left: CX[0], top: 1436, width: CW, textAlign: 'center', fontFamily: 'Space Mono', fontSize: 22, letterSpacing: '0.03em', whiteSpace: 'nowrap', color: CREAM, opacity: f > 20 ? 0.9 : 0, lineHeight: 1.6}}>
-        PHOTOS: COLLISION / SPORTSFILE, S. JURVETSON · CC BY 2.0
+      <div style={{position: 'absolute', left: CX[0], top: 1410, width: CW, textAlign: 'center', fontFamily: 'Space Mono', fontSize: 30, letterSpacing: '0.06em', color: CREAM, opacity: f > 20 ? 1 : 0, lineHeight: 1.5}}>
+        PHOTOS: COLLISION / SPORTSFILE,
+        <br />
+        S. JURVETSON · CC BY 2.0
       </div>
       <Grain o={0.1} />
     </AbsoluteFill>
