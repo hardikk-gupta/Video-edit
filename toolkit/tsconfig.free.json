@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/free-stack", "src/entry-free-motion.tsx"]
+}

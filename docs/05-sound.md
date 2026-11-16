@@ -1,5 +1,9 @@
 # 05 · Sound
 
+## Default free library (Hardik, 2026-11-16)
+
+Motion/SFX imports are free only. Wyzowl SFX Kit is installed as the default shelf: 320 CC0 WAVs plus semantic tags, sync points and mix metadata. From `toolkit/`, run `npm run setup:sfx`; it fetches only this pinned library and verifies every WAV hash. No premium account is needed. The searchable full catalogue and cue helper are in `toolkit/src/free-stack/sfx.ts`; see [free-stack usage](free-motion-stack.md). The older partial `KIT` map remains compatible. Use the guide to pick a sound for a visible cause; keep the speech-relative level and spacing rules below.
+
 ## Voice
 
 - Footage: `scripts/build_talk.py` runs `highpass=85, afftdn=nf=-28, eq 200Hz -2dB, eq 3.5kHz +3dB,
@@ -33,7 +37,7 @@ URLs and `curl` them. Many of them are meme sounds (vine-boom, bruh…); only th
 On "Editing with Claude" v2 he said the SFX were just one tap and one bloom everywhere, and asked for real variety:
 **squash, sweep, camera zoom, camera shutter**, from a proper library, each where it fits. So:
 - Use **`wyzowl/sfx-kit`** (CC0, 320 sounds, `vendor/sfx-kit`, served as `public/sfx/kit`; fetched by
-  `toolkit/scripts/fetch_vendor.sh`). Read its `GUIDE.md` and `catalogue.md`; every sound has `use_for`, `avoid_for`,
+  `npm run setup:sfx` from `toolkit/`). Read its `GUIDE.md` and `catalogue.md`; every sound has `use_for`, `avoid_for`,
   a **sync point** and a level. Place each sound at *moment − sync.at* (`at()` in `toolkit/src/EditWithClaudeV3.tsx`,
   with the used ids exported to `src/sfxkit.ts`).
 - One sound per **visible cause**: a zoom gets `move-zoom-in/out`, a whip pan gets a whoosh, a frame captured gets

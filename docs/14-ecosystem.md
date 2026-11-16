@@ -1,5 +1,7 @@
 # 14 · What other creators use: tools, repos, and our gaps
 
+**Installed update, 2026-11-16:** GSAP + the official Remotion adapter, Paper Shaders, Three.js / React Three Fiber / Remotion Three, and all 320 Wyzowl CC0 SFX are now available. See [free-stack setup, examples and verified checks](free-motion-stack.md). Remotion packages are pinned together at 4.0.544. This supersedes the historical “missing effects / quiet sound shelf” status below for these installed tools. No premium packs were imported.
+
 Research done 2026-10-26 for Hardik: how other people edit Reels/Shorts with Claude Code or Codex, which
 renderers and libraries they use, and what our 29 skills (docs/13) are missing. Star counts are as listed by
 [awesome-claude-video-skills](https://github.com/zhuyansen/awesome-claude-video-skills) or search results on
