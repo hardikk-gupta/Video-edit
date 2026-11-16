@@ -21,8 +21,9 @@ The first build cut between scenes and was rejected. These three rules come befo
   cell, two side by side, three columns, a stack, a 3×3, a single band, all lines folded into one cross for a pause.
 - **Content changes inside the moving cells.** While the lines travel, the old image and the new one dissolve in
   place inside the moving cell (about 8 frames), the ground colour cross-fades over the same frames, and the last
-  beat's words leave on the first frame of the move. When the next beat has no image, the old one rides the
-  closing cell and fades as it closes. Do not wipe a rectangle over the old scene and do not wipe an image sideways
+  beat's words leave on the first frame of the move. When the next beat has no image, the old one scales down whole
+  with the closing cell and is gone within 6 frames, before the next words appear; a closing cell must never crop a
+  face, and no new shape may grow over a face that is still visible. Do not wipe a rectangle over the old scene and do not wipe an image sideways
   across a face: a second-model review read both as a cut and as a half face (v5, 2026-11-16). Nothing pops in on
   a static frame. This is OneTake's carry rule
   (docs/15): name what survives each boundary. Here it is always the grid.

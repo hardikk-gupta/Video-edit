@@ -10,7 +10,7 @@ caption: [script.md](script.md).
 - **Re-render:** fetch the three Commons photos named in instructions.md into `toolkit/public/imagery/hinton/`,
   rebuild the variants (halftone, sticker, duotone, negative, poster), link `public/sfx/kit` to sfx-kit's `sounds`,
   then `npx remotion render src/entry-blueprint.tsx BlueprintHinton out.mp4 --crf=18`.
-- **Status:** v6, the one-take build. Built silent to a reading pace; to be re-timed to Hardik's recording.
+- **Status:** v7, the one-take build. Built silent to a reading pace; to be re-timed to Hardik's recording.
 - **v4 → v5 → v6 (Hardik's feedback, docs/10):** v4 cut between scenes, let type touch guides and cropped faces.
   v5 moved to one continuous grid but still wiped a rectangle over each old scene, wiped images sideways across
   faces, and ran inner guides through the type; a second-model review failed it. v6: 4 vertical and 5 horizontal
@@ -19,5 +19,11 @@ caption: [script.md](script.md).
 - **Measured on v6:** smallest gap between any type and any guide on the 17 held layouts is 44 px (full-size
   stills, pixel scan). A scene detector at threshold 0.25 finds one large change in 42 s (the deliberate 3-frame
   negative flash at 37.4 s); v4 had 20 or more. Sound effects only: −24.1 LUFS, −2.9 dBTP.
-- **Review:** second model failed v1–v3 and v5. v6 review result: see the chat for this round.
-- Hardik's review of v6: pending.
+- **Review:** second model failed v1–v3 and v5, and failed v6 narrowly: one take passed, type padding passed
+  (its own measurements: 45 px or more everywhere), but a face was cropped by a closing cell at 30.1 s and covered
+  by the follow disc at 38.9 s. v7 fixes both (an image with no successor scales whole and fades in 6 frames; the
+  disc starts after the fade) and delays "POST." until the poster face has gone. v7 was checked by the editor on
+  frame strips of those three transitions and re-measured (smallest gap 44 px); it was not re-reviewed by the second model.
+  Open polish notes from the review: ground changes are whole-frame fades, the paper tear at 11 s is a graphic
+  effect rather than a grid move, and about 0.4 s of near-empty frame at the cross is deliberate.
+- Hardik's review of v7: pending.

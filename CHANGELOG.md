@@ -98,3 +98,5 @@ One dated entry per change, oldest first. Append in the same commit as the chang
 - 2026-11-16 · Hinton reel v6: after a failed review of v5, images now dissolve inside the moving cell, grounds cross-fade,
   inner guides stop at the cell edge and payoff words are centred in their cells (smallest measured type-to-guide gap
   44 px). Skill updated with these rules.
+- 2026-11-16 · Hinton reel v7: fixes the two face moments the v6 review failed (closing cell cropping a face, follow disc
+  over a fading face); rule added to the skill.

@@ -62,14 +62,14 @@ const Setup: React.FC<{f: number; L: Lines; words: string[]; at: number[]; color
 // payoff word centred between the two guides of its text cell; optional sub-line beside it, or a caption under it
 const Payoff: React.FC<{f: number; at: number; text: string; top: number; bottom: number; size: number; color: string; sub?: string; subAt?: number; subColor?: string; caption?: string; capAt?: number}> = ({f, at, text, top, bottom, size, color, sub, subAt = 0, subColor, caption, capAt = 0}) =>
   f < at ? null : (
-    <div style={{position: 'absolute', left: 90 + PAD, top, height: bottom - top, width: 900 - PAD * 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22}}>
+    <div style={{position: 'absolute', left: 90 + PAD, top, height: bottom - top, width: 900 - PAD * 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 30}}>
       <div style={{display: 'flex', alignItems: 'center', gap: 30, whiteSpace: 'nowrap'}}>
         <div style={{fontFamily: 'Anton', fontSize: size, lineHeight: `${size * CAP}px`, height: size * CAP, color, display: 'flex', alignItems: 'center'}}>
           <span style={{display: 'block', lineHeight: 1, transform: `translateY(${size * SHIFT}px)`}}>{text}</span>
         </div>
         {sub && <div style={{fontFamily: 'Space Mono', fontSize: 40, letterSpacing: '0.14em', lineHeight: 1.15, color: subColor ?? color, textTransform: 'uppercase', whiteSpace: 'pre', opacity: f >= subAt ? 1 : 0}}>{sub}</div>}
       </div>
-      {caption && <div style={{fontFamily: 'Space Mono', fontSize: 34, letterSpacing: '0.1em', lineHeight: 1, color: subColor ?? color, whiteSpace: 'nowrap', opacity: f >= capAt ? 1 : 0}}>{caption}</div>}
+      {caption && <div style={{fontFamily: 'Space Mono', fontSize: 33, letterSpacing: '0.08em', lineHeight: 1, color: subColor ?? color, whiteSpace: 'nowrap', opacity: f >= capAt ? 1 : 0}}>{caption}</div>}
     </div>
   );
 
@@ -392,7 +392,7 @@ const BEATS: Beat[] = [
   },
   {
     at: 1086, ground: PAPER, ink: COBALT_TYPE, v: V2, h: [690, 1110, 1110, 690, 1110], tr: 9,
-    text: (f, L) => (f < 3 ? null : <div style={{position: 'absolute', left: 90, top: L.h[0], width: 900, height: L.h[1] - L.h[0], display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Anton', fontSize: 300, lineHeight: 1, color: COBALT_TYPE}}>POST.</div>),
+    text: (f, L) => (f < 6 ? null : <div style={{position: 'absolute', left: 90, top: L.h[0], width: 900, height: L.h[1] - L.h[0], display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Anton', fontSize: 300, lineHeight: 1, color: COBALT_TYPE}}>POST.</div>),
   },
   {
     at: 1110, ground: INK, ink: CREAM, v: V2, h: [330, 1090, 1400, 330, 1090], tr: 9,
@@ -408,9 +408,10 @@ const BEATS: Beat[] = [
     // follow — the medal from the Nobel beat comes back as the card
     at: 1164, ground: INK, ink: CREAM, v: V2, h: [420, 1100, 1410, 420, 1100],
     media: (f, w, h) => {
-      const d = easeOut(p01(f, 4, 16));
+      const d = easeOut(p01(f, 9, 21));
       const R = Math.min(w, h) / 2 - PAD;
-      const words: [string, number][] = [['FOLLOW', 12], ['FOR', 24], ['MORE.', 36]];
+      const words: [string, number][] = [['FOLLOW', 18], ['FOR', 29], ['MORE.', 40]];
+      if (f < 9) return null;
       return (
         <div style={{position: 'absolute', left: w / 2 - R, top: h / 2 - R, width: R * 2, height: R * 2, borderRadius: R, background: CREAM, transform: `scale(${0.4 + 0.6 * d}) rotate(${(1 - d) * -24}deg)`, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <div style={{width: R * 2 - 44, height: R * 2 - 44, borderRadius: R, border: `4px solid ${COBALT_TYPE}`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
@@ -427,7 +428,7 @@ const BEATS: Beat[] = [
           <span>EVERYONE MOCKED IT.</span>
           <span>EP. 01</span>
         </div>
-        <div style={{position: 'absolute', left: 90, top: L.h[1], width: 900, height: L.h[2] - L.h[1], display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 26, color: CREAM, opacity: f >= 42 ? 1 : 0}}>
+        <div style={{position: 'absolute', left: 90, top: L.h[1], width: 900, height: L.h[2] - L.h[1], display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 26, color: CREAM, opacity: f >= 46 ? 1 : 0}}>
           <div style={{fontFamily: 'Space Mono', fontWeight: 700, fontSize: 52, letterSpacing: '0.12em'}}>@HAHA.HARDIKK</div>
           <div style={{fontFamily: 'Space Mono', fontSize: 27, letterSpacing: '0.06em', textAlign: 'center', lineHeight: 1.5, opacity: 0.9}}>
             PHOTOS: COLLISION / SPORTSFILE,
@@ -476,8 +477,8 @@ const SFX: [number, string, number][] = (() => {
   hit(10, 42, 'boom-hit-soft', 0.9);
   hit(11, 36, 'keyboard-typing-quick-short', 0.45); hit(11, 50, 'writing-pencil-tick', 0.55);
   hit(12, 14, 'pop-large-in', 0.5); hit(12, 46, 'digital-process-subtle', 0.4); hit(12, 54);
-  hit(13, 4); hit(14, 3, 'impact-medium-soft', 0.8); hit(15, 3); hit(15, 8, 'mechanical-shutter-light', 0.6); hit(16, 3);
-  hit(17, 12, 'pop-large-in', 0.6); hit(17, 24, 'pop-large-in', 0.6); hit(17, 36, 'pop-large-bubble', 0.65); hit(17, 38, 'sting-warm-short', 0.5);
+  hit(13, 4); hit(14, 6, 'impact-medium-soft', 0.8); hit(15, 3); hit(15, 8, 'mechanical-shutter-light', 0.6); hit(16, 3);
+  hit(17, 18, 'pop-large-in', 0.6); hit(17, 29, 'pop-large-in', 0.6); hit(17, 40, 'pop-large-bubble', 0.65); hit(17, 42, 'sting-warm-short', 0.5);
   return s;
 })();
 
@@ -496,7 +497,10 @@ export const BlueprintHinton: React.FC<{sound?: boolean}> = ({sound = true}) => 
   const prevF = prev ? cur.at - prev.at - 1 : 0;
   const main = rectOf(live, MAIN);
   const q = prev ? p01(f, 0, 8) : 1; // ground and image dissolve while the lines are still travelling
-  const out = cur.media ? 1 - q : 1 - p01(f, tr * 0.45, tr); // with no new image, the old one rides the closing cell
+  // with no new image the old one leaves before any new words arrive; at the pause it rides the closing cell
+  const out = cur.media ? 1 - q : cur.text ? 1 - p01(f, 0, 6) : 1 - p01(f, tr * 0.45, tr);
+  const pm = rectOf(Lp, MAIN);
+  const ps = Math.min(main.w / Math.max(1, pm.w), main.h / Math.max(1, pm.h)); // the old image scales whole, it is never cropped by a closing cell
   const fade = interpolate(F, [BP_FRAMES - 10, BP_FRAMES - 1], [1, 0], clamp);
   return (
     <AbsoluteFill style={{background: BLACK}}>
@@ -507,7 +511,11 @@ export const BlueprintHinton: React.FC<{sound?: boolean}> = ({sound = true}) => 
         <Guides L={live} color={cur.ink} o={q} />
         {cur.text?.(f, Lc)}
         {/* the image lives in the moving cell: old and new dissolve in place, so a face is never half covered */}
-        {inTr && prev?.media && out > 0 && <div style={{opacity: out}}><Box r={main}>{prev.media(prevF, main.w, main.h)}</Box></div>}
+        {inTr && prev?.media && out > 0 && (cur.media ? (
+          <div style={{opacity: out}}><Box r={main}>{prev.media(prevF, main.w, main.h)}</Box></div>
+        ) : (
+          <div style={{position: 'absolute', left: main.x + main.w / 2 - pm.w / 2, top: main.y + main.h / 2 - pm.h / 2, width: pm.w, height: pm.h, overflow: 'hidden', opacity: out, transform: `scale(${ps})`}}>{prev.media(prevF, pm.w, pm.h)}</div>
+        ))}
         {inTr && prev?.extras?.map((e, k) => {
           const r = rectOf(live, e.r);
           const eo = 1 - p01(f, 0, 6);
