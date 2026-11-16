@@ -274,3 +274,18 @@ framing fixes for completed art direction. The resulting rework is awaiting Hard
   format only. No render was asked for, so none was made.
 - **Not done:** his Instagram and Metro Media House's reels could not be opened from this environment, so the reel
   recommendation given in chat rests on this repo's project history, not on his account numbers.
+
+## 2026-11-16 · Hinton Blueprint Cut v4 → v5 (one take)
+
+- **Hardik's words:** "the major problem in this is that one go kind of stuff that is there in our repo itself… One take
+  is the name… You are cutting the frames. What I gave you as the reference was that the grids are getting bigger or
+  smaller as per the content. The grids are moving… the frame is not changing. The content is changing as the grids are
+  moving… the text will not be touching the grid… keep a safe space padding… at certain points you are cutting out the
+  imagery of the person that is half face is visible. So that is not the kind of premium edits looks like… if the grids
+  are changing its size, number of grids, that has to be… in one take so that it feels seamless."
+- **Lesson (agent):** I read the reference as "a grid in every shot" and missed that the grid is the one thing that
+  survives every boundary: it is the carry (OneTake's rule, docs/15). My style study counted 24 "cuts" from a scene
+  detector and wrote "the ground flips", which described the pixels and not the device. Three rules now sit in
+  `blueprint-cut-edit`: one grid for the whole film whose lines move, split and merge; type keeps at least 40 px from
+  every guide; a face is never cropped by a cell or covered.
+- **Applied in v5:** `toolkit/src/BlueprintOneTake.tsx`. Hardik's review: pending.

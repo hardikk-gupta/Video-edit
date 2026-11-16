@@ -92,3 +92,6 @@ One dated entry per change, oldest first. Append in the same commit as the chang
   `projects/2026-11-16-hinton-blueprint/`. Lessons from two failed second-model reviews added to the
   `blueprint-cut-edit` skill (type sizes for 9:16, word-strip pace, hold lengths). EB Garamond italic (OFL) added.
   Render and photos not committed.
+- 2026-11-16 · Hinton reel v5 after Hardik's feedback: rebuilt as one take (`toolkit/src/BlueprintOneTake.tsx`): one grid
+  whose lines travel, split and merge; grounds grow out of the cell; type 44 px clear of guides; whole faces only.
+  Rules promoted to the `blueprint-cut-edit` skill; style study corrected (docs/styles); feedback logged (docs/10).

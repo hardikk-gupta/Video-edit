@@ -33,7 +33,7 @@
 - Sound: wyzowl/sfx-kit (CC0), one sound per arrival on its frame. No music. Effects-only file measures
   −23.6 LUFS, −2.9 dBTP; master to −14 LUFS once the voice is in.
 - Voice timing: built silent at 2.7 words/s. All beat starts (`B`) and spoken-word frames (`T`) are at the top of
-  `toolkit/src/BlueprintHinton.tsx`. When the recording arrives: transcribe with word times, replace `B` and `T`.
+  `toolkit/src/BlueprintOneTake.tsx`. When the recording arrives: transcribe with word times, replace `B` and `T`.
 
 ## Facts used and their sources (checked 2026-11-16)
 
@@ -66,3 +66,11 @@ The network drawing, bar chart, year ruler and medal disc are our own.
 - It failed v2 on smaller points (sub-lines, Toronto hold of 2.4 s, "LEARN." on a light shirt, question undersized,
   tear flap over "GIVE UP.", set-ups crossing guides). v3 applies those fixes; v3 failed narrowly on the photo credit; v4 fixes it. See README.
 - Hardik's review: pending.
+
+### v4 → v5 (2026-11-16)
+- Hardik's words: v4 is "cutting the frames"; the reference is one take where "the grids are moving… the content is
+  changing as the grids are moving"; text must not touch the grid; no half faces.
+- What changes: rebuilt as `toolkit/src/BlueprintOneTake.tsx` (one grid, 18 layouts, no cuts). Layout numbers in
+  "Rules for this video" above are superseded by the `BEATS[]` table in that file. Images: the low-resolution 2016
+  photo is no longer used; the "give up" beat uses the wide 2023 stage photo.
+- Promoted: yes, the three rules are now at the top of the `blueprint-cut-edit` skill and in docs/styles.

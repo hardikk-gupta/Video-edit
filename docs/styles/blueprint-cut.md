@@ -21,6 +21,15 @@ capitals, and **one payoff word** lands huge in a condensed heavy typeface on th
 colour flips on almost every sentence, and each image arrives with a different physical treatment (halftone, sticker
 cut-out, torn paper, burn-through, strips, mosaic), so no two beats look the same while the grid keeps them one film.
 
+## Correction, 2026-11-16: it is one take
+
+Hardik's reading of the reference, which this study missed: the frame does not cut. The guide lines are one object
+that lives through the whole film; they travel, the cells grow, shrink and change in number, and the content changes
+inside them (see 6.0–6.7 s, where a full-frame photo closes down to a narrow cell, 7.3–8.0 s, where a small cell grows
+into the next image, and 28.0–28.3 s, where the guides open out of a cross). The "24 cuts" below is a scene-detector
+count of large pixel changes, not a count of editorial cuts, and "the ground flips" describes the result, not the
+device. The rules that follow from this are at the top of the `blueprint-cut-edit` skill.
+
 ## Measurements
 
 | What | Value | Where measured |

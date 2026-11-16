@@ -12,6 +12,24 @@ a brand, a moment) that ends on a lesson. Not for tool tutorials that need long 
 
 Measured from one reference; every number and its frame is in [docs/styles/blueprint-cut.md](../../../docs/styles/blueprint-cut.md).
 
+## One take: the grid is the film (Hardik, 2026-11-16)
+The first build cut between scenes and was rejected. These three rules come before everything else below.
+- **One grid, never a cut.** A fixed set of guide lines (the Hinton reel uses 4 vertical and 5 horizontal) exists
+  for the whole video. Between beats the lines travel to new positions over about 16 frames with an ease in and out
+  (9 for fast command beats). Lines that a beat does not need rest on top of another line, so a new cell appears
+  by a line splitting off and sliding out, and disappears by merging back. Change the number of cells often: one
+  cell, two side by side, three columns, a stack, a 3×3, a single band, all lines folded into one cross for a pause.
+- **Content changes inside the moving cells.** The new image wipes across the cell while the cell is still
+  travelling; the new ground colour grows outwards from the cell until it fills the frame, covering the old beat's
+  type as it goes. Nothing pops in on a static frame, and nothing is replaced on a cut. This is OneTake's carry rule
+  (docs/15): name what survives each boundary. Here it is always the grid.
+- **Type keeps clear of the guides.** At least 40 px between any letter and any guide line, on every side. Give type
+  its own cell: set-up line above the image cell, payoff word in a cell below it, a sub-line beside the word.
+- **Whole faces only.** A cell never crops a face and nothing covers one: no sliver crops, no half-colour columns,
+  no band over the eyes, no tear through a head. If a photo does not fit the cell with the whole head, change the cell.
+- Implementation to copy: `toolkit/src/BlueprintOneTake.tsx` (`BEATS[]` holds each beat's line positions, ground,
+  cell content and type; one renderer interpolates the lines and runs the wipe).
+
 ## Script shape
 - Paradox hook finished by 7 s ("called the worst → won the Oscar"). The claim must be readable by 2.5 s.
 - Short sentences, about 2.7 words a second. Each sentence ends on, or contains, one word worth making huge.
@@ -21,14 +39,13 @@ Measured from one reference; every number and its frame is in [docs/styles/bluep
 
 ## Layout
 - Guides: 1 px dashed lines with a small dot at each crossing, running edge to edge. Blue on paper; white on ink or blue.
-  They are drawn in at the start of a beat and the image is cropped exactly to the cell they make.
+  They are never redrawn per beat: they move (see "One take" above), and the image is cropped exactly to the cell they make.
 - 16:9: centre cell between 29% and 71% of the width. A narrow 13% sliver cell is the alternative for a face.
-- 9:16 (our mapping, not measured from the reference; used in the Hinton reel, `toolkit/src/BlueprintHinton.tsx`):
+- 9:16 (our mapping, not measured from the reference; used in the Hinton reel, `toolkit/src/BlueprintOneTake.tsx`):
   cell 8% to 92% wide, 25% to 61% from the top; set-up line just above the cell, payoff word below it between 63%
   and 77%; keep the bottom 20% and the top 12% clear for the app. A set-up line must fit between the two vertical
   guides on one line; if it does not, shorten the words, never let it wrap or cross a guide.
-- Payoff words sit beside or under the cell, never over the subject's face. A full-frame word (one per video) may
-  overlap the photo if half of it is outline only.
+- Payoff words sit in their own cell beside or under the image, never over a photo of a face.
 
 ## Type: three voices only
 - Set-up: mono capitals, wide spacing, about 1.3% of frame height. It carries the sentence up to the payoff.
@@ -48,13 +65,12 @@ Measured from one reference; every number and its frame is in [docs/styles/bluep
 
 ## Image treatments
 Give each sentence a different one, and never repeat one back to back: halftone dots building the image; sticker
-cut-out with a white edge; a flicker strip across part of a still (new clip about every 4 frames); photo collapsing
-to a sliver; torn paper peeling away; a burn hole opening to the next shot; vertical strips sliding out of register;
+cut-out with a white edge; a flicker strip across part of a still (new clip about every 4 frames); torn paper peeling away; a burn hole opening to the next shot; vertical strips sliding out of register;
 1–2 frame negative flash; duotone with one subject in colour; blocks falling away; a stack of torn strips; a 3×3
 mosaic assembling; blur into focus; two-tone poster; the same shot graded three ways on a repeated word.
 
 ## Pace and sound
-- A new set-up about every 1.7 s; quiet holds of 1.3 s are allowed for an aside on black.
+- A new grid layout about every 1.7 s to 3 s; quiet holds of 1.3 s are allowed for an aside on black.
 - A sound for each arrival, landing on the cut. Deliver at −14 LUFS (`render-ops`). Sounds come from `sfx-design`.
 
 ## Rules
